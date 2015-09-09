@@ -27,16 +27,21 @@
 
 <p>
   <strong>Itinerary:</strong>
-  <% if @trip_activities.count > 0 %>
+  <% if @days.count > 0 %>
+  Days: <%= @days.count %>
   <ul>
-    <% @trip_activities.each do |activity| %>
-      <li><%= link_to activity.name, activity %> <a href='#'>edit</a></li>
+    <% @days.each do |day| %>
+      <% day.each do |activity| %>
+        <% if activity == day.first %>
+          <strong><%= activity.date %></strong>
+        <% end %>
+        <li> <%= activity.datetime.strftime("%I:%M %p - ") %><%= link_to activity.name, activity %> <%= link_to 'edit', edit_itinerary_activity_path(activity) %></a></li>
+      <% end %>
     <% end %>
   </ul>
   <a href='#'>Add Itinerary Activity</a>  <%= link_to 'Temporary Add Activity' , new_itinerary_activity_path %>
 <% end %>
 </p>
-
 
 
 <p>

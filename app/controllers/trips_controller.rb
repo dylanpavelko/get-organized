@@ -1,5 +1,6 @@
 class TripsController < ApplicationController
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
+  require 'date'
 
   # GET /trips
   # GET /trips.json
@@ -10,8 +11,24 @@ class TripsController < ApplicationController
   # GET /trips/1
   # GET /trips/1.json
   def show
+
      @trip_items = TripHasInventoryItem.where(:trip_id => @trip)
-     @trip_activities = ItineraryActivity.where(:trip_id => @trip)
+     @trip_activities = ItineraryActivity.where(:trip_id => @trip).order(:datetime)
+     @days = Array.new
+     @activities=Array.new
+     @trip_activities.each do |activity| 
+     puts "test" 
+     puts activity.name
+      if (@activities.count == 0 ) or (@activities.last.date == activity.date)
+        @activities << activity
+      else
+        @days << @activities
+        @activities = Array.new
+        @activities << activity
+
+      end
+     end
+     @days << @activities
   end
 
   # GET /trips/new

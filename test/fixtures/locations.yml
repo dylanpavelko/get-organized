@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  timezonen_id: 
+  street_address: MyString
+  street_address2: MyString
+  city: MyString
+  state: MyString
+  zipcode: MyString
+  country: MyString
+  longitude: 9.99
+  latitude: 9.99
+
+two:
+  name: MyString
+  timezonen_id: 
+  street_address: MyString
+  street_address2: MyString
+  city: MyString
+  state: MyString
+  zipcode: MyString
+  country: MyString
+  longitude: 9.99
+  latitude: 9.99

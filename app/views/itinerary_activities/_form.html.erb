@@ -14,7 +14,7 @@
   <div class="field">
     <%= f.label :trip_id %><br>
     <% if @itinerary_activity.trip != nil %>
-      <%= f.select :trip_id, options_from_collection_for_select(Trip.all, :id, :name, @itinerary_activity.trip), :include_blank => true %>
+      <%= f.select :trip_id, options_from_collection_for_select(Trip.all, :id, :name, @itinerary_activity.trip.id), :include_blank => true %>
     <% else %>
       <%= f.select :trip_id, options_from_collection_for_select(Trip.all, :id, :name), :include_blank => true %>
     <% end %>
