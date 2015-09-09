@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Activity:</strong>
+  <%= link_to @activity_has_inventory_item.activity.name , @activity_has_inventory_item.activity %>
+</p>
+
+<p>
+  <strong>Inventory item:</strong>
+  <%= link_to @activity_has_inventory_item.inventory_item.name , @activity_has_inventory_item.inventory_item %>
+</p>
+
+<%= link_to 'Edit', edit_activity_has_inventory_item_path(@activity_has_inventory_item) %> |
+<%= link_to 'Back', activity_has_inventory_items_path %>

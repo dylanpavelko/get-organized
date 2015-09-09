@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  attraction_id: 
+  cost: 9.99
+  basis_id: 
+  datetime: 2015-09-08 21:43:16
+  order: 1
+
+two:
+  name: MyString
+  attraction_id: 
+  cost: 9.99
+  basis_id: 
+  datetime: 2015-09-08 21:43:16
+  order: 1

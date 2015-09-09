@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Gym Type:</strong>
+  <%= @exercise_center.gymType %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @exercise_center.name %>
+</p>
+
+<p>
+  <strong>Site:</strong>
+  <%= link_to @exercise_center.site, @exercise_center.site, target: "_blank" %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @exercise_center.notes %>
+</p>
+
+<p>
+  <strong>Activities:</strong>
+  <% if @activity_has_centers.count > 0 %>
+  <ul>
+    <% @activity_has_centers.each do |center| %>
+      <li><%= link_to center.activity.name, center.activity %> <a href='#'>remove</a></li>
+    <% end %>
+  </ul>
+  <% end %>
+  <a href='#'>Add Activity to Exercise Center</a>  <%= link_to 'Temporary Add Activity' , new_activity_has_exercise_center_path %>
+</p>
+
+<%= link_to 'Edit', edit_exercise_center_path(@exercise_center) %> |
+<%= link_to 'All Exercise Centers', exercise_centers_path %>

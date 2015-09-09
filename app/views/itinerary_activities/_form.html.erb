@@ -1,0 +1,49 @@
+<%= form_for(@itinerary_activity) do |f| %>
+  <% if @itinerary_activity.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@itinerary_activity.errors.count, "error") %> prohibited this itinerary_activity from being saved:</h2>
+
+      <ul>
+      <% @itinerary_activity.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field">
+    <%= f.label :trip_id %><br>
+    <% if @itinerary_activity.trip != nil %>
+      <%= f.select :trip_id, options_from_collection_for_select(Trip.all, :id, :name, @itinerary_activity.trip), :include_blank => true %>
+    <% else %>
+      <%= f.select :trip_id, options_from_collection_for_select(Trip.all, :id, :name), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :attraction_id %><br>
+    <%= f.text_field :attraction_id %>
+  </div>
+  <div class="field">
+    <%= f.label :cost %><br>
+    <%= f.text_field :cost %>
+  </div>
+  <div class="field">
+    <%= f.label :basis_id %><br>
+    <%= f.text_field :basis_id %>
+  </div>
+  <div class="field">
+    <%= f.label :datetime %><br>
+    <%= f.datetime_select :datetime %>
+  </div>
+  <div class="field">
+    <%= f.label :order %><br>
+    <%= f.number_field :order %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

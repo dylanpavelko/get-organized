@@ -1,0 +1,40 @@
+<h1>Listing inventory_items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Detail</th>
+      <th>Brand</th>
+      <th>Amount</th>
+      <th>Quantity type</th>
+      <th>Consumable</th>
+      <th>Purchase Price</th>
+      <th>Note</th>
+
+
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @inventory_items.each do |inventory_item| %>
+      <tr>
+        <td><%= link_to inventory_item.name , inventory_item %></td>
+        <td><%= inventory_item.detail %></td>
+        <td><%= inventory_item.brand %></td>
+        <td><%= inventory_item.amount %></td>
+        <td><% if inventory_item.quantity_type != nil %> <%= inventory_item.quantity_type.quantityType %> <%end%></td>
+        <td><%= inventory_item.consumable %></td>
+        <td><%= inventory_item.price %></td>
+        <td><%= inventory_item.note %></td>
+        <td><%= link_to 'Edit', edit_inventory_item_path(inventory_item) %></td>
+        <td><%= link_to 'Destroy', inventory_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Inventory item', new_inventory_item_path %>

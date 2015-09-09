@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Trip:</strong>
+  <%= link_to @itinerary_activity.trip.name, @itinerary_activity.trip %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @itinerary_activity.name %>
+</p>
+
+<p>
+  <strong>Attraction:</strong>
+  <%= @itinerary_activity.attraction %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @itinerary_activity.cost %>
+</p>
+
+<p>
+  <strong>Basis:</strong>
+  <%= @itinerary_activity.basis %>
+</p>
+
+<p>
+  <strong>Datetime:</strong>
+  <%= @itinerary_activity.datetime %>
+</p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @itinerary_activity.order %>
+</p>
+
+<%= link_to 'Edit', edit_itinerary_activity_path(@itinerary_activity) %> |
+<%= link_to 'Back', itinerary_activities_path %>

@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Trip: <%= @trip.name %></strong>
+  <br/>
+  <%= @trip.description %>
+</p>
+
+<p>
+  <strong>Itinerary item:</strong>
+  <%= @trip.itinerary_item %>
+</p>
+
+<p>
+  <strong>Blog:</strong>
+  <%= @trip.blog_link %>
+
+  <strong>Photo:</strong>
+  <%= @trip.photo_link %>
+
+  <% if @trip.tripit_link != '' %>
+    <%= link_to 'Tripit Link', @trip.tripit_link, target: "_blank" %>
+
+  <% end %>
+
+</p>
+
+<p>
+  <strong>Itinerary:</strong>
+  <% if @trip_activities.count > 0 %>
+  <ul>
+    <% @trip_activities.each do |activity| %>
+      <li><%= link_to activity.name, activity %> <a href='#'>edit</a></li>
+    <% end %>
+  </ul>
+  <a href='#'>Add Itinerary Activity</a>  <%= link_to 'Temporary Add Activity' , new_itinerary_activity_path %>
+<% end %>
+</p>
+
+
+
+<p>
+  <strong>Pack List:</strong>
+  <% if @trip_items.count > 0 %>
+  <ul>
+    <% @trip_items.each do |item| %>
+      <li><%= link_to item.inventory_item.full_name, item.inventory_item %> <a href='#'>remove</a></li>
+    <% end %>
+  </ul>
+  <a href='#'>Add Item</a>  <%= link_to 'Temporary Add Item' , new_trip_has_inventory_item_path %>
+<% end %>
+</p>
+
+<%= link_to 'Edit', edit_trip_path(@trip) %> |
+<%= link_to 'All Trips', trips_path %>

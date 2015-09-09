@@ -1,0 +1,27 @@
+<h1>Listing activity_has_inventory_items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Activity</th>
+      <th>Inventory item</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @activity_has_inventory_items.each do |activity_has_inventory_item| %>
+      <tr>
+        <td><%= link_to activity_has_inventory_item.activity.name , activity_has_inventory_item.activity %></td>
+        <td><%= link_to activity_has_inventory_item.inventory_item.name , activity_has_inventory_item.inventory_item%></td>
+        <td><%= link_to 'Show', activity_has_inventory_item %></td>
+        <td><%= link_to 'Edit', edit_activity_has_inventory_item_path(activity_has_inventory_item) %></td>
+        <td><%= link_to 'Destroy', activity_has_inventory_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Activity has inventory item', new_activity_has_inventory_item_path %>

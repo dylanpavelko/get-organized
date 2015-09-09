@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Activity:</strong>
+  <%= @activity.name %>
+</p>
+
+<p>
+  <strong>Gear:</strong>
+  <% if @activity_items.count > 0 %>
+  <ul>
+    <% @activity_items.each do |item| %>
+      <li><%= link_to item.inventory_item.full_name, item.inventory_item %> <a href='#'>remove</a></li>
+    <% end %>
+  </ul>
+  <% end %>
+  <a href='#'>Add to Trip</a>  <%= link_to 'Temporary Add Item' , new_activity_has_inventory_item_path %>
+</p>
+<p>
+  <strong>Exercise Centers:</strong>
+  <% if @activity_has_centers.count > 0 %>
+  <ul>
+    <% @activity_has_centers.each do |center| %>
+      <li><%= link_to center.exercise_center.name, center.exercise_center %> <a href='#'>remove</a></li>
+    <% end %>
+  </ul>
+  <% end %>
+  <a href='#'>Add Exercise Center for Activity</a>  <%= link_to 'Temporary Add Center' , new_activity_has_exercise_center_path %>
+</p>
+
+<%= link_to 'Edit', edit_activity_path(@activity) %> |
+<%= link_to 'All Activities', activities_path %>

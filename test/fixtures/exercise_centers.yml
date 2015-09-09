@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gymType: MyString
+  name: MyString
+  site: MyString
+  notes: MyText
+
+two:
+  gymType: MyString
+  name: MyString
+  site: MyString
+  notes: MyText

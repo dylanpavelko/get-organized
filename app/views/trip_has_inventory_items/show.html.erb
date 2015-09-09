@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Trip:</strong>
+  <%= link_to @trip_has_inventory_item.trip.name , @trip_has_inventory_item.trip %>
+</p>
+
+<p>
+  <strong>Inventory item:</strong>
+  <%= @trip_has_inventory_item.inventory_item.full_name %>
+</p>
+
+<%= link_to 'Edit', edit_trip_has_inventory_item_path(@trip_has_inventory_item) %> |
+<%= link_to 'Back', trip_has_inventory_items_path %>

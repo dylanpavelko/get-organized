@@ -1,0 +1,33 @@
+<%= form_for(@activity_has_exercise_center) do |f| %>
+  <% if @activity_has_exercise_center.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@activity_has_exercise_center.errors.count, "error") %> prohibited this activity_has_exercise_center from being saved:</h2>
+
+      <ul>
+      <% @activity_has_exercise_center.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :activity_id %><br>
+    <% if @activity_has_inventory_item != nil %>
+      <%= f.select :activity_id, options_from_collection_for_select(Activity.all, :id, :name, @activity_has_exercise_center.activity_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :activity_id, options_from_collection_for_select(Activity.all, :id, :name), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :exercise_center_id %><br>
+    <% if @activity_has_inventory_item != nil %>
+      <%= f.select :exercise_center_id, options_from_collection_for_select(ExerciseCenter.all, :id, :name, @activity_has_exercise_center.exercise_center_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :exercise_center_id, options_from_collection_for_select(ExerciseCenter.all, :id, :name), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

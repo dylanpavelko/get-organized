@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Activity:</strong>
+  <%= link_to @activity_has_exercise_center.activity.name, @activity_has_exercise_center.activity %>
+</p>
+
+<p>
+  <strong>Exercise center:</strong>
+  <%= link_to @activity_has_exercise_center.exercise_center.name, @activity_has_exercise_center.exercise_center %>
+</p>
+
+
+<%= link_to 'Edit', edit_activity_has_exercise_center_path(@activity_has_exercise_center) %> |
+<%= link_to 'Back', activity_has_exercise_centers_path %>

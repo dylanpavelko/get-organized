@@ -1,0 +1,76 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Category:</strong>
+  <% if  @inventory_item.category != nil and  @inventory_item.subcategory != nil %>
+     <%= @inventory_item.category.category + " > " + @inventory_item.subcategory.subcategory%>
+  <% elsif @inventory_item.category != nil %>
+      <%= @inventory_item.category.category %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @inventory_item.name %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <% if @inventory_item.quantity_type != nil %>
+    <%= @inventory_item.amount.to_s + " " + @inventory_item.quantity_type.quantityType %>
+  <% else %>
+    <%= @inventory_item.amount.to_s %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Consumable:</strong>
+  <%= @inventory_item.consumable %>
+</p>
+
+<p>
+  <strong>Purchased Price:</strong>
+  <%= @inventory_item.price %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @inventory_item.note %>
+</p>
+
+<p>
+  <strong>Detail:</strong>
+  <%= @inventory_item.detail %>
+</p>
+
+<p>
+  <strong>Brand:</strong>
+  <%= @inventory_item.brand %>
+</p>
+<% if @trip_items.count > 0 %>
+<p>
+  <strong>Packed for Trips:</strong>
+
+  <ul>
+    <% @trip_items.each do |item| %>
+      <li><%= link_to item.trip.name, item.trip %> <a href='#'>remove</a></li>
+    <% end %>
+  </ul>
+  <% end %>
+  <a href='#'>Add to Trip</a>  <%= link_to 'Temporary Add Item' , new_trip_has_inventory_item_path %>
+</p>
+
+<p>
+  <strong>Used for Activites:</strong>
+  <% if @activity_items.count > 0 %>
+  <ul>
+    <% @activity_items.each do |item| %>
+      <li><%= link_to item.activity.name, item.activity %> <a href='#'>remove</a></li>
+    <% end %>
+  </ul>
+  <% end %>
+  <a href='#'>Add as Gear for Activity</a>  <%= link_to 'Temporary Add Item' , new_activity_has_inventory_item_path %>
+</p>
+
+<%= link_to 'Edit', edit_inventory_item_path(@inventory_item) %> |
+<%= link_to 'All Inventory Items', inventory_items_path %>

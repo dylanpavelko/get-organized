@@ -1,0 +1,30 @@
+<h1>Listing exercise_centers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Gym Type</th>
+      <th>Site</th>
+      <th>Notes</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @exercise_centers.each do |exercise_center| %>
+      <tr>
+        <td><%= link_to exercise_center.name, exercise_center %></td>
+        <td><%= exercise_center.gymType %></td>
+        <td><%= exercise_center.site %></td>
+        <td><%= exercise_center.notes %></td>
+        <td><%= link_to 'Edit', edit_exercise_center_path(exercise_center) %></td>
+        <td><%= link_to 'Destroy', exercise_center, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Exercise center', new_exercise_center_path %>
