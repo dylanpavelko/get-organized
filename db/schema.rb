@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909060039) do
+ActiveRecord::Schema.define(version: 20150909065906) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -98,10 +98,14 @@ ActiveRecord::Schema.define(version: 20150909060039) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "trip_id"
+    t.integer  "origination_id"
+    t.integer  "destination_id"
   end
 
   add_index "itinerary_activities", ["attraction_id"], name: "index_itinerary_activities_on_attraction_id"
   add_index "itinerary_activities", ["basis_id"], name: "index_itinerary_activities_on_basis_id"
+  add_index "itinerary_activities", ["destination_id"], name: "index_itinerary_activities_on_destination_id"
+  add_index "itinerary_activities", ["origination_id"], name: "index_itinerary_activities_on_origination_id"
   add_index "itinerary_activities", ["trip_id"], name: "index_itinerary_activities_on_trip_id"
 
   create_table "locations", force: true do |t|

@@ -6,6 +6,18 @@ class TripsController < ApplicationController
   # GET /trips.json
   def index
     @trips = Trip.all
+    @past_trips = Array.new
+    @upcoming_trips = Array.new
+    @future_trips = Array.new
+    @trips.each do |trip|
+      if trip.last_date == ''
+        @future_trips << trip
+      elsif Date.parse(trip.last_date).past?
+        @past_trips << trip
+      else
+        @upcoming_trips << trip
+      end
+    end
   end
 
   # GET /trips/1

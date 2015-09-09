@@ -1,6 +1,43 @@
 <h1>Listing trips</h1>
 
-<table>
+<h3>Upcoming Trips</h3>
+<table border='1'>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Dates</th>
+      <th>Description</th>
+      <th>Itinerary item</th>
+      <th>Blog link</th>
+      <th>Photo link</th>
+      <th>Tripit link</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @upcoming_trips.each do |trip| %>
+      <tr>
+        <td><%= link_to trip.name , trip %></td>
+        <td><%= trip.first_date %><br/> to <br/><%= trip.last_date%></td>
+        <td><%= trip.description %></td>
+        <td><%= trip.itinerary_item %></td>
+        <td><%= trip.blog_link %></td>
+        <td><%= trip.photo_link %></td>
+        <td><% if trip.tripit_link != '' %><%= link_to 'Tripit', trip.tripit_link, target: '_blank' %><%end%></td>
+        <td><%= link_to 'Edit', edit_trip_path(trip) %></td>
+        <td><%= link_to 'Destroy', trip, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Trip', new_trip_path %>
+
+<h3>Future Trips</h3>
+<table border='1'>
   <thead>
     <tr>
       <th>Name</th>
@@ -14,7 +51,7 @@
   </thead>
 
   <tbody>
-    <% @trips.each do |trip| %>
+    <% @future_trips.each do |trip| %>
       <tr>
         <td><%= link_to trip.name , trip %></td>
         <td><%= trip.description %></td>
@@ -29,6 +66,36 @@
   </tbody>
 </table>
 
-<br>
 
-<%= link_to 'New Trip', new_trip_path %>
+<h3>Past Trips</h3>
+
+<table border='1'>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Dates</th>
+      <th>Description</th>
+      <th>Itinerary item</th>
+      <th>Blog link</th>
+      <th>Photo link</th>
+      <th>Tripit link</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @past_trips.each do |trip| %>
+      <tr>
+        <td><%= link_to trip.name , trip %></td>
+        <td><%= trip.first_date %><br/> to <br/><%= trip.last_date%></td>
+        <td><%= trip.description %></td>
+        <td><%= trip.itinerary_item %></td>
+        <td><%= trip.blog_link %></td>
+        <td><%= trip.photo_link %></td>
+        <td><% if trip.tripit_link != '' %><%= link_to 'Tripit', trip.tripit_link, target: '_blank' %><%end%></td>
+        <td><%= link_to 'Edit', edit_trip_path(trip) %></td>
+        <td><%= link_to 'Destroy', trip, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

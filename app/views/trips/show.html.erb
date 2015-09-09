@@ -35,7 +35,11 @@
         <% if activity == day.first %>
           <strong><%= activity.date %></strong>
         <% end %>
-        <li> <%= activity.datetime.strftime("%I:%M %p - ") %><%= link_to activity.name, activity %> <%= link_to 'edit', edit_itinerary_activity_path(activity) %></a></li>
+        <li> 
+          <%= activity.datetime.strftime("%I:%M %p - ") %>
+          <%= link_to activity.get_name, activity %> 
+          <%= link_to 'edit', edit_itinerary_activity_path(activity) %>
+        </li>
       <% end %>
     <% end %>
   </ul>

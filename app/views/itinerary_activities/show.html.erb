@@ -12,7 +12,23 @@
 
 <p>
   <strong>Attraction:</strong>
-  <%= @itinerary_activity.attraction %>
+  <% if @itinerary_activity.attraction != nil %> 
+    <%= link_to @itinerary_activity.attraction.name, @itinerary_activity.attraction %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Origination:</strong>
+  <% if @itinerary_activity.origination_id != nil %> 
+    <%= @itinerary_activity.origination %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Destination:</strong>
+  <% if @itinerary_activity.destination_id != nil %> 
+    <%= @itinerary_activity.destination %>
+  <% end %>
 </p>
 
 <p>
