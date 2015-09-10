@@ -1,4 +1,7 @@
 <div id='header-fixed'>
+	<% if Rails.env.development? %>
+		<em>DEV</em>
+	<% end %>
 <strong>Get Organized</strong>
 <%= link_to 'Travel & Leisure', trips_path %>
 <%= link_to 'Inventory Items', inventory_items_path %>
