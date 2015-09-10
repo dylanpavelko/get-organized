@@ -2,7 +2,9 @@
 
 <p>
   <strong>Attraction category:</strong>
-  <%= @attraction.attraction_category %>
+  <% if @attraction.attraction_category != nil %>
+  	<%= @attraction.attraction_category.name %>
+  	<% end %>
 </p>
 
 <p>

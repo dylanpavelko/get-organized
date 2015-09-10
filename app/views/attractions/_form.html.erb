@@ -10,11 +10,14 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
     <%= f.label :attraction_category_id %><br>
-    <%= f.text_field :attraction_category_id %>
-  </div>
+    <% if @attraction != nil %>
+      <%= f.select :attraction_category_id, options_from_collection_for_select(AttractionCategory.all, :id, :name, @attraction.attraction_category_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :attraction_category_id, options_from_collection_for_select(AttractionCategory.all, :id, :name), :include_blank => true %>
+    <% end %>
+  </div>  
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>

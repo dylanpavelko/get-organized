@@ -12,7 +12,9 @@
   <tbody>
     <% @attractions.each do |attraction| %>
       <tr>
-        <td><%= attraction.attraction_category %></td>
+        <td>  <% if attraction.attraction_category != nil %>
+    <%= attraction.attraction_category.name %>
+    <% end %></td>
         <td><%= attraction.name %></td>
         <td><%= link_to 'Show', attraction %></td>
         <td><%= link_to 'Edit', edit_attraction_path(attraction) %></td>
