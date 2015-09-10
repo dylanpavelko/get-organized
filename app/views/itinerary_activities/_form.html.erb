@@ -26,23 +26,23 @@
   <div class="field">
     <%= f.label :attraction_id %><br>
     <% if @itinerary_activity.attraction != nil %>
-      <%= f.select :attraction_id, options_from_collection_for_select(Attraction.all, :id, :name, @itinerary_activity.attraction.id), :include_blank => true %>
+      <%= f.select :attraction_id, options_from_collection_for_select(Attraction.all, :id, :name, @itinerary_activity.attraction_id), :include_blank => true %>
     <% else %>
       <%= f.select :attraction_id, options_from_collection_for_select(Attraction.all, :id, :name), :include_blank => true %>
     <% end %>
   </div>
   <div class="field">
     <%= f.label :origination_id %><br>
-    <% if @itinerary_activity.attraction != nil %>
-      <%= f.select :origination_id, options_from_collection_for_select(Location.all, :id, :display_name, @itinerary_activity.origination.id), :include_blank => true %>
+    <% if @itinerary_activity.origination_id != nil %>
+      <%= f.select :origination_id, options_from_collection_for_select(Location.all, :id, :display_name, @itinerary_activity.origination_id), :include_blank => true %>
     <% else %>
       <%= f.select :origination_id, options_from_collection_for_select(Location.all, :id, :display_name), :include_blank => true %>
     <% end %>
   </div>
   <div class="field">
     <%= f.label :destination_id %><br>
-    <% if @itinerary_activity.attraction != nil %>
-      <%= f.select :destination_id, options_from_collection_for_select(Location.all, :id, :display_name, @itinerary_activity.destination.id), :include_blank => true %>
+    <% if @itinerary_activity.destination_id != nil %>
+      <%= f.select :destination_id, options_from_collection_for_select(Location.all, :id, :display_name, @itinerary_activity.destination_id), :include_blank => true %>
     <% else %>
       <%= f.select :destination_id, options_from_collection_for_select(Location.all, :id, :display_name), :include_blank => true %>
     <% end %>

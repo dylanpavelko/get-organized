@@ -56,8 +56,9 @@
       <li><%= link_to item.inventory_item.full_name, item.inventory_item %> <a href='#'>remove</a></li>
     <% end %>
   </ul>
+  <% end %>
   <a href='#'>Add Item</a>  <%= link_to 'Temporary Add Item' , new_trip_has_inventory_item_path %>
-<% end %>
+
 </p>
 
 <%= link_to 'Edit', edit_trip_path(@trip) %> |

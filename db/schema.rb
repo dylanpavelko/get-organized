@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909065906) do
+ActiveRecord::Schema.define(version: 20150910035602) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20150909065906) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "trip_advisor_link"
   end
 
   add_index "attractions", ["attraction_category_id"], name: "index_attractions_on_attraction_category_id"

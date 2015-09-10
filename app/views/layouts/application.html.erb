@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Organizer</title>
+  <title>Get Organized</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+<div id="main">
+	<%= render "layouts/header" %>
+	<br/>
+	<%=yield %>
+</div>
+
 
 </body>
 </html>

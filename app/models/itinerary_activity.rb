@@ -5,6 +5,8 @@ class ItineraryActivity < ActiveRecord::Base
   belongs_to :origination
   belongs_to :destination
 
+  validates :trip_id, :presence => true
+
   def date
   	return self.datetime.strftime("%A - %b %d, %Y")
   end
