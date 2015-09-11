@@ -16,7 +16,7 @@
   	<% end %>
 
   	<% if @attraction.hotel.loyalty_program != nil %> 
-    	<% if @hotel_chain.loyalty_program.image != '' %>
+    	<% if @attraction.hotel.loyalty_program.image != '' %>
     		<%= link_to image_tag(@attraction.hotel.loyalty_program.image, height: '30'), @attraction.hotel.loyalty_program %>
     	<% else %>
     		<%= link_to @attraction.hotel.loyalty_program.name, @attraction.hotel.loyalty_program %>
