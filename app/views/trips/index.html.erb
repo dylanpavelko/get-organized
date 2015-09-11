@@ -7,9 +7,7 @@
 <table border='1'>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Dates</th>
-      <th>Description</th>
+      <th>Trip</th>
       <th>Blog link</th>
       <th>Photo link</th>
       <th>Tripit link</th>
@@ -20,9 +18,10 @@
   <tbody>
     <% @upcoming_trips.each do |trip| %>
       <tr>
-        <td><%= link_to trip.name , trip %></td>
-        <td><%= trip.first_date %><br/> to <br/><%= trip.last_date%></td>
-        <td><%= trip.description %></td>
+        <td>
+          <strong><%= link_to trip.name , trip %></strong> <%= trip.first_date %> to <%= trip.last_date%> <br/>
+          <em><%= trip.description %></em>
+        </td>
         <td><%= trip.blog_link %></td>
         <td><%= trip.photo_link %></td>
         <td><% if trip.tripit_link != '' %><%= link_to 'Tripit', trip.tripit_link, target: '_blank' %><%end%></td>
@@ -41,7 +40,7 @@
 <table border='1'>
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Trip</th>
       <th>Description</th>
       <th colspan="2"></th>
     </tr>
@@ -65,9 +64,7 @@
 <table border='1'>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Dates</th>
-      <th>Description</th>
+      <th>Trip</th>
       <th>Blog link</th>
       <th>Photo link</th>
       <th>Tripit link</th>
@@ -78,9 +75,10 @@
   <tbody>
     <% @past_trips.each do |trip| %>
       <tr>
-        <td><%= link_to trip.name , trip %></td>
-        <td><%= trip.first_date %><br/> to <br/><%= trip.last_date%></td>
-        <td><%= trip.description %></td>
+        <td>
+          <strong><%= link_to trip.name , trip %></strong> <%= trip.first_date %> to <%= trip.last_date%> <br/>
+          <em><%= trip.description %></em>
+        </td>
         <td><%= trip.blog_link %></td>
         <td><%= trip.photo_link %></td>
         <td><% if trip.tripit_link != '' %><%= link_to 'Tripit', trip.tripit_link, target: '_blank' %><%end%></td>
