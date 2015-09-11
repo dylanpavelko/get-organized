@@ -65,7 +65,7 @@
   </div>
   <div class="field">
     <%= f.label :datetime %><br>
-    <%= f.datetime_select :datetime %>
+    <%= f.datetime_select :datetime, :include_blank => true, ampm: true %>
   </div>
   <div class="field">
     <%= f.label :order %><br>

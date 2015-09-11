@@ -1,22 +1,23 @@
-<h1>Listing attractions</h1>
+<h1>All Attractions</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Attraction category</th>
       <th>Name</th>
-      <th colspan="3"></th>
+      <th>Category</th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @attractions.each do |attraction| %>
       <tr>
-        <td>  <% if attraction.attraction_category != nil %>
-    <%= attraction.attraction_category.name %>
-    <% end %></td>
-        <td><%= attraction.name %></td>
-        <td><%= link_to 'Show', attraction %></td>
+        <td><%= link_to attraction.name, attraction %></td>
+        <td>  
+          <% if attraction.attraction_category != nil %>
+            <%= attraction.attraction_category.name %>
+          <% end %>
+        </td>
         <td><%= link_to 'Edit', edit_attraction_path(attraction) %></td>
         <td><%= link_to 'Destroy', attraction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
