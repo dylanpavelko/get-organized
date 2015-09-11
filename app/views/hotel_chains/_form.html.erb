@@ -1,0 +1,33 @@
+<%= form_for(@hotel_chain) do |f| %>
+  <% if @hotel_chain.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@hotel_chain.errors.count, "error") %> prohibited this hotel_chain from being saved:</h2>
+
+      <ul>
+      <% @hotel_chain.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :loyalty_program_id %><br>
+    <% if @hotel_chain.loyalty_program_id != nil %>
+      <%= f.select :loyalty_program_id, options_from_collection_for_select(LoyaltyProgram.all, :id, :name, @hotel_chain.loyalty_program_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :loyalty_program_id, options_from_collection_for_select(LoyaltyProgram.all, :id, :name), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :image %><br>
+    <%= f.text_field :image %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :hotel_chains
+
   resources :airlines
 
   resources :loyalty_programs

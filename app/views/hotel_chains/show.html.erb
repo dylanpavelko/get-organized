@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @hotel_chain.name %>
+</p>
+
+<p>
+  <strong>Loyalty program:</strong>
+  <% if @hotel_chain.loyalty_program != nil %> 
+    <%= link_to image_tag(@hotel_chain.loyalty_program.image, height: '30'), @hotel_chain.loyalty_program %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @hotel_chain.image %>
+</p>
+
+<%= link_to 'Edit', edit_hotel_chain_path(@hotel_chain) %> |
+<%= link_to 'Back', hotel_chains_path %>

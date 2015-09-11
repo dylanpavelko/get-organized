@@ -10,6 +10,18 @@
 <p>
   <strong>Name:</strong>
   <%= @attraction.name %>
+  <br/>
+  <% if @attraction.hotel_id != nil %>
+  	<% if @attraction.hotel.image != '' %> 
+    	<%= link_to image_tag(@attraction.hotel.image, height: '30'), @attraction.hotel %>
+    <% else %>
+    	<%= @attraction.hotel.name %>
+  	<% end %>
+  	
+  	<% if @attraction.hotel.loyalty_program != nil %> 
+    		<%= link_to image_tag(@attraction.hotel.loyalty_program.image, height: '30'), @attraction.hotel.loyalty_program %>
+  	<% end %>
+  <% end %>
 </p>
 <% if @attraction.trip_advisor_link != nil and  @attraction.trip_advisor_link != '' %>
 	<div id="TA_cdsratingsonlynarrow74" class="TA_cdsratingsonlynarrow">

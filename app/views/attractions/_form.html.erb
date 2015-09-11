@@ -26,6 +26,14 @@
     <%= f.label :trip_advisor_link %><br>
     <%= f.text_field :trip_advisor_link %>
   </div>
+  <div class="field">
+    Hotel Chain<br>
+    <% if @attraction != nil %>
+      <%= f.select :hotel_id, options_from_collection_for_select(HotelChain.all, :id, :name, @attraction.hotel_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :hotel_id, options_from_collection_for_select(HotelChain.all, :id, :name), :include_blank => true %>
+    <% end %>
+  </div>  
   <div class="actions">
     <%= f.submit %>
   </div>
