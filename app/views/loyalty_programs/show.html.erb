@@ -1,8 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @loyalty_program.name %>
+  <% if @loyalty_program.image != '' %>
+  	<%= image_tag @loyalty_program.image, width:'200' %>
+  <% else %>
+  	<strong><%= @loyalty_program.name %></strong>
+  <% end %>
 </p>
 
 <p>
@@ -10,9 +13,25 @@
   <%= @loyalty_program.number %>
 </p>
 
+<% if @loyalty_program.username != '' %>
 <p>
   <strong>Username:</strong>
   <%= @loyalty_program.username %>
+</p>
+<% end %>
+
+<p>
+  <strong>Recent Activity:</strong><br/>
+  <ul>
+  <% @recent_activity.each do |activity| %>
+  	<li>
+  		<% if activity.attraction != nil %>
+	  		<%= link_to(activity.attraction.name, activity.attraction) %> - 
+	  	<% end %>
+  		<%= activity.date + ' '%><%= link_to(activity.trip.name, activity.trip)%> - <%= link_to(activity.get_name, activity) %>
+  	</li>
+  <% end %>
+  </ul>
 </p>
 
 <%= link_to 'Edit', edit_loyalty_program_path(@loyalty_program) %> |

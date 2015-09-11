@@ -1,8 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @hotel_chain.name %>
+  <% if @hotel_chain.image != '' %>
+  	<%= image_tag @hotel_chain.image, width:'200' %>
+  <% else %>
+	  <strong><%= @hotel_chain.name %></strong>
+	<% end %>
+  
 </p>
 
 <p>
@@ -13,8 +17,14 @@
 </p>
 
 <p>
-  <strong>Image:</strong>
-  <%= @hotel_chain.image %>
+  <strong>Recent Visits:</strong><br/>
+  <ul>
+  <% @recent_visits.each do |visit| %>
+  	<li>
+  		<%= link_to(visit.attraction.name, visit.attraction) %> - <%= visit.date + ' '%><%= link_to(visit.trip.name, visit.trip)%> - <%= link_to(visit.get_name, visit) %>
+  	</li>
+  <% end %>
+  </ul>
 </p>
 
 <%= link_to 'Edit', edit_hotel_chain_path(@hotel_chain) %> |

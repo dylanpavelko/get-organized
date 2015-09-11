@@ -13,6 +13,12 @@ class LoyaltyProgramsController < ApplicationController
   # GET /loyalty_programs/1
   # GET /loyalty_programs/1.json
   def show
+    @airlines = Airline.where(:loyalty_program_id => @loyalty_program)
+    @recent_trips = ItineraryActivity.where(:airline_id => @airlines)
+    @hotel_chains = HotelChain.where(:loyalty_program_id => @loyalty_program)
+    @hotels = Attraction.where(:hotel_id => @hotel_chains)
+    @recent_visits = ItineraryActivity.where(:attraction_id => @hotels)
+    @recent_activity = @recent_visits + @recent_trips
   end
 
   # GET /loyalty_programs/new

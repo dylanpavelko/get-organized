@@ -13,6 +13,7 @@ class AttractionsController < ApplicationController
   # GET /attractions/1
   # GET /attractions/1.json
   def show
+    @recent_visits = ItineraryActivity.where(:attraction_id => @attraction)
   end
 
   # GET /attractions/new

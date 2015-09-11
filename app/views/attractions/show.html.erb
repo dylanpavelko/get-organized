@@ -1,23 +1,19 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Attraction category:</strong>
+  <h3><%= @attraction.name %></h3>
+  <strong>category:</strong>
   <% if @attraction.attraction_category != nil %>
   	<%= @attraction.attraction_category.name %>
   	<% end %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @attraction.name %>
-  <br/>
+  <br/><br/>
   <% if @attraction.hotel_id != nil %>
   	<% if @attraction.hotel.image != '' %> 
     	<%= link_to image_tag(@attraction.hotel.image, height: '30'), @attraction.hotel %>
     <% else %>
     	<%= @attraction.hotel.name %>
   	<% end %>
-  	
+
   	<% if @attraction.hotel.loyalty_program != nil %> 
     		<%= link_to image_tag(@attraction.hotel.loyalty_program.image, height: '30'), @attraction.hotel.loyalty_program %>
   	<% end %>
@@ -33,6 +29,17 @@
 	</div>
 	<script src="http://www.jscache.com/wejs?wtype=cdsratingsonlynarrow&amp;uniq=74&amp;locationId=<%= @attraction.trip_advisor_location_id %>&amp;lang=en_US&amp;border=true&amp;display_version=2"></script>
 <% end %>
+
+<p>
+  <strong>Recent Visits:</strong><br/>
+  <ul>
+  <% @recent_visits.each do |visit| %>
+  	<li>
+  		<%= visit.date + ' '%><%= link_to(visit.trip.name, visit.trip)%> - <%= link_to(visit.get_name, visit) %>
+  	</li>
+  <% end %>
+  </ul>
+</p>
 
 <%= link_to 'Edit', edit_attraction_path(@attraction) %> |
 <%= link_to 'Back', attractions_path %>

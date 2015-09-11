@@ -10,6 +10,8 @@ class HotelChainsController < ApplicationController
   # GET /hotel_chains/1
   # GET /hotel_chains/1.json
   def show
+    @hotels = Attraction.where(:hotel_id => @hotel_chain)
+    @recent_visits = ItineraryActivity.where(:attraction_id => @hotels)
   end
 
   # GET /hotel_chains/new
