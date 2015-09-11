@@ -11,7 +11,13 @@
   <tbody>
     <% @loyalty_programs.each do |loyalty_program| %>
       <tr>
-        <td><%= link_to image_tag(loyalty_program.image, width: '200'), loyalty_program %></td>
+        <td>
+          <% if loyalty_program.image != '' %>
+            <%= link_to image_tag(loyalty_program.image, width: '200'), loyalty_program %>
+          <% else %>
+            <%= loyalty_program.name %>
+          <% end %>
+        </td>
         <td><%= loyalty_program.number %></td>
         <td><%= loyalty_program.username %></td>
         <td><%= link_to 'Show', loyalty_program %></td>
