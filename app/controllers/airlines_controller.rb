@@ -13,6 +13,7 @@ class AirlinesController < ApplicationController
   # GET /airlines/1
   # GET /airlines/1.json
   def show
+    @recent_trips = ItineraryActivity.where(:airline_id => @airline)
   end
 
   # GET /airlines/new

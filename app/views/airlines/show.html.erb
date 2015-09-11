@@ -1,20 +1,25 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @airline.name %>
+  <%= image_tag @airline.image %>
 </p>
 
 <p>
   <strong>Loyalty program:</strong>
   <% if @airline.loyalty_program != nil %> 
-    <%= @airline.loyalty_program.name %>
+    <%= link_to image_tag(@airline.loyalty_program.image, height: '30'), @airline.loyalty_program %>
   <% end %>
 </p>
 
 <p>
-  <strong>Image:</strong>
-  <%= @airline.image %>
+  <strong>Recent Flights:</strong><br/>
+  <ul>
+  <% @recent_trips.each do |flight| %>
+  	<li>
+  		<%= flight.date + ' ' +flight.datetime.strftime("%I:%M %p - ") %><%= link_to(flight.trip.name, flight.trip)%> - <%= link_to(flight.get_name, flight) %>
+  	</li>
+  <% end %>
+  </ul>
 </p>
 
 <%= link_to 'Edit', edit_airline_path(@airline) %> |
