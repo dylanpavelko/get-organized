@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @loyalty_program.name %>
+</p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @loyalty_program.number %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @loyalty_program.username %>
+</p>
+
+<%= link_to 'Edit', edit_loyalty_program_path(@loyalty_program) %> |
+<%= link_to 'Back', loyalty_programs_path %>

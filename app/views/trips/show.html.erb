@@ -38,6 +38,9 @@
         <li> 
           <%= activity.datetime.strftime("%I:%M %p - ") %>
           <%= link_to activity.get_name, activity %> 
+          <% if activity.airline_id != nil %> 
+            <%= image_tag activity.airline.image, height: '12' %>
+          <% end %>
           <%= link_to 'edit', edit_itinerary_activity_path(activity) %>
         </li>
       <% end %>

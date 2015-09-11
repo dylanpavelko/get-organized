@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150911015236) do
+ActiveRecord::Schema.define(version: 20150911024650) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -39,6 +39,16 @@ ActiveRecord::Schema.define(version: 20150911015236) do
   add_index "activity_has_inventory_items", ["activity_id"], name: "index_activity_has_inventory_items_on_activity_id"
   add_index "activity_has_inventory_items", ["inventory_item_id"], name: "index_activity_has_inventory_items_on_inventory_item_id"
 
+  create_table "airlines", force: true do |t|
+    t.string   "name"
+    t.integer  "loyalty_program_id"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "airlines", ["loyalty_program_id"], name: "index_airlines_on_loyalty_program_id"
+
   create_table "attraction_categories", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -51,9 +61,11 @@ ActiveRecord::Schema.define(version: 20150911015236) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "trip_advisor_link"
+    t.integer  "location_id"
   end
 
   add_index "attractions", ["attraction_category_id"], name: "index_attractions_on_attraction_category_id"
+  add_index "attractions", ["location_id"], name: "index_attractions_on_location_id"
 
   create_table "categories", force: true do |t|
     t.string   "category"
@@ -101,8 +113,10 @@ ActiveRecord::Schema.define(version: 20150911015236) do
     t.integer  "trip_id"
     t.integer  "origination_id"
     t.integer  "destination_id"
+    t.integer  "airline_id"
   end
 
+  add_index "itinerary_activities", ["airline_id"], name: "index_itinerary_activities_on_airline_id"
   add_index "itinerary_activities", ["attraction_id"], name: "index_itinerary_activities_on_attraction_id"
   add_index "itinerary_activities", ["basis_id"], name: "index_itinerary_activities_on_basis_id"
   add_index "itinerary_activities", ["destination_id"], name: "index_itinerary_activities_on_destination_id"
@@ -122,9 +136,19 @@ ActiveRecord::Schema.define(version: 20150911015236) do
     t.decimal  "latitude"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "airport"
   end
 
   add_index "locations", ["timezonen_id"], name: "index_locations_on_timezonen_id"
+
+  create_table "loyalty_programs", force: true do |t|
+    t.string   "name"
+    t.string   "number"
+    t.string   "username"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image"
+  end
 
   create_table "quantity_types", force: true do |t|
     t.string   "quantityType"

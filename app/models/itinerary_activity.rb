@@ -4,6 +4,7 @@ class ItineraryActivity < ActiveRecord::Base
   belongs_to :trip
   belongs_to :origination
   belongs_to :destination
+  belongs_to :airline
 
   validates :trip_id, :presence => true
 

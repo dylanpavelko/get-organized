@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @airline.name %>
+</p>
+
+<p>
+  <strong>Loyalty program:</strong>
+  <% if @airline.loyalty_program != nil %> 
+    <%= @airline.loyalty_program.name %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @airline.image %>
+</p>
+
+<%= link_to 'Edit', edit_airline_path(@airline) %> |
+<%= link_to 'Back', airlines_path %>

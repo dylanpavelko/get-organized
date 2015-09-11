@@ -13,7 +13,7 @@
 <p>
   <strong>Attraction:</strong>
   <% if @itinerary_activity.attraction != nil %> 
-    <%= link_to @itinerary_activity.attraction.name, @itinerary_activity.attraction %>
+    <%= link_to @itinerary_activity.attraction.name, @itinerary_activity.attraction%>
   <% end %>
 </p>
 
@@ -21,6 +21,9 @@
   <strong>Origination:</strong>
   <% if @itinerary_activity.origination_id != nil %> 
     <%= @itinerary_activity.origination %>
+  <% end %>
+  <% if @itinerary_activity.airline_id != nil %> 
+    <br/><%= image_tag @itinerary_activity.airline.image, height: '20' %>
   <% end %>
 </p>
 

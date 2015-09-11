@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :airlines
+
+  resources :loyalty_programs
+
   get 'sessions/login'
 
   get 'sessions/home'
