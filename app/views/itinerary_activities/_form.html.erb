@@ -48,8 +48,8 @@
     <% end %>
   </div>
   <div class="field">
-    <%= f.label :airline_id %><br>
-    <% if @itinerary_activity.destination_id != nil %>
+    Airine/Operated By:<br>
+    <% if @itinerary_activity.airline_id != nil %>
       <%= f.select :airline_id, options_from_collection_for_select(Airline.all, :id, :name, @itinerary_activity.airline_id), :include_blank => true %>
     <% else %>
       <%= f.select :airline_id, options_from_collection_for_select(Airline.all, :id, :name), :include_blank => true %>

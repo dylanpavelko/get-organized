@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :loyalty_program_id %><br>
-    <% if @activity_has_inventory_item != nil %>
+    <% if @airline.loyalty_program_id != nil %>
       <%= f.select :loyalty_program_id, options_from_collection_for_select(LoyaltyProgram.all, :id, :name, @airline.loyalty_program_id), :include_blank => true %>
     <% else %>
       <%= f.select :loyalty_program_id, options_from_collection_for_select(LoyaltyProgram.all, :id, :name), :include_blank => true %>
