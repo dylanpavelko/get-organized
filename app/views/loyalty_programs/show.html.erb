@@ -21,6 +21,26 @@
 <% end %>
 
 <p>
+  <strong>Members:</strong>
+    <ul>
+  <% @hotel_chains.each do |chain| %>
+  	<li>
+  		<% if chain.image == '' %>
+	  		<%= link_to(chain.name, chain) %> - 
+	  	<% else %>
+	  		<%= link_to image_tag(chain.image, width: '75'), chain %>
+	  	<% end %>
+  	</li>
+  <% end %>
+  <% @airlines.each do |airline| %>
+  	<li>
+			<%= link_to image_tag(airline.image, height: '75'), airline %>
+  	</li>
+  <% end %>
+  </ul>
+</p>
+
+<p>
   <strong>Recent Activity:</strong><br/>
   <ul>
   <% @recent_activity.each do |activity| %>
@@ -37,4 +57,4 @@
 </p>
 
 <%= link_to 'Edit', edit_loyalty_program_path(@loyalty_program) %> |
-<%= link_to 'Back', loyalty_programs_path %>
+<%= link_to 'All Loyalty Programs', loyalty_programs_path %>

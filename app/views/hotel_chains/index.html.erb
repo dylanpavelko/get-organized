@@ -1,22 +1,33 @@
-<h1>Listing hotel_chains</h1>
+<h1>Hotel Chains</h1>
 
 <table>
   <thead>
     <tr>
       <th>Name</th>
       <th>Loyalty program</th>
-      <th>Image</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @hotel_chains.each do |hotel_chain| %>
       <tr>
-        <td><%= hotel_chain.name %></td>
-        <td><%= hotel_chain.loyalty_program %></td>
-        <td><%= hotel_chain.image %></td>
-        <td><%= link_to 'Show', hotel_chain %></td>
+        <td>
+          <% if hotel_chain.image != '' %>
+            <%= link_to image_tag(hotel_chain.image, width:'200'), hotel_chain %>
+          <% else %>
+            <%= link_to hotel_chain.name, hotel_chain %>
+          <% end %>
+        </td>
+        <td>
+          <% if hotel_chain.loyalty_program != nil %>
+          <% if hotel_chain.loyalty_program.image != '' %>
+            <%= link_to image_tag(hotel_chain.loyalty_program.image, width:'200'), hotel_chain.loyalty_program %>
+          <% else %>
+            <%= link_to hotel_chain.loyalty_program.name, hotel_chain.loyalty_program %>
+          <% end %>
+        <% end %>
+        </td>
         <td><%= link_to 'Edit', edit_hotel_chain_path(hotel_chain) %></td>
         <td><%= link_to 'Destroy', hotel_chain, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
