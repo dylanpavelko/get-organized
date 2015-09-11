@@ -1,4 +1,7 @@
 class TripHasInventoryItemsController < ApplicationController
+  before_filter :authenticate_user
+  before_filter :authorized_only
+
   before_action :set_trip_has_inventory_item, only: [:show, :edit, :update, :destroy]
 
   # GET /trip_has_inventory_items

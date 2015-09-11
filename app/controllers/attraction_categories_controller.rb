@@ -1,4 +1,7 @@
 class AttractionCategoriesController < ApplicationController
+  before_filter :authenticate_user
+  before_filter :authorized_only
+
   before_action :set_attraction_category, only: [:show, :edit, :update, :destroy]
 
   # GET /attraction_categories

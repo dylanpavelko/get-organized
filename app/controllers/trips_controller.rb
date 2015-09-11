@@ -1,5 +1,9 @@
 class TripsController < ApplicationController
+  before_filter :authenticate_user
+  before_filter :authorized_only
+
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
+
   require 'date'
 
   # GET /trips

@@ -1,4 +1,7 @@
 class ActivityHasExerciseCentersController < ApplicationController
+  before_filter :authenticate_user
+  before_filter :authorized_only
+
   before_action :set_activity_has_exercise_center, only: [:show, :edit, :update, :destroy]
 
   # GET /activity_has_exercise_centers

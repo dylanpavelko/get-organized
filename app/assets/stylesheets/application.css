@@ -21,3 +21,14 @@ body{
 	background-color: white;
 }
 
+
+div#profile{
+	float: right;
+	padding-right:1em;
+	vertical-align: text-top;
+}
+
+.profile_header{
+	border-radius: 50%;
+	height:30px;
+}

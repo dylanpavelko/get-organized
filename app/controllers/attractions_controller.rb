@@ -1,4 +1,7 @@
 class AttractionsController < ApplicationController
+  before_filter :authenticate_user
+  before_filter :authorized_only
+
   before_action :set_attraction, only: [:show, :edit, :update, :destroy]
 
   # GET /attractions

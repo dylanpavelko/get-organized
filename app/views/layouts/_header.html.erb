@@ -7,7 +7,14 @@
 <%= link_to 'Inventory Items', inventory_items_path %>
 <%= link_to 'Activities', activities_path %>
 <%= link_to 'Exercise Centers', exercise_centers_path %>
-<span id='profile'>
-
-</span>
+<div id='profile'>
+<% if @current_user!=nil%>
+		<img src= <%= @current_user.picture %> class="profile_header">
+		<%= @current_user.username %>   
+		<%= link_to 'Log Out', logout_path %>
+	<% else %>
+		<%= link_to 'Log In', sessions_login_path %> or 
+		<%= link_to 'Sign Up', users_new_path %>
+	<%end%>
+</div>
 </div>

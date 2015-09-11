@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get 'sessions/login'
+
+  get 'sessions/home'
+
+  get 'sessions/profile'
+
+  get 'sessions/setting'
+
+  get 'users/new'
+
   resources :locations
 
   resources :itinerary_activities
@@ -27,7 +37,25 @@ Rails.application.routes.draw do
 
   resources :inventory_items
 
+  resources :users
+
+  
+  get 'sessions/login'
+  post 'sessions/login'
+  get "logout" => "sessions#logout"
+  get 'sessions/home'
+
+  get 'sessions/profile'
+
+  get 'sessions/setting'
+
+  get 'users/new'
+
+  post ':controller(/:action(/:id))(.:format)'
+
   get 'welcome/index'
+
+  root 'welcome#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
