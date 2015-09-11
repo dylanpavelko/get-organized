@@ -23,6 +23,14 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <%= f.label :location_id %><br>
+    <% if @attraction != nil %>
+      <%= f.select :location_id, options_from_collection_for_select(Location.all, :id, :display_name, @attraction.location_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :location_id, options_from_collection_for_select(Location.all, :id, :display_name), :include_blank => true %>
+    <% end %>
+  </div>  
+  <div class="field">
     <%= f.label :trip_advisor_link %><br>
     <%= f.text_field :trip_advisor_link %>
   </div>

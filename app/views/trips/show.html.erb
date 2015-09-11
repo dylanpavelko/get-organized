@@ -39,7 +39,9 @@
           <%= activity.datetime.strftime("%I:%M %p - ") %>
           <%= link_to activity.get_name, activity %> 
           <% if activity.airline_id != nil %> 
-            <%= image_tag activity.airline.image, height: '12' %>
+            <%= link_to image_tag(activity.airline.image, height: '12'), activity.airline %>
+          <% elsif activity.attraction != nil and activity.attraction.hotel != nil%>
+            <%= link_to image_tag(activity.attraction.hotel.image, height: '12'), activity.attraction.hotel %>
           <% end %>
           <%= link_to 'edit', edit_itinerary_activity_path(activity) %>
         </li>

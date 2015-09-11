@@ -12,7 +12,11 @@
 <p>
   <strong>Loyalty program:</strong>
   <% if @hotel_chain.loyalty_program != nil %> 
-    <%= link_to image_tag(@hotel_chain.loyalty_program.image, height: '30'), @hotel_chain.loyalty_program %>
+    <% if @hotel_chain.loyalty_program.image != '' %>
+    	<%= link_to image_tag(@hotel_chain.loyalty_program.image, height: '30'), @hotel_chain.loyalty_program %>
+    <% else %>
+    	<%= link_to @hotel_chain.loyalty_program.name, @hotel_chain.loyalty_program %>
+    <% end %>
   <% end %>
 </p>
 
