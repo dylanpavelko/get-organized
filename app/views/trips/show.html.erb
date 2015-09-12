@@ -20,6 +20,7 @@
 
 </p>
 
+<!-- LIST FORMAT OF ITINERARY
 <p>
   <strong>Itinerary:</strong>
   <% if @days.count > 0 %>
@@ -45,17 +46,19 @@
   </ul>
   <a href='#'>Add Itinerary Activity</a>  <%= link_to 'Temporary Add Activity' , new_itinerary_activity_path %>
 <% end %>
-</p>
+</p> -->
 
 
 <strong>Itinerary:</strong>
 <% if @days.count > 0 %>
-  Days: <%= @days.count %>
+  Days(<%= @days.count %>)
 <div class='container'>
 <div class='schedule'>
   <span class='travel_header'><strong>Travel</strong></span>
   <span class='lodging_header'><strong>Lodging</strong></span>
   <span class='activity_header'><strong>Activities</strong></span>
+  <span class='activity_header'><strong>Dining</strong></span>
+  <span class='activity_header'><strong>Pack</strong></span>
   <% activity_count = 0 %>
   <% @days.each do |day| %>
       <% day.each do |activity| %>
