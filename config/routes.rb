@@ -39,6 +39,8 @@ Rails.application.routes.draw do
 
   resources :trips
 
+  post 'trips/add_item' => 'trips#add_item_to_trip'
+
   resources :activity_has_inventory_items
 
   resources :activities

@@ -64,6 +64,17 @@ class TripHasInventoryItemsController < ApplicationController
     end
   end
 
+  # DELETE /trip_has_inventory_items/1
+  # DELETE /trip_has_inventory_items/1.json
+  def remove
+    @trip_has_inventory_item.destroy
+    render :nothing
+    # respond_to do |format|
+    #   format.html { redirect_to trip_has_inventory_items_url, notice: 'Trip has inventory item was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_trip_has_inventory_item
@@ -72,6 +83,6 @@ class TripHasInventoryItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trip_has_inventory_item_params
-      params.require(:trip_has_inventory_item).permit(:trip_id, :inventory_item_id)
+      params.require(:trip_has_inventory_item).permit(:trip_id, :inventory_item_id, :date, :amount)
     end
 end

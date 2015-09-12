@@ -12,7 +12,7 @@
   <tbody>
     <% @trip_has_inventory_items.each do |trip_has_inventory_item| %>
       <tr>
-        <td><%= link_to trip_has_inventory_item.trip.name , trip_has_inventory_item.trip%></td>
+        <td><% if trip_has_inventory_item.trip != nil %><%= link_to trip_has_inventory_item.trip.name , trip_has_inventory_item.trip%><% end %></td>
         <td><%= link_to trip_has_inventory_item.inventory_item.full_name , trip_has_inventory_item.inventory_item%></td>
         <td><%= link_to 'Show', trip_has_inventory_item %></td>
         <td><%= link_to 'Edit', edit_trip_has_inventory_item_path(trip_has_inventory_item) %></td>

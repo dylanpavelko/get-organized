@@ -119,6 +119,15 @@ class TripsController < ApplicationController
     end
   end
 
+  def add_item_to_trip
+    @trip_has_inventory_item = TripHasInventoryItem.new(:trip_id => params[:trip_id],
+                                                        :inventory_item_id => params[:inventory_item_id],
+                                                        :amount => params[:amount])
+    @trip_has_inventory_item.save
+    @response = [@trip_has_inventory_item.inventory_item.name, @trip_has_inventory_item.inventory_item_id]
+    render json: @response
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_trip
@@ -128,5 +137,10 @@ class TripsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def trip_params
       params.require(:trip).permit(:name, :description, :blog_link, :photo_link, :tripit_link)
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def trip_has_inventory_item_params
+      params.require(:trip_has_inventory_item).permit(:trip_id, :inventory_item_id, :date, :amount)
     end
 end

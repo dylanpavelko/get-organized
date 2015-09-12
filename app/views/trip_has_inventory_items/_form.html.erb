@@ -27,6 +27,14 @@
       <%= f.select :inventory_item_id, options_from_collection_for_select(InventoryItem.all, :id, :full_name), :include_blank => true %>
     <% end %>
   </div>
+  <div class="field">
+    Date:<br>
+    <%= f.date_select :date, :include_blank => true %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br>
+    <%= f.text_field :amount %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

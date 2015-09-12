@@ -125,17 +125,37 @@
     <% @trip_items.each do |item| %>
       <li><%= link_to item.inventory_item.full_name, item.inventory_item %> <a href='#'>remove</a></li>
     <% end %>
+    <li><span id="newItem"><button id='addItem'>+ Add Item</button></span></li>
   </ul>
   <% end %>
-  <a href='#'>Add Item</a>  <%= link_to 'Temporary Add Item' , new_trip_has_inventory_item_path %>
+  <%= link_to 'Temporary Add Item' , new_trip_has_inventory_item_path %>
 
 </p>
 </div>
 <div>
 
 
-
-</script>
-
 <%= link_to 'Edit', edit_trip_path(@trip) %> |
 <%= link_to 'All Trips', trips_path %>
+
+
+<script type="text/javascript">
+$('#addItem').click(function(){
+    addRow();
+});
+
+function addRow(){
+  $('#newItem').html("<%= j render 'trip_has_inventory_items/add_item_to_trip' %>");
+}
+
+function addItem(){
+    var trip_id = <%= @trip.id %>;
+    var item_id = $('#inventory_item_id').children(":selected").attr("value");
+    var amount = $('#trip_has_inventory_item_amount').val();
+    var new_item = $.ajax({url: "add_item", type: "POST", data: {'trip_id': trip_id ,'inventory_item_id': item_id, 'amount': amount}, dataType: 'json'}).done(function(data){ console.log(data);
+      $('#newItem').before("<li><a href='/inventory_items/"+data[1]+"'>" + data[0] + "</a> <a href='#'>remove</a></li>");
+      $('#newItem').html("<li><span id='newItem'><button id='addItem' onclick='addRow()''>+ Add Item</button></span></li>");
+
+     });
+}
+</script>

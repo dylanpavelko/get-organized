@@ -1,0 +1,11 @@
+
+  <div class="field">
+    <%= select_tag :inventory_item_id, options_from_collection_for_select(InventoryItem.all, :id, :full_name), :include_blank => true %>
+    Amount: <%= text_field :trip_has_inventory_item, :amount %>
+    For Date:
+    <%= date_select :date, :include_blank => true %>
+  </div>
+  <div>
+    <button id='addItemToTrip' onclick="addItem()">+ Add Item</button>
+  </div>
+
