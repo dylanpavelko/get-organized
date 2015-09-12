@@ -17,7 +17,9 @@ Rails.application.routes.draw do
 
   resources :locations
 
-  resources :itinerary_activities
+  resources :itinerary_activities do
+    resources :tasks
+  end
 
   resources :attractions
 

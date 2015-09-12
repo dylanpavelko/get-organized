@@ -17,7 +17,7 @@ class ItineraryActivitiesController < ApplicationController
 
   # GET /itinerary_activities/new
   def new
-    @itinerary_activity = ItineraryActivity.new
+    @itinerary_activity = ItineraryActivity.new(:trip_id => params[:format])
   end
 
   # GET /itinerary_activities/1/edit
