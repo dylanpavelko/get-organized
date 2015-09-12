@@ -55,7 +55,7 @@
 <br/>
  <em>Unscheduled Activities</em><br/>
   <% @no_date_activities.each do |activity| %>
-    <%= link_to activity.get_name, activity %><br/>
+    <%= link_to activity.get_name, activity %> <%= link_to 'edit', edit_itinerary_activity_path(activity) %><br/>
   <% end %>
 <% end %>
 <% if @days.count > 0 %>
