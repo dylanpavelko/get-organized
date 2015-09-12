@@ -41,6 +41,8 @@ class TripsController < ApplicationController
           end
 
 
+     @itinerary_rows = @itinerary_rows.sort_by {|obj| obj.datetime}
+
      @days = Array.new
      @activities=Array.new
      @no_date_activities = Array.new
