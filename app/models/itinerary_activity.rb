@@ -22,6 +22,12 @@ class ItineraryActivity < ActiveRecord::Base
   	end
   end
 
+  def pair
+    if self.end != nil
+      return "pair"
+    end
+  end
+
   def origination
   	Location.where(:id => self.origination_id).first.display_name
   end
@@ -39,7 +45,8 @@ class ItineraryActivity < ActiveRecord::Base
         :attraction => self.attraction, 
         :location => self.origination_id, 
         :name => self.name,
-        :airline => self.airline)
+        :airline => self.airline,
+        :pair => self.pair)
     end
     if self.end !=nil
       @row << ItineraryRow.new(:activity => self, 
@@ -48,7 +55,8 @@ class ItineraryActivity < ActiveRecord::Base
         :attraction => self.attraction, 
         :location => self.destination_id, 
         :name => self.name,
-        :airline => self.airline)
+        :airline => self.airline,
+        :pair => "end")
     end
     return @row
   end
@@ -64,6 +72,7 @@ class ItineraryRow
   attr_accessor :start
   attr_accessor :activity
   attr_accessor :airline
+  attr_accessor :pair
 
  def initialize(attributes = {})
     attributes.each do |name, value|

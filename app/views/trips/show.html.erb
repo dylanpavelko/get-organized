@@ -65,31 +65,43 @@
   <span class='activity_header'><strong>Pack</strong></span>
   <% activity_count = 0 %>
   <% @days.each do |day| %>
-      <% day.each do |activity| %>
-        <% if activity == day.first %>
+      <% day.each do |row| %>
+        <% if row == day.first %>
         <div class='day' id=<%= 'day' + (@days.index(day)+1).to_s %>>
-          <span class='datename'><strong><%= activity.date %></strong></span>
+          <span class='datename'><strong><%= row.date %></strong></span>
 
         <% end %>
         <div class=
-        <% if activity.attraction != nil and activity.attraction.attraction_category != nil and activity.attraction.attraction_category.name == "Hotel" %>
+        <% if row.attraction != nil and row.attraction.attraction_category != nil and row.attraction.attraction_category.name == "Hotel" %>
           "item lodging"
-        <% elsif activity.airline != nil %>
+        <% elsif row.airline != nil %>
           "item travel"
         <% else %>
           "item activity"
         <% end %>
         id=<%= activity_count = activity_count + 1 %>>
-          <%= activity.datetime.try(:strftime, "%I:%M %p - ") %>
-                <% if activity.airline != nil %> 
-                   <%= link_to image_tag(activity.airline.image, height: '12'), activity.airline %>
-                <% elsif activity.attraction != nil and activity.attraction.hotel != nil%>
-                  <%= link_to image_tag(activity.attraction.hotel.image, height: '12'), activity.attraction.hotel %>
-                <% end %>
+          <%= row.datetime.try(:strftime, "%I:%M %p ") %>
                 <br/>
-                <%= link_to activity.get_name, activity.activity %> 
-                <%= link_to 'edit', edit_itinerary_activity_path(activity.activity) %>
+                <%= link_to row.get_name, row.activity %> 
+                <%= link_to 'edit', edit_itinerary_activity_path(row.activity) %>
         </div>
+        <% if row.pair == "pair" %>
+          <div class=
+          <% if row.attraction != nil and row.attraction.attraction_category != nil and row.attraction.attraction_category.name == "Hotel" %>
+            "lodging_connector"
+          <% elsif row.airline != nil %>
+            "travel_connector"
+          <% else %>
+            "item activity"
+          <% end %> 
+          >
+            <% if row.airline != nil %> 
+                   <%= link_to image_tag(row.airline.image, height: '12'), row.airline %>
+                <% elsif row.attraction != nil and row.attraction.hotel != nil%>
+                  <%= link_to image_tag(row.attraction.hotel.image, height: '12'), row.attraction.hotel %>
+                <% end %>
+          </div>
+        <% end %>
       <% end %>
               </div>
     <% end %>

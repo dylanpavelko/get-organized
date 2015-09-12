@@ -25,10 +25,14 @@
 
 .travel{
 	margin-left: 250px;
+	z-index: 1;
+	position: relative;
 }
 
 .lodging{
 	margin-left: 470px;
+	z-index: 1;
+	position: relative;
 }
 
 .activity{
@@ -49,4 +53,35 @@
 
 .datename{
 	position: absolute;
+}
+
+.travel_connector{
+
+	background-color:white;
+	border-radius:4px;
+	padding: .5em;
+	padding-top: .75em;
+	margin: .5em;
+	border: 1px solid black;
+	width: 170px;
+	margin-left: 265px;
+	margin-top: -10px;
+	margin-bottom: -10px;
+	position: relative;
+	z-index:0;
+}
+
+.lodging_connector{
+
+	background-color:white;
+	border-radius:4px;
+	padding: .5em;
+	margin: .5em;
+	border: 1px solid black;
+	width: 170px;
+	margin-left: 485px;
+	margin-top: -10px;
+	margin-bottom: -10px;
+	position: relative;
+	z-index:0;
 }
