@@ -64,7 +64,7 @@
       <% day.each do |activity| %>
         <% if activity == day.first %>
         <div class='day' id=<%= 'day' + (@days.index(day)+1).to_s %>>
-          <strong><%= activity.date %></strong>
+          <span class='datename'><strong><%= activity.date %></strong></span>
 
         <% end %>
         <div class=
@@ -82,6 +82,7 @@
                 <% elsif activity.attraction != nil and activity.attraction.hotel != nil%>
                   <%= link_to image_tag(activity.attraction.hotel.image, height: '12'), activity.attraction.hotel %><br/>
                 <% end %>
+                <br/>
                 <%= link_to activity.get_name, activity %> 
                 <%= link_to 'edit', edit_itinerary_activity_path(activity) %>
         </div>
