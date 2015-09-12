@@ -4,33 +4,45 @@
 
 
 .day{
-	background: -webkit-linear-gradient(#DDD, white, white); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#DDD, white, white); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#DDD, white, white); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#DDD, white, white); /* Standard syntax (must be last) */
+	background: -webkit-linear-gradient(white, white, #EEE); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, white, #EEE); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, white, #EEE); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, white, #EEE); /* Standard syntax (must be last) */
 	margin: 1em;
 	padding: .5em;
-	position:absolute;
-}
-
-.activityTest{
-	background-color:green;
-	position: absolute;
+	width: 98%;
 }
 
 .item{
 	background-color:white;
-	position: absolute;
 	border-radius:4px;
 	padding: .5em;
 	margin: .5em;
 	border: 1px solid black;
+	margin-left: 250px;
+	width: 200px;
 }
 
-.schedule{
-	position: absolute;
+.travel{
+	margin-left: 250px;
 }
 
-.container{
-	position: relative;
+.lodging{
+	margin-left: 470px;
+}
+
+.activity{
+	margin-left: 720px;
+}
+
+.travel_header{
+	margin-left: 340px;
+}
+
+.lodging_header{
+	margin-left: 180px;
+}
+
+.activity_header{
+	margin-left: 160px;
 }
