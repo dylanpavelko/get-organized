@@ -4,6 +4,7 @@ class Trip < ActiveRecord::Base
 
   def first_date
   	@activities = ItineraryActivity.where(:trip_id => self.id).order(:datetime)
+    @activities = @activities.reject {|x| x.datetime == nil}
   	if @activities.count > 0 
   		return @activities.first.date
   	else
@@ -13,6 +14,7 @@ class Trip < ActiveRecord::Base
 
   def last_date
   	@activities = ItineraryActivity.where(:trip_id => self.id).order(:datetime)
+    @activities = @activities.reject {|x| x.datetime == nil}
   	if @activities.count > 0 
   		return @activities.last.date
   	else
