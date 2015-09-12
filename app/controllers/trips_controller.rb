@@ -29,14 +29,17 @@ class TripsController < ApplicationController
   def show
 
      @trip_items = TripHasInventoryItem.where(:trip_id => @trip)
+     
      @trip_activities = ItineraryActivity.where(:trip_id => @trip).order(:datetime)
-
-      @itinerary_rows = Array.new
+     @no_date_activities = Array.new
+     @itinerary_rows = Array.new
           @trip_activities.each do |activity|
             if activity.datetime != nil
               activity.get_itinerary_rows.each do |row|
                 @itinerary_rows << row
               end
+            else
+              @no_date_activities << activity
             end
           end
 
@@ -45,7 +48,7 @@ class TripsController < ApplicationController
 
      @days = Array.new
      @activities=Array.new
-     @no_date_activities = Array.new
+     
      @itinerary_rows.each do |activity| 
        if(activity.date != nil)
           if (@activities.count == 0 ) or (@activities.last.date == activity.date)

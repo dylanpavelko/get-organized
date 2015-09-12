@@ -51,11 +51,14 @@
 
 
 <strong>Itinerary:</strong>
-<% @no_date_activities.each do |activity| %>
--No Date: <%= activity.get_name %><br/>
+ <% if @no_date_activities.count > 0 %>
+<br/>
+ <em>Unscheduled Activities</em><br/>
+  <% @no_date_activities.each do |activity| %>
+    <%= link_to activity.get_name, activity %><br/>
+  <% end %>
 <% end %>
 <% if @days.count > 0 %>
-  Days(<%= @days.count %>)
 <div class='container'>
 <div class='schedule'>
   <span class='travel_header'><strong>Travel</strong></span>
