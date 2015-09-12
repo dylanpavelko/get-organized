@@ -30,21 +30,39 @@ class TripsController < ApplicationController
 
      @trip_items = TripHasInventoryItem.where(:trip_id => @trip)
      @trip_activities = ItineraryActivity.where(:trip_id => @trip).order(:datetime)
+
+      @itinerary_rows = Array.new
+          @trip_activities.each do |activity|
+            if activity.datetime != nil
+              activity.get_itinerary_rows.each do |row|
+                @itinerary_rows << row
+              end
+            end
+          end
+
+
      @days = Array.new
      @activities=Array.new
-     @trip_activities.each do |activity| 
-     puts "test" 
-     puts activity.name
-      if (@activities.count == 0 ) or (@activities.last.date == activity.date)
-        @activities << activity
-      else
-        @days << @activities
-        @activities = Array.new
-        @activities << activity
+     @no_date_activities = Array.new
+     @itinerary_rows.each do |activity| 
+       if(activity.date != nil)
+          if (@activities.count == 0 ) or (@activities.last.date == activity.date)
+            @activities << activity
+          else
+            @days << @activities
+            @activities = Array.new
+            @activities << activity
 
+          end
+      else
+        @no_date_activities << activity
       end
-     end
+    end
      @days << @activities
+
+
+
+    
   end
 
   # GET /trips/new
@@ -74,7 +92,7 @@ class TripsController < ApplicationController
 
   # PATCH/PUT /trips/1
   # PATCH/PUT /trips/1.json
-  def update
+  def update 
     respond_to do |format|
       if @trip.update(trip_params)
         format.html { redirect_to @trip, notice: 'Trip was successfully updated.' }

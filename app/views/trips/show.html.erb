@@ -33,8 +33,8 @@
         <% end %>
         <li> 
           <%= activity.datetime.strftime("%I:%M %p - ") %>
-          <%= link_to activity.get_name, activity %> 
-          <% if activity.airline_id != nil %> 
+          <%= link_to activity.get_name, activity.activity %> 
+          <% if activity.airline != nil %> 
             <%= link_to image_tag(activity.airline.image, height: '12'), activity.airline %>
           <% elsif activity.attraction != nil and activity.attraction.hotel != nil%>
             <%= link_to image_tag(activity.attraction.hotel.image, height: '12'), activity.attraction.hotel %>
@@ -49,7 +49,11 @@
 </p> -->
 
 
+
 <strong>Itinerary:</strong>
+<% @no_date_activities.each do |activity| %>
+-No Date: <%= activity.get_name %><br/>
+<% end %>
 <% if @days.count > 0 %>
   Days(<%= @days.count %>)
 <div class='container'>
@@ -70,21 +74,21 @@
         <div class=
         <% if activity.attraction != nil and activity.attraction.attraction_category != nil and activity.attraction.attraction_category.name == "Hotel" %>
           "item lodging"
-        <% elsif activity.airline_id != nil %>
+        <% elsif activity.airline != nil %>
           "item travel"
         <% else %>
           "item activity"
         <% end %>
         id=<%= activity_count = activity_count + 1 %>>
-          <%= activity.datetime.strftime("%I:%M %p ") %>
-                <% if activity.airline_id != nil %> 
-                   <%= link_to image_tag(activity.airline.image, height: '12'), activity.airline %><br/>
+          <%= activity.datetime.try(:strftime, "%I:%M %p - ") %>
+                <% if activity.airline != nil %> 
+                   <%= link_to image_tag(activity.airline.image, height: '12'), activity.airline %>
                 <% elsif activity.attraction != nil and activity.attraction.hotel != nil%>
-                  <%= link_to image_tag(activity.attraction.hotel.image, height: '12'), activity.attraction.hotel %><br/>
+                  <%= link_to image_tag(activity.attraction.hotel.image, height: '12'), activity.attraction.hotel %>
                 <% end %>
                 <br/>
-                <%= link_to activity.get_name, activity %> 
-                <%= link_to 'edit', edit_itinerary_activity_path(activity) %>
+                <%= link_to activity.get_name, activity.activity %> 
+                <%= link_to 'edit', edit_itinerary_activity_path(activity.activity) %>
         </div>
       <% end %>
               </div>

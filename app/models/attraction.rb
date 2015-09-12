@@ -7,4 +7,12 @@ class Attraction < ActiveRecord::Base
   		self.trip_advisor_link.split('-d')[1].split('-').first
   	end
   end
+
+  def hotel?
+  	if self.attraction_category != nil and self.attraction_category.name == "Hotel"
+  		return true
+  	else
+  		return false
+  	end
+  end
 end

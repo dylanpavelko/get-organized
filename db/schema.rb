@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150911062821) do
+ActiveRecord::Schema.define(version: 20150912051137) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(version: 20150911062821) do
     t.integer  "origination_id"
     t.integer  "destination_id"
     t.integer  "airline_id"
+    t.datetime "end"
   end
 
   add_index "itinerary_activities", ["airline_id"], name: "index_itinerary_activities_on_airline_id"

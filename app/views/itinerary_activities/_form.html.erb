@@ -64,8 +64,12 @@
     <%= f.text_field :basis_id %>
   </div>
   <div class="field">
-    <%= f.label :datetime %><br>
+    Date & Time:<br>
     <%= f.datetime_select :datetime, :include_blank => true, ampm: true %>
+  </div>
+  <div class="field">
+    Ends:<br>
+    <%= f.datetime_select :end, :include_blank => true, ampm: true %>
   </div>
   <div class="field">
     <%= f.label :order %><br>
