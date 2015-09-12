@@ -112,7 +112,32 @@
   </table>
     <a href='#'>Add Itinerary Activity</a>  <%= link_to 'Temporary Add Activity' , new_itinerary_activity_path %>
 <% end %>
-
+<br/><br/><br/>
+<div class='container'>
+<div class='schedule'>
+  <% activity_count = 0 %>
+  <% @days.each do |day| %>
+      <% day.each do |activity| %>
+        <% if activity == day.first %>
+        <div class='day' id=<%= 'day' + (@days.index(day)+1).to_s %>>
+          <strong><%= activity.date %></strong>
+        </div>
+        <% end %>
+        <div class='item' id=<%= activity_count = activity_count + 1 %>>
+          <%= activity.datetime.strftime("%I:%M %p - ") %>
+                <% if activity.airline_id != nil %> 
+                  <%= link_to image_tag(activity.airline.image, height: '12'), activity.airline %>
+                <% elsif activity.attraction != nil and activity.attraction.hotel != nil%>
+                  <%= link_to image_tag(activity.attraction.hotel.image, height: '12'), activity.attraction.hotel %>
+                <% end %>
+                <%= link_to activity.get_name, activity %> 
+                <%= link_to 'edit', edit_itinerary_activity_path(activity) %>
+        </div>
+      <% end %>
+    <% end %>
+</div>
+</div>
+<div>
 <p>
   <strong>Pack List:</strong>
   <% if @trip_items.count > 0 %>
@@ -125,6 +150,67 @@
   <a href='#'>Add Item</a>  <%= link_to 'Temporary Add Item' , new_trip_has_inventory_item_path %>
 
 </p>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    
+    //get all itinerary items and position them
+    $activities = $('.item');
+    $activities.each(function(){
+      positionItem(this);
+    });
+
+    //get all days and stretch them to size
+    var $days = $('.day');
+    $days.each(function(){
+      //gets first item in day
+      $first = $(this).next();
+      //gets last item in day
+      if($days.index(this) == $days.size()){ //if the activity is the same as the total number of activities
+        $lastTop    = $('.schedule').children().last().position().top;
+        $lastHeight = $('.schedule').children().last().height();
+      }else if($days.index(this) == ($days.size() - 1)){
+        $nextDayNumber = $days.index(this) + 1;
+        $lastTop    = $('#day' + $nextDayNumber).next().position().top;
+        $lastHeight = $('#day' + $nextDayNumber).next().height();
+      }else{
+        $nextDayNumber = $days.index(this) + 2;
+        $lastTop    = $('#day' + $nextDayNumber).prev().position().top;
+        $lastHeight = $('#day' + $nextDayNumber).prev().height();
+      }
+      //size day
+      stretchDay(this, $first, $lastTop, $lastHeight);
+    });
+  });
+
+  function positionItem(item){
+      var activity_number = parseInt($(item).attr('id'));
+      if(activity_number == 1){
+        var top = '0';
+      }else{
+        activity_number = activity_number -1;
+        var $divTop = $('#' + activity_number);
+        var top = $divTop.position().top + $divTop.outerHeight() + 2;
+      }
+      
+      $(item).css('top', top);
+      $(item).css('left', 250);
+      $(item).css('width', 300);
+  }
+
+  function stretchDay(day, $firstItem, $lastTop, $lastHeight){
+      var top = $firstItem.position().top -7;
+console.log('top' + top + ' lastTop' + $lastTop + " lastheight" + $lastHeight);
+      //top + bottom - top
+      var height = $lastTop + $lastHeight - top;//$lastItem.position().top;//$firstItem.position().top;//+ $lastItem.position().top;//($lastItem.position().top );//+ $lastItem.height()) - $firstItem.position().top;
+      $(day).css('height', height);
+      $(day).css('top', top);
+      // $(item).css('left', 650);
+       $(day).css('width', 800);
+  }
+
+</script>
 
 <%= link_to 'Edit', edit_trip_path(@trip) %> |
 <%= link_to 'All Trips', trips_path %>
