@@ -11,12 +11,12 @@
         <% if  @inventory_item.category != nil and  @inventory_item.subcategory != nil %>
            <%= @inventory_item.category.category + " > " + @inventory_item.subcategory.subcategory + ": " %>
         <% elsif @inventory_item.category != nil %>
-            <%= @inventory_item.category.category ": "%>
+            <%= @inventory_item.category.category + ": "%>
         <% end %>
       </em>
-        <strong>
+        <h3>
           <%= @inventory_item.name %>
-        </strong>
+        </h3>
       </p>
       <p>
         <strong>Brand:</strong>
@@ -31,25 +31,18 @@
     </td>
   </tr>
 </table>
-
-
+<p>
+  <strong>Note:</strong>
+  <%= @inventory_item.note %>
+</p>
 
 <%= link_to 'Add to My Inventory', new_inventory_owner_path(@inventory_item) %>
-
-<p>
-  <strong>Consumable:</strong>
-  <%= @inventory_item.consumable %>
-</p>
 
 <p>
   <strong>Purchased Price:</strong>
   <%= @inventory_item.price %>
 </p>
 
-<p>
-  <strong>Note:</strong>
-  <%= @inventory_item.note %>
-</p>
 
 <% if @trip_items.count > 0 %>
 <p>
