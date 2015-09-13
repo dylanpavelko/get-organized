@@ -55,8 +55,11 @@ class InventoryItemsController < ApplicationController
   # POST /inventory_items.json
   def create
     @inventory_item = InventoryItem.new(inventory_item_params)
-
     respond_to do |format|
+      if params[:person_id] != nil
+        @owernship = InventoryOwner.new(:inventory_item => @inventory_item, :person_id => params[:person_id])
+        @owernship.save
+      end
       if @inventory_item.save
         format.html { redirect_to @inventory_item, notice: 'Inventory item was successfully created.' }
         format.json { render :show, status: :created, location: @inventory_item }
@@ -99,6 +102,7 @@ class InventoryItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through. 
     def inventory_item_params
-      params.require(:inventory_item).permit(:name, :amazon_link, :quantity_type_id, :consumable, :price, :purchase_date, :note, :detail, :brand, :category_id, :subcategory_id)
+      params.require(:inventory_item).permit(:name, :amazon_link, :quantity_type_id, :consumable, :price, :purchase_date,
+       :note, :detail, :brand, :category_id, :subcategory_id, :person_id)
     end
 end
