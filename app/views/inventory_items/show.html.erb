@@ -1,20 +1,38 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <em>
-  <% if  @inventory_item.category != nil and  @inventory_item.subcategory != nil %>
-     <%= @inventory_item.category.category + " > " + @inventory_item.subcategory.subcategory + ": " %>
-  <% elsif @inventory_item.category != nil %>
-      <%= @inventory_item.category.category ": "%>
-  <% end %>
-</em>
-  <strong>
-    <%= @inventory_item.name %>
-  </strong>
-</p>
-<p>
-  <%=raw @inventory_item.amazon_link %>
-</p>
+<table>
+  <tr>
+    <td>
+        <%=raw @inventory_item.amazon_link %>
+    </td>
+    <td valign='top'>
+      <p>
+        <em>
+        <% if  @inventory_item.category != nil and  @inventory_item.subcategory != nil %>
+           <%= @inventory_item.category.category + " > " + @inventory_item.subcategory.subcategory + ": " %>
+        <% elsif @inventory_item.category != nil %>
+            <%= @inventory_item.category.category ": "%>
+        <% end %>
+      </em>
+        <strong>
+          <%= @inventory_item.name %>
+        </strong>
+      </p>
+      <p>
+        <strong>Brand:</strong>
+        <%= @inventory_item.brand %>
+      </p>
+      <p>
+        <strong>Detail:</strong>
+        <%= @inventory_item.detail %>
+      </p>
+
+
+    </td>
+  </tr>
+</table>
+
+
 
 <%= link_to 'Add to My Inventory', new_inventory_owner_path(@inventory_item) %>
 
@@ -33,15 +51,6 @@
   <%= @inventory_item.note %>
 </p>
 
-<p>
-  <strong>Detail:</strong>
-  <%= @inventory_item.detail %>
-</p>
-
-<p>
-  <strong>Brand:</strong>
-  <%= @inventory_item.brand %>
-</p>
 <% if @trip_items.count > 0 %>
 <p>
   <strong>Packed for Trips:</strong>
