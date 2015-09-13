@@ -97,7 +97,7 @@ class InventoryItemsController < ApplicationController
       @inventory_item = InventoryItem.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Never trust parameters from the scary internet, only allow the white list through. 
     def inventory_item_params
       params.require(:inventory_item).permit(:name, :amazon_link, :quantity_type_id, :consumable, :price, :purchase_date, :note, :detail, :brand, :category_id, :subcategory_id)
     end
