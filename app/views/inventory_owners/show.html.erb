@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Inventory item:</strong>
+  <%= @inventory_owner.inventory_item %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @inventory_owner.amount %>
+</p>
+
+<p>
+  <strong>Quantity type:</strong>
+  <%= @inventory_owner.quantity_type %>
+</p>
+
+<p>
+  <strong>Person:</strong>
+  <%= @inventory_owner.person %>
+</p>
+
+<%= link_to 'Edit', edit_inventory_owner_path(@inventory_owner) %> |
+<%= link_to 'Back', inventory_owners_path %>

@@ -17,6 +17,26 @@ class InventoryItemsController < ApplicationController
     @miscellaneous = @inventory_items.where(:category_id => nil)
   end
 
+  # GET /inventory_items
+  # GET /inventory_items.json
+  def my_inventory
+        @current_person = Person.where(:user_account => @current_user)
+    @my_items = InventoryOwner.where(:person => @current_person)
+puts @my_items.count
+puts @my_items.first.inventory_item.full_name
+    @inventory_items = Array.new
+    @my_items.each do |item|
+      @inventory_items << item.inventory_item
+    end
+    @clothes_category = Category.where(:category => "Clothing").first
+    @electronics_category = Category.where(:category => "Electronics").first
+    @food_category = Category.where(:category => "Food").first
+    @clothes = @inventory_items.select { |item| item.category == @clothes_category }#.where(:category_id => )
+    @electronics = @inventory_items.select { |item| item.category == @electronics_category }#.where(:category_id => @electronics_category)
+    @food = @inventory_items.select { |item| item.category == @food_category }#.where(:category_id => @food_category)
+    @miscellaneous = @inventory_items.select { |item| item.category == nil }#.where(:category_id => nil)
+  end
+
   # GET /inventory_items/1
   # GET /inventory_items/1.json
   def show

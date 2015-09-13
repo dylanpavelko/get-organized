@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :inventory_owners
+
+  resources :people
+
   resources :hotel_chains
 
   resources :airlines
@@ -38,6 +42,8 @@ Rails.application.routes.draw do
   resources :trip_has_inventory_items
 
   resources :trips
+
+  get 'my_inventory' => 'inventory_items#my_inventory'
 
   post 'trips/add_item' => 'trips#add_item_to_trip'
 

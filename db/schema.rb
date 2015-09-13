@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150912183616) do
+ActiveRecord::Schema.define(version: 20150913073959) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -113,6 +113,19 @@ ActiveRecord::Schema.define(version: 20150912183616) do
   add_index "inventory_items", ["quantity_type_id"], name: "index_inventory_items_on_quantity_type_id"
   add_index "inventory_items", ["subcategory_id"], name: "index_inventory_items_on_subcategory_id"
 
+  create_table "inventory_owners", force: true do |t|
+    t.integer  "inventory_item_id"
+    t.decimal  "amount"
+    t.integer  "quantity_type_id"
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "inventory_owners", ["inventory_item_id"], name: "index_inventory_owners_on_inventory_item_id"
+  add_index "inventory_owners", ["person_id"], name: "index_inventory_owners_on_person_id"
+  add_index "inventory_owners", ["quantity_type_id"], name: "index_inventory_owners_on_quantity_type_id"
+
   create_table "itinerary_activities", force: true do |t|
     t.string   "name"
     t.integer  "attraction_id"
@@ -162,6 +175,17 @@ ActiveRecord::Schema.define(version: 20150912183616) do
     t.datetime "updated_at"
     t.string   "image"
   end
+
+  create_table "people", force: true do |t|
+    t.string   "first_name"
+    t.string   "nick_name"
+    t.string   "last_name"
+    t.integer  "user_account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "people", ["user_account_id"], name: "index_people_on_user_account_id"
 
   create_table "quantity_types", force: true do |t|
     t.string   "quantityType"

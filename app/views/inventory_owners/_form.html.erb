@@ -1,0 +1,41 @@
+<%= form_for(@inventory_owner) do |f| %>
+  <% if @inventory_owner.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@inventory_owner.errors.count, "error") %> prohibited this inventory_owner from being saved:</h2>
+
+      <ul>
+      <% @inventory_owner.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :inventory_item_id %><br>
+    <% if @inventory_owner.inventory_item_id != nil %>
+      <%= f.select :inventory_item_id, options_from_collection_for_select(InventoryItem.all, :id, :full_name, @inventory_owner.inventory_item_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :inventory_item_id, options_from_collection_for_select(InventoryItem.all, :id, :full_name), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br>
+    <%= f.text_field :amount %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity_type_id %><br>
+    <% if @inventory_owner.quantity_type_id != nil %>
+      <%= f.select :quantity_type_id, options_from_collection_for_select(QuantityType.all, :id, :quantityType, @inventory_owner.quantity_type_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :quantity_type_id, options_from_collection_for_select(QuantityType.all, :id, :quantityType), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :person_id %><br>
+    <%= f.select :person_id, options_from_collection_for_select(Person.all, :id, :first_name) %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

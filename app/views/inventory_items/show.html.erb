@@ -1,18 +1,19 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Category:</strong>
+  <em>
   <% if  @inventory_item.category != nil and  @inventory_item.subcategory != nil %>
-     <%= @inventory_item.category.category + " > " + @inventory_item.subcategory.subcategory%>
+     <%= @inventory_item.category.category + " > " + @inventory_item.subcategory.subcategory + ": " %>
   <% elsif @inventory_item.category != nil %>
-      <%= @inventory_item.category.category %>
+      <%= @inventory_item.category.category ": "%>
   <% end %>
+</em>
+  <strong>
+    <%= @inventory_item.name %>
+  </strong>
 </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @inventory_item.name %>
-</p>
+<%= link_to 'Add to My Inventory', new_inventory_owner_path(@inventory_item) %>
 
 <p>
   <strong>Amount:</strong>
@@ -72,5 +73,5 @@
   <a href='#'>Add as Gear for Activity</a>  <%= link_to 'Temporary Add Item' , new_activity_has_inventory_item_path %>
 </p>
 
-<%= link_to 'Edit', edit_inventory_item_path(@inventory_item) %> |
+<%= link_to 'Edit', edit_inventory_item_path(@inventory_item) %> <%#=  link_to 'Destroy', @inventory_item, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'All Inventory Items', inventory_items_path %>
