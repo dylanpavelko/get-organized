@@ -124,7 +124,7 @@ class TripsController < ApplicationController
                                                         :inventory_item_id => params[:inventory_item_id],
                                                         :amount => params[:amount])
     @trip_has_inventory_item.save
-    @response = [@trip_has_inventory_item.inventory_item.name, @trip_has_inventory_item.inventory_item_id]
+    @response = [@trip_has_inventory_item.inventory_item.full_name, @trip_has_inventory_item.inventory_item_id]
     render json: @response
   end
 

@@ -8,6 +8,8 @@ class InventoryItemsController < ApplicationController
   # GET /inventory_items.json
   def index
     @inventory_items = InventoryItem.all
+    @clothes_category = Category.where(:category => "Clothing").first
+    @clothes = @inventory_items.where(:category_id => @clothes_category)
   end
 
   # GET /inventory_items/1

@@ -1,4 +1,4 @@
-<h1>Listing inventory_items</h1>
+<h1>Inventory</h1>
 
 <table>
   <thead>
@@ -34,6 +34,20 @@
     <% end %>
   </tbody>
 </table>
+
+<div>
+  <h3>Clothing</h3>
+<ul>
+    <% @clothes.each do |inventory_item| %>
+      <li>
+        <%= link_to inventory_item.full_name , inventory_item %>
+        <% if inventory_item.quantity_type != nil %> <%= inventory_item.quantity_type.quantityType %> <%end%>
+        <%= link_to 'Edit', edit_inventory_item_path(inventory_item) %>
+        <%= link_to 'Destroy', inventory_item, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </li>
+    <% end %>
+  </ul>
+</div>
 
 <br>
 
