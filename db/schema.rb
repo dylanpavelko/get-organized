@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150913073959) do
+ActiveRecord::Schema.define(version: 20150913192143) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -96,7 +96,6 @@ ActiveRecord::Schema.define(version: 20150913073959) do
 
   create_table "inventory_items", force: true do |t|
     t.string   "name"
-    t.decimal  "amount"
     t.integer  "quantity_type_id"
     t.boolean  "consumable"
     t.decimal  "price"
@@ -107,6 +106,7 @@ ActiveRecord::Schema.define(version: 20150913073959) do
     t.datetime "updated_at"
     t.integer  "category_id"
     t.integer  "subcategory_id"
+    t.string   "amazon_link"
   end
 
   add_index "inventory_items", ["category_id"], name: "index_inventory_items_on_category_id"

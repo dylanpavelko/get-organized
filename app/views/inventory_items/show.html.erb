@@ -12,17 +12,11 @@
     <%= @inventory_item.name %>
   </strong>
 </p>
+<p>
+  <%=raw @inventory_item.amazon_link %>
+</p>
 
 <%= link_to 'Add to My Inventory', new_inventory_owner_path(@inventory_item) %>
-
-<p>
-  <strong>Amount:</strong>
-  <% if @inventory_item.quantity_type != nil %>
-    <%= @inventory_item.amount.to_s + " " + @inventory_item.quantity_type.quantityType %>
-  <% else %>
-    <%= @inventory_item.amount.to_s %>
-  <% end %>
-</p>
 
 <p>
   <strong>Consumable:</strong>

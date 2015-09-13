@@ -22,8 +22,6 @@ class InventoryItemsController < ApplicationController
   def my_inventory
         @current_person = Person.where(:user_account => @current_user)
     @my_items = InventoryOwner.where(:person => @current_person)
-puts @my_items.count
-puts @my_items.first.inventory_item.full_name
     @inventory_items = Array.new
     @my_items.each do |item|
       @inventory_items << item.inventory_item
@@ -101,6 +99,6 @@ puts @my_items.first.inventory_item.full_name
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def inventory_item_params
-      params.require(:inventory_item).permit(:name, :amount, :quantity_type_id, :consumable, :price, :purchase_date, :note, :detail, :brand, :category_id, :subcategory_id)
+      params.require(:inventory_item).permit(:name, :amazon_link, :quantity_type_id, :consumable, :price, :purchase_date, :note, :detail, :brand, :category_id, :subcategory_id)
     end
 end
