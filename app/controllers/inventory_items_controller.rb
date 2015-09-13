@@ -9,7 +9,12 @@ class InventoryItemsController < ApplicationController
   def index
     @inventory_items = InventoryItem.all
     @clothes_category = Category.where(:category => "Clothing").first
+    @electronics_category = Category.where(:category => "Electronics").first
+    @food_category = Category.where(:category => "Food").first
     @clothes = @inventory_items.where(:category_id => @clothes_category)
+    @electronics = @inventory_items.where(:category_id => @electronics_category)
+    @food = @inventory_items.where(:category_id => @food_category)
+    @miscellaneous = @inventory_items.where(:category_id => nil)
   end
 
   # GET /inventory_items/1
