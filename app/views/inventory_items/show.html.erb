@@ -50,11 +50,11 @@
     <% if @ownerships.count > 0 %>
       You have <%= @ownerships.count %> 
       <% @ownerships.each do |ownership| %>
-        stored in <%= link_to ownership.stored_in.full_name, ownership.stored_in %>
+        <% if ownership.stored_in != nil %>
+          stored in <%= link_to ownership.stored_in.full_name, ownership.stored_in %>
+        <% end %>
+        <%= link_to 'edit', edit_inventory_owner_path(ownership) %> <br/>
       <% end %>
-    <% end %>
-    <% @ownerships.each do |ownership| %>
-      <%= link_to 'edit', edit_inventory_owner_path(ownership) %> <br/>
     <% end %>
     <% if @inventory_item.price != '' and @inventory_item.price != nil%>
       <p>
