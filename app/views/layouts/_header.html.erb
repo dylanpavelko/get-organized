@@ -2,7 +2,7 @@
 	<% if Rails.env.development? %>
 		<em>DEV</em>
 	<% end %>
-<strong>Get Organized</strong>
+<strong><%= link_to 'Get Organized', root_path %></strong>
 <%= link_to 'Travel & Leisure', trips_path %>
 <%= link_to 'My Inventory', my_inventory_path %>
 <%= link_to 'Activities', activities_path %>

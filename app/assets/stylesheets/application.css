@@ -14,11 +14,14 @@
  *= require_self
  */
 body{
-	background-color: #e0ffff;
+	background-color: #191970;
+	font-family: 'Raleway', sans-serif;
 }
 
 #main{
 	background-color: white;
+	padding:2em;
+	border-radius: 15px;
 }
 
 

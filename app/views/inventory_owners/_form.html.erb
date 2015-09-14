@@ -32,8 +32,16 @@
     <% end %>
   </div>
   <div class="field">
+    <%= f.label :stored_in_id %><br>
+    <% if @inventory_owner.stored_in_id != nil %>
+      <%= f.select :stored_in_id, options_from_collection_for_select(InventoryItem.where(:container => true), :id, :full_name, @inventory_owner.stored_in_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :stored_in_id, options_from_collection_for_select(InventoryItem.where(:container => true), :id, :full_name), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
     <%= f.label :person_id %><br>
-    <%= f.select :person_id, options_from_collection_for_select(Person.all, :id, :first_name) %>
+    <%= f.select :person_id, options_from_collection_for_select(Person.all, :id, :first_name, {:disabled => true}) %>
   </div>
   <div class="actions">
     <%= f.submit %>

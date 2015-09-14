@@ -22,7 +22,7 @@ class InventoryItemsController < ApplicationController
   # GET /inventory_items
   # GET /inventory_items.json
   def my_inventory
-        @current_person = Person.where(:user_account => @current_user)
+    @current_person = Person.where(:user_account => @current_user)
     @my_items = InventoryOwner.where(:person => @current_person)
     @inventory_items = Array.new
     @my_items.each do |item|
@@ -44,6 +44,11 @@ class InventoryItemsController < ApplicationController
   def show
     @trip_items = TripHasInventoryItem.where(:inventory_item_id => @inventory_item)
     @activity_items = ActivityHasInventoryItem.where(:inventory_item_id => @inventory_item)
+
+    @current_person = Person.where(:user_account => @current_user)
+    @ownerships = InventoryOwner.where(:inventory_item_id => @inventory_item, :person => @current_person)
+
+    @contains = InventoryOwner.where(:stored_in_id => @inventory_item)
   end
 
   # GET /inventory_items/new
@@ -60,7 +65,7 @@ class InventoryItemsController < ApplicationController
   def create
     @inventory_item = InventoryItem.new(inventory_item_params)
     respond_to do |format|
-      if params[:person_id] != nil
+      if params[:person_id] != ''
         @owernship = InventoryOwner.new(:inventory_item => @inventory_item, :person_id => params[:person_id])
         @owernship.save
       end

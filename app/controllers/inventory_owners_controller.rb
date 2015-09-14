@@ -45,7 +45,7 @@ class InventoryOwnersController < ApplicationController
   def update
     respond_to do |format|
       if @inventory_owner.update(inventory_owner_params)
-        format.html { redirect_to @inventory_owner, notice: 'Inventory owner was successfully updated.' }
+        format.html { redirect_to inventory_item_path(@inventory_owner.inventory_item), notice: 'Inventory item ownership was successfully updated.' }
         format.json { render :show, status: :ok, location: @inventory_owner }
       else
         format.html { render :edit }
@@ -72,6 +72,6 @@ class InventoryOwnersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def inventory_owner_params
-      params.require(:inventory_owner).permit(:inventory_item_id, :amount, :quantity_type_id, :person_id)
+      params.require(:inventory_owner).permit(:inventory_item_id, :amount, :quantity_type_id, :person_id, :stored_in_id)
     end
 end

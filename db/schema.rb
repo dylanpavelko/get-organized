@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914034321) do
+ActiveRecord::Schema.define(version: 20150914041340) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -121,11 +121,13 @@ ActiveRecord::Schema.define(version: 20150914034321) do
     t.integer  "person_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "stored_in_id"
   end
 
   add_index "inventory_owners", ["inventory_item_id"], name: "index_inventory_owners_on_inventory_item_id"
   add_index "inventory_owners", ["person_id"], name: "index_inventory_owners_on_person_id"
   add_index "inventory_owners", ["quantity_type_id"], name: "index_inventory_owners_on_quantity_type_id"
+  add_index "inventory_owners", ["stored_in_id"], name: "index_inventory_owners_on_stored_in_id"
 
   create_table "itinerary_activities", force: true do |t|
     t.string   "name"
