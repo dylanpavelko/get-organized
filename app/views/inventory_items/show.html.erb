@@ -48,7 +48,7 @@
   <div id='item_ownership'>
     <h3 style="margin-top: 0;">Item Ownership</h3>
     <% if @ownerships.count > 0 %>
-      <% if @ownerships.count == 1 and @ownerships.first.amount == '' %>
+      <% if @ownerships.count == 1 and (@ownerships.first.amount == '' or  @ownerships.first.amount == nil )%>
         You have 1 <%= link_to 'edit', edit_inventory_owner_path(@ownerships.first) %> <br/>
       <% else %>
         You have:
