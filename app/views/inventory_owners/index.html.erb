@@ -17,7 +17,11 @@
         <td><%= inventory_owner.inventory_item.full_name %></td>
         <td><%= inventory_owner.amount %></td>
         <td><%= inventory_owner.quantity_type %></td>
-        <td><%= inventory_owner.person.first_name + ' ' + inventory_owner.person.last_name %></td>
+        <td>
+          <% if inventory_owner.person != nil %>
+            <%= inventory_owner.person.first_name + ' ' + inventory_owner.person.last_name %>
+          <% end %>
+        </td>
         <td><%= link_to 'Show', inventory_owner %></td>
         <td><%= link_to 'Edit', edit_inventory_owner_path(inventory_owner) %></td>
         <td><%= link_to 'Destroy', inventory_owner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
