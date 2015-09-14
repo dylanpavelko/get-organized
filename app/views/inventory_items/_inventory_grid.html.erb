@@ -58,7 +58,7 @@
 </tr>
 <tr>
 <td valign="top">
-<h3>Books</h3>
+<h3>Library</h3>
 <ul>
     <% @books.each do |inventory_item| %>
       <li><% if  inventory_item.amazon_link != '' and inventory_item.amazon_link != nil%><span id="image_preview"><%= raw inventory_item.amazon_link %></span><% end %>

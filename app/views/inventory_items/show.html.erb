@@ -18,15 +18,19 @@
           <%= @inventory_item.name %>
         </h3>
       </p>
+      <% if @inventory_item.brand != '' %>
       <p>
+
         <strong>Brand:</strong>
         <%= @inventory_item.brand %>
       </p>
+      <% end %>
+      <% if @inventory_item.detail != '' %>
       <p>
         <strong>Detail:</strong>
         <%= @inventory_item.detail %>
       </p>
-
+      <% end %>
 
     </td>
   </tr>
