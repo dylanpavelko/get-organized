@@ -56,6 +56,16 @@
         <%= link_to 'edit', edit_inventory_owner_path(ownership) %> <br/>
       <% end %>
     <% end %>
+    <% if @contains.count >0 %>
+      <p>
+        <strong>Contains:</strong>
+        <ul>
+          <% @contains.each do |content| %>
+            <li><%= link_to content.inventory_item.full_name, content.inventory_item %></li>
+          <% end %>
+        </ul>
+      </p>
+    <% end %>
     <% if @inventory_item.price != '' and @inventory_item.price != nil%>
       <p>
         <strong>Purchased Price:</strong>
@@ -70,16 +80,7 @@
   </div>
 </div>
 
-<% if @contains.count >0 %>
-  <p>
-    <strong>Contains:</strong>
-    <ul>
-      <% @contains.each do |content| %>
-        <li><%= link_to content.inventory_item.full_name, content.inventory_item %></li>
-      <% end %>
-    </ul>
-  </p>
-<% end %>
+
 <% if @trip_items.count > 0 %>
 <p>
   <strong>Packed for Trips:</strong>
