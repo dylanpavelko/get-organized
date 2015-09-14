@@ -56,4 +56,24 @@
 </div>
 </td>
 </tr>
+<tr>
+<td valign="top">
+<h3>Books</h3>
+<ul>
+    <% @books.each do |inventory_item| %>
+      <li><% if  inventory_item.amazon_link != '' and inventory_item.amazon_link != nil%><span id="image_preview"><%= raw inventory_item.amazon_link %></span><% end %>
+        <%= link_to inventory_item.full_name , inventory_item %>
+        <% if inventory_item.quantity_type != nil %> <%= inventory_item.quantity_type.quantityType %> <%end%>
+        <%= link_to 'Edit', edit_inventory_item_path(inventory_item) %> <%= link_to '+', new_inventory_owner_path(inventory_item) %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+  <td>
+  </td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
 </table>
