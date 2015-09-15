@@ -2,19 +2,58 @@
 	<% if Rails.env.development? %>
 		<em>DEV</em>
 	<% end %>
-<strong><%= link_to 'Get Organized', root_path %></strong>
-<%= link_to 'Travel & Leisure', trips_path %>
-<%= link_to 'My Inventory', my_inventory_path %>
-<%= link_to 'Activities', activities_path %>
-<%= link_to 'Exercise Centers', exercise_centers_path %>
-<div id='profile'>
-<% if @current_user!=nil%>
-		<img src= <%= @current_user.picture %> class="profile_header">
-		<%= @current_user.username %>   
-		<%= link_to 'Log Out', logout_path %>
-	<% else %>
-		<%= link_to 'Log In', sessions_login_path %> or 
-		<%= link_to 'Sign Up', users_new_path %>
-	<%end%>
+
+	<strong><%= link_to 'Get Organized', root_path %></strong>
+	<input id="header_search" type="search">
+
+	<div id="header_search_results">
+	</div>
+
+	<%= link_to 'Travel & Leisure', trips_path %>
+	<%= link_to 'My Inventory', my_inventory_path %>
+	<%= link_to 'Activities', activities_path %>
+	<%= link_to 'Exercise Centers', exercise_centers_path %>
+
+	<div id='profile'>
+	<% if @current_user!=nil%>
+			<img src= <%= @current_user.picture %> class="profile_header">
+			<%= @current_user.username %>   
+			<%= link_to 'Log Out', logout_path %>
+		<% else %>
+			<%= link_to 'Log In', sessions_login_path %> or 
+			<%= link_to 'Sign Up', users_new_path %>
+		<%end%>
+	</div>
 </div>
-</div>
+
+
+<script type="text/javascript">
+	 var timeoutID = null;
+
+	function findMemberForHeader(str) {
+	    $.ajax({url: "/instant_search_inventory", type: "POST", data: {'search_string': str}, dataType: 'json'}).done(function(data){ 
+console.log(data);
+        var $items = "";
+        for(i=1; i < data.length; i++){
+          $row = "<div id='result_row'><a href=/inventory_items/"+data[i][1]+"'>" + data[i][0] + "</a></div>";
+          $items = $items + $row;
+        }
+       		$('div#header_search_results').html($items + "<div id='result_row'><em>" + data[0] + '</em></div>');
+      });
+    
+  }
+
+  $('#header_search').keyup(function() {
+    clearTimeout(timeoutID);
+    var $target = $(this);
+    timeoutID = setTimeout(function() {
+    	var searchString = $target.val();
+    	if(searchString.length > 2){ 
+    		findMemberForHeader($target.val()); 
+    	}else{
+        $('div#header_search_results').html("");
+      }
+    }, 500); 
+  });
+
+</script>
