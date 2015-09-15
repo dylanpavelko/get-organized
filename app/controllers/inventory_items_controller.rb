@@ -103,6 +103,22 @@ class InventoryItemsController < ApplicationController
     end
   end
 
+  def instant_search_inventory
+    @inventory_items = InventoryItem.all;
+    @search_string = params[:search_string];
+    @matched_items = Array.new
+    @inventory_items.each do |item|
+      if item.matches(@search_string)
+        @matched_items << item
+      end
+    end
+    @response = [@matched_items.count.to_s + ' item(s) found: for ' + @search_string]
+    @matched_items.each do |item|
+      @response << [item.full_name, item.id]
+    end
+    render json: @response
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_inventory_item

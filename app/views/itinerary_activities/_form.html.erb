@@ -65,11 +65,11 @@
   </div>
   <div class="field">
     Date & Time:<br>
-    <%= f.datetime_select :datetime, :include_blank => true, ampm: true %>
+    <%= f.datetime_local_field :datetime, :include_blank => true, ampm: true %>
   </div>
   <div class="field">
     Ends:<br>
-    <%= f.datetime_select :end, :include_blank => true, ampm: true %>
+    <%= f.datetime_local_field :end, :include_blank => true, ampm: true %>
   </div>
   <div class="field">
     <%= f.label :order %><br>

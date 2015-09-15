@@ -1,8 +1,59 @@
+<form>
+  Search all Inventory Items:
+  <input id="inventory_search" type="search">
+  <button>Search</button>
+</form>
+<div id="search_results">
+</div>
 <h2>My Inventory</h2>
+
 <%= link_to 'All Inventory Items', inventory_items_path %> <%= link_to 'New Inventory item', new_inventory_item_path %>
 
 <%= render 'inventory_grid' %>
 
 <br>
 
+
+<script type="text/javascript">
+	 var timeoutID = null;
+
+	function findMember(str) {
+	    $.ajax({url: "instant_search_inventory", type: "POST", data: {'search_string': str}, dataType: 'json'}).done(function(data){ 
+	    	console.log(data);
+        var $items = "";
+        for(i=1; i < data.length; i++){
+          $row = "<div><a href=/inventory_items/"+data[i][1]+"'>" + data[i][0] + "</div>";
+          $items = $items + $row;
+        }
+       		$('#search_results').html('results: <em>' + data[0] + '</em><br/>' + $items);
+      });
+    
+  }
+
+  $('#inventory_search').keyup(function() {
+    clearTimeout(timeoutID);
+    var $target = $(this);
+    timeoutID = setTimeout(function() {
+    	var searchString = $target.val();
+    	if(searchString.length > 2){ 
+    		findMember($target.val()); 
+    	}
+    }, 500); 
+  });
+
+// function addRow(){
+//   $('#newItem').html("<%= j render 'trip_has_inventory_items/add_item_to_trip' %>");
+// }
+
+// function addItem(){
+//     var trip_id = <%#= @trip.id %>;
+//     var item_id = $('#inventory_item_id').children(":selected").attr("value");
+//     var amount = $('#trip_has_inventory_item_amount').val();
+//     var new_item = $.ajax({url: "add_item", type: "POST", data: {'trip_id': trip_id ,'inventory_item_id': item_id, 'amount': amount}, dataType: 'json'}).done(function(data){
+//       $('#newItem').before("<li><a href='/inventory_items/"+data[1]+"'>" + data[0] + "</a> <a href='#'>remove</a></li>");
+//       $('#newItem').html("<li><span id='newItem'><button id='addItem' onclick='addRow()''>+ Add Item</button></span></li>");
+
+//      });
+// }
+</script>
 

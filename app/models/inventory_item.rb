@@ -7,4 +7,14 @@ class InventoryItem < ActiveRecord::Base
   	return self.brand + ' ' + self.detail + ' ' + self.name
   end
 
+  def matches(search_string)
+  	@search_pieces = search_string.split(' ')
+  	@search_pieces.each do |word|
+  		if !self.full_name.downcase.include? word.downcase
+  			return false
+  		end
+  	end
+  	return true
+  end
+
 end
