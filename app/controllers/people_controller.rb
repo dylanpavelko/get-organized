@@ -63,6 +63,50 @@ class PeopleController < ApplicationController
     end
   end
 
+  def header_search
+    @search_string = params[:search_string];
+    @response = Array.new
+
+    #find matching items
+    @inventory_items = InventoryItem.all;
+    @matched_items = Array.new
+    @inventory_items.each do |item|
+      if item.matches(@search_string)
+        @matched_items << item
+      end
+    end
+    @matched_items.each do |item|
+      @response << [1, 'Item: ' + item.full_name, item.id]
+    end
+
+    #find matching trips
+    @trips = Trip.all;
+    @matched_items = Array.new
+    @trips.each do |item|
+      if item.matches(@search_string)
+        @matched_items << item
+      end
+    end
+    @matched_items.each do |item|
+      @response << [2, 'Trip: ' + item.name, item.id]
+    end
+
+    #find matching trips
+    @attractions = Attraction.all;
+    @matched_items = Array.new
+    @attractions.each do |item|
+      if item.matches(@search_string)
+        @matched_items << item
+      end
+    end
+    @matched_items.each do |item|
+      @response << [3, 'Attraction: ' + item.name, item.id]
+    end
+
+    @response << [@response.count.to_s + ' item(s) found: for ' + @search_string]
+    render json: @response
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_person

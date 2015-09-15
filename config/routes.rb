@@ -49,6 +49,8 @@ Rails.application.routes.draw do
 
   post 'instant_search_inventory' => 'inventory_items#instant_search_inventory'
 
+  post 'search' => 'people#header_search'
+
   resources :activity_has_inventory_items
 
   resources :activities
