@@ -40,7 +40,9 @@ console.log(data);
     	var searchString = $target.val();
     	if(searchString.length > 2){ 
     		findMember($target.val()); 
-    	}
+    	}else{
+        $('div#search_results').html("");
+      }
     }, 500); 
   });
 
