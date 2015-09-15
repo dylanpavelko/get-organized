@@ -1,3 +1,4 @@
+<div id='search_area'>
 <form>
   Search all Inventory Items:
   <input id="inventory_search" type="search">
@@ -5,12 +6,14 @@
 </form>
 <div id="search_results">
 </div>
-<h2>My Inventory</h2>
+</div>
+<div id='inventroy_contents'>
+  <h2>My Inventory</h2>
 
-<%= link_to 'All Inventory Items', inventory_items_path %> <%= link_to 'New Inventory item', new_inventory_item_path %>
+  <%= link_to 'All Inventory Items', inventory_items_path %> <%= link_to 'New Inventory item', new_inventory_item_path %>
 
-<%= render 'inventory_grid' %>
-
+  <%= render 'inventory_grid' %>
+</div>
 <br>
 
 
@@ -19,13 +22,13 @@
 
 	function findMember(str) {
 	    $.ajax({url: "instant_search_inventory", type: "POST", data: {'search_string': str}, dataType: 'json'}).done(function(data){ 
-	    	console.log(data);
+console.log(data);
         var $items = "";
         for(i=1; i < data.length; i++){
-          $row = "<div><a href=/inventory_items/"+data[i][1]+"'>" + data[i][0] + "</div>";
+          $row = "<div id='result_row'><a href=/inventory_items/"+data[i][1]+"'>" + data[i][0] + "</a></div>";
           $items = $items + $row;
         }
-       		$('#search_results').html('results: <em>' + data[0] + '</em><br/>' + $items);
+       		$('div#search_results').html($items + "<div id='result_row'><em>" + data[0] + '</em></div>');
       });
     
   }

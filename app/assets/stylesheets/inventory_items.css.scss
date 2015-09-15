@@ -19,3 +19,28 @@ div#item_ownership{
 #item_header div {
     display: inline-block;
 }
+
+div#search_area{
+	margin-left: auto;
+	margin-right: auto;
+	width: 400px;
+	height: auto;
+}
+
+div#search_results{
+	position: absolute;
+	z-index: 5;
+}
+
+div#inventroy_contents{
+	position: relataive;
+	z-index: 1;
+}
+
+div#result_row{
+	border: 2px solid #CCC;
+	padding: .5em;
+	margin-left:80px;
+	width:300px;
+	margin-bottom:-2px;
+}
