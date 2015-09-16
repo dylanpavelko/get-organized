@@ -35,7 +35,9 @@
 console.log(data);
         var $items = "";
         for(i=0; i < data.length -1; i++){
-        	if(data[i][0]==1){
+        	if(data[i][0]==0){
+        		$row = "<div id='result_row'><a href="+data[i][2]+">" + data[i][1] + "</a></div>";
+        	}else if(data[i][0]==1){
         		$row = "<div id='result_row'><a href=/inventory_items/"+data[i][2]+"'>" + data[i][1] + "</a></div>";
         	}else if(data[i][0]==2){
         		$row = "<div id='result_row'><a href=/trips/"+data[i][2]+"'>" + data[i][1] + "</a></div>";

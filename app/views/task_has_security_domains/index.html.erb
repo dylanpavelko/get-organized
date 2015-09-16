@@ -1,0 +1,27 @@
+<h1>Listing task_has_security_domains</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Security domain</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @task_has_security_domains.each do |task_has_security_domain| %>
+      <tr>
+        <td><%= task_has_security_domain.task %></td>
+        <td><%= task_has_security_domain.security_domain %></td>
+        <td><%= link_to 'Show', task_has_security_domain %></td>
+        <td><%= link_to 'Edit', edit_task_has_security_domain_path(task_has_security_domain) %></td>
+        <td><%= link_to 'Destroy', task_has_security_domain, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Task has security domain', new_task_has_security_domain_path %>

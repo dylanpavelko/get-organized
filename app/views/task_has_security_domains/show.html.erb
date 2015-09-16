@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Task:</strong>
+  <%= @task_has_security_domain.task %>
+</p>
+
+<p>
+  <strong>Security domain:</strong>
+  <%= @task_has_security_domain.security_domain %>
+</p>
+
+<%= link_to 'Edit', edit_task_has_security_domain_path(@task_has_security_domain) %> |
+<%= link_to 'Back', task_has_security_domains_path %>

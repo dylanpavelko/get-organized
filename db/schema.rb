@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914041340) do
+ActiveRecord::Schema.define(version: 20150915232206) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -196,6 +196,12 @@ ActiveRecord::Schema.define(version: 20150914041340) do
     t.datetime "updated_at"
   end
 
+  create_table "security_domains", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "subcategories", force: true do |t|
     t.string   "subcategory"
     t.integer  "category_id"
@@ -204,6 +210,26 @@ ActiveRecord::Schema.define(version: 20150914041340) do
   end
 
   add_index "subcategories", ["category_id"], name: "index_subcategories_on_category_id"
+
+  create_table "task_has_security_domains", force: true do |t|
+    t.integer  "task_id"
+    t.integer  "security_domain_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "task_has_security_domains", ["security_domain_id"], name: "index_task_has_security_domains_on_security_domain_id"
+  add_index "task_has_security_domains", ["task_id"], name: "index_task_has_security_domains_on_task_id"
+
+  create_table "tasks", force: true do |t|
+    t.string   "task_name"
+    t.string   "task_path"
+    t.integer  "security_domain_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tasks", ["security_domain_id"], name: "index_tasks_on_security_domain_id"
 
   create_table "trip_has_inventory_items", force: true do |t|
     t.integer  "trip_id"

@@ -1,0 +1,25 @@
+<%= form_for(@task_has_security_domain) do |f| %>
+  <% if @task_has_security_domain.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@task_has_security_domain.errors.count, "error") %> prohibited this task_has_security_domain from being saved:</h2>
+
+      <ul>
+      <% @task_has_security_domain.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :task_id %><br>
+    <%= f.text_field :task_id %>
+  </div>
+  <div class="field">
+    <%= f.label :security_domain_id %><br>
+    <%= f.text_field :security_domain_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

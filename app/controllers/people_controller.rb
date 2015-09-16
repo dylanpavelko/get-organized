@@ -67,6 +67,18 @@ class PeopleController < ApplicationController
     @search_string = params[:search_string];
     @response = Array.new
 
+    #find matching tasks
+    @trips = Task.all;
+    @matched_items = Array.new
+    @trips.each do |item|
+      if item.matches(@search_string)
+        @matched_items << item
+      end
+    end
+    @matched_items.each do |item|
+      @response << [0, 'Task: ' + item.task_name, item.task_path]
+    end
+
     #find matching items
     @inventory_items = InventoryItem.all;
     @matched_items = Array.new
@@ -91,7 +103,7 @@ class PeopleController < ApplicationController
       @response << [2, 'Trip: ' + item.name, item.id]
     end
 
-    #find matching trips
+    #find matching attractions
     @attractions = Attraction.all;
     @matched_items = Array.new
     @attractions.each do |item|

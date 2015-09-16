@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :task_has_security_domains
+
+  resources :security_domains
+
+  resources :tasks
+
   resources :inventory_owners
 
   resources :people
