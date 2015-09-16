@@ -6,7 +6,7 @@
       <th>First name</th>
       <th>Nick name</th>
       <th>Last name</th>
-      <th>User accountm</th>
+      <th>User account</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,7 +17,10 @@
         <td><%= person.first_name %></td>
         <td><%= person.nick_name %></td>
         <td><%= person.last_name %></td>
-        <td><%= person.user_account %></td>
+        <td><% if person.user_account != nil %>
+              <%= person.user_account.username %>
+            <% end %>
+        </td>
         <td><%= link_to 'Show', person %></td>
         <td><%= link_to 'Edit', edit_person_path(person) %></td>
         <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
