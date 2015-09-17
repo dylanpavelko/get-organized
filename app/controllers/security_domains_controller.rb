@@ -1,4 +1,7 @@
 class SecurityDomainsController < ApplicationController
+    before_filter :authenticate_user
+  before_filter :authorized_only
+  
   before_action :set_security_domain, only: [:show, :edit, :update, :destroy]
 
   # GET /security_domains
