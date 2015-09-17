@@ -1,6 +1,6 @@
 class PeopleController < ApplicationController
   before_filter :authenticate_user
-  before_filter :authorized_only
+  before_filter :authorized_only, only: [:edit, :destroy]
   before_action :set_person, only: [:show, :edit, :update, :destroy]
 
   # GET /people
@@ -68,10 +68,10 @@ class PeopleController < ApplicationController
     @response = Array.new
 
     #find matching tasks
-    @trips = Task.all;
+    @tasks = Task.all
     @matched_items = Array.new
-    @trips.each do |item|
-      if item.matches(@search_string)
+    @tasks.each do |item|
+      if item.matches(@search_string) and item.user_has_access(@current_user)
         @matched_items << item
       end
     end

@@ -15,6 +15,10 @@ class UsersController < ApplicationController
       @users = User.all
       if (@users.count == 1)
       	@user.update_attribute(:power_admin, true)
+      else
+        @public_user = Role.where(:name => "Public User").first
+        @user_role = UserHasRole.new(:user_id => @user.id, :role_id => @public_user.id)
+        @user_role.save
       end
       flash[:notice] = "You signed up successfully"
       flash[:color]= "valid"

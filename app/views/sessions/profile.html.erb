@@ -1,3 +1,12 @@
-<h1>Sessions#profile,</h1>
-<p>Find me in app/views/sessions/profile,.html.erb</p>
+<h1>@current_user</h1>
+<img src= <%= @current_user.picture %> >
 <h2 class='User_Header'> <%=@current_user.username%> Profile <h2>
+<p>
+    username: <%= @current_user.username %><br/>
+    security roles: 
+        <ul>
+            <% @current_user.roles.each do |role| %>
+                <li><%= role.name %></li>
+            <% end %>
+        </ul>
+</p>

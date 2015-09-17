@@ -1,0 +1,32 @@
+<%= form_for(@security_domain_has_role) do |f| %>
+  <% if @security_domain_has_role.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@security_domain_has_role.errors.count, "error") %> prohibited this security_domain_has_role from being saved:</h2>
+
+      <ul>
+      <% @security_domain_has_role.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    Security Domain:<br>
+    <% if @security_domain_has_role.domain_id != nil %>
+      <%= f.select :domain_id, options_from_collection_for_select(SecurityDomain.all, :id, :name, @security_domain_has_role.domain_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :domain_id, options_from_collection_for_select(SecurityDomain.all, :id, :name), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    Role:<br>
+    <% if @security_domain_has_role.role_id != nil %>
+      <%= f.select :role_id, options_from_collection_for_select(Role.all, :id, :name, @security_domain_has_role.role_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :role_id, options_from_collection_for_select(Role.all, :id, :name), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

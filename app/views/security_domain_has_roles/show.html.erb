@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Domain:</strong>
+  <%= @security_domain_has_role.domain.name %>
+</p>
+
+<p>
+  <strong>Role:</strong>
+  <%= @security_domain_has_role.role.name %>
+</p>
+
+<%= link_to 'Edit', edit_security_domain_has_role_path(@security_domain_has_role) %> |
+<%= link_to 'Back', security_domain_has_roles_path %>

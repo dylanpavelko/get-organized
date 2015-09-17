@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 	validates :email, :presence => true, :uniqueness => true, :format => EMAIL_REGEX
 	validates :password, :confirmation => true #password_confirmation attr
 	validates_length_of :password, :in => 6..20, :on => :create
+	has_many :roles, class_name: "Role"
 
 
 	before_save :encrypt_password
@@ -52,5 +53,14 @@ class User < ActiveRecord::Base
 		image_src = "http://www.gravatar.com/avatar/#{hash}"
 
 		return image_src
+	end
+	
+	def roles
+		@hasRoles = UserHasRole.where(:user_id => self.id)
+		@roles = Array.new
+		@hasRoles.each do |has|
+			@roles << has.role
+		end
+		return @roles
 	end
 end
