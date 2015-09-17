@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :user_has_roles
+
+  resources :security_domain_has_roles
+
+  resources :roles
+
   resources :task_has_security_domains
 
   resources :security_domains
