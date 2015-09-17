@@ -63,4 +63,18 @@ class User < ActiveRecord::Base
 		end
 		return @roles
 	end
+	
+	def has_access_to_path(path)
+		@security_domain = Task.where(:task_path => path)
+		if @security_domain.count > 0
+			@security_domain = @security_domain.first.security_domain
+		end
+		self.roles.each do |role|
+			if SecurityDomainHasRole.where(:domain_id => @security_domain,
+				:role_id => role).count >0
+				return true
+			end
+		end
+		return false
+	end
 end

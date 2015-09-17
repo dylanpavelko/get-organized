@@ -31,6 +31,8 @@ class ApplicationController < ActionController::Base
 	    @current_user = User.find session[:user_id] 
 	    if @current_user.power_admin
 	       	return true
+	    elsif @current_user.has_access_to_path(request.original_fullpath)
+	    	return true
 	    else
 	    	redirect_to(sessions_profile_path)
 	    	return false

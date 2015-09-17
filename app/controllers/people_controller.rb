@@ -68,7 +68,7 @@ class PeopleController < ApplicationController
     @response = Array.new
 
     #find matching tasks
-    @tasks = Task.all
+    @tasks = Task.where(:search_indexed => true)
     @matched_items = Array.new
     @tasks.each do |item|
       if item.matches(@search_string) and item.user_has_access(@current_user)
