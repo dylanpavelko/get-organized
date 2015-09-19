@@ -64,8 +64,9 @@ class InventoryItemsController < ApplicationController
   # POST /inventory_items.json
   def create
     @inventory_item = InventoryItem.new(inventory_item_params)
+    @person_id = params[:person_id]
     respond_to do |format|
-      if params[:person_id] != ''
+      if @person_id != ''
         @owernship = InventoryOwner.new(:inventory_item => @inventory_item, :person_id => params[:person_id])
         @owernship.save
       end

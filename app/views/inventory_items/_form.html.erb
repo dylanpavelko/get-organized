@@ -34,7 +34,7 @@
   <div class="field">
     Owned By:<br>
     <% @current_person = Person.where(:user_account => @current_user).first %>
-    <%= select_tag :person_id, options_from_collection_for_select(Person.all, :id, :first_name, @current_person.id), {:include_blank => true, :disabled => true} %>
+    <%= select_tag :person_id, options_from_collection_for_select(Person.all, :id, :first_name, @current_person.id), {:include_blank => true} %>
   </div>
 <% end %>
   <div class="field">
