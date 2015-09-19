@@ -32,10 +32,12 @@ class InventoryItemsController < ApplicationController
     @electronics_category = Category.where(:category => "Electronics").first
     @food_category = Category.where(:category => "Food").first
     @books_category = Category.where(:category => "Books").first
+    @furniture_category = Category.where(:category => "Furniture").first
     @clothes = @inventory_items.select { |item| item.category == @clothes_category }#.where(:category_id => )
     @electronics = @inventory_items.select { |item| item.category == @electronics_category }#.where(:category_id => @electronics_category)
     @food = @inventory_items.select { |item| item.category == @food_category }#.where(:category_id => @food_category)
     @books = @inventory_items.select { |item| item.category == @books_category }#.where(:category_id => @food_category)
+    @furniture = @inventory_items.select { |item| item.category == @furniture_category }#.where(:category_id => @food_category)
     @miscellaneous = @inventory_items.select { |item| item.category == nil }#.where(:category_id => nil)
   end
 
