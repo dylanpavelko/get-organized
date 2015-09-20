@@ -67,7 +67,7 @@
   </div>
   <div class="field">
     <%= f.label :public %><br>
-    <% if @inventory_item.public %>
+    <% if @inventory_item.public or @inventory_item.public == nil %>
       <%= f.check_box :public, {checked: true} %>
     <% else %>
       <%= f.check_box :public %>
