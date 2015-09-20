@@ -66,6 +66,10 @@
     <%= f.check_box :container %>
   </div>
   <div class="field">
+    <%= f.label :public %><br>
+    <%= f.check_box :public, {checked: true} %>
+  </div>
+  <div class="field">
     Purchase Price:<br>
     <%= f.text_field :price %>
   </div>

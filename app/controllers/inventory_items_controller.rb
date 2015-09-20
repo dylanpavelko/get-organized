@@ -131,6 +131,6 @@ class InventoryItemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through. 
     def inventory_item_params
       params.require(:inventory_item).permit(:name, :amazon_link, :quantity_type_id, :consumable, :price, :purchase_date,
-       :note, :detail, :brand, :category_id, :subcategory_id, :person_id, :container)
+       :note, :detail, :brand, :category_id, :subcategory_id, :person_id, :container, :public)
     end
 end

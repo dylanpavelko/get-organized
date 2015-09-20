@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150917063245) do
+ActiveRecord::Schema.define(version: 20150919174317) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 20150917063245) do
     t.integer  "subcategory_id"
     t.text     "amazon_link",      limit: 255
     t.boolean  "container"
+    t.boolean  "public"
   end
 
   add_index "inventory_items", ["category_id"], name: "index_inventory_items_on_category_id"
