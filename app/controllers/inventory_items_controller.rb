@@ -8,15 +8,18 @@ class InventoryItemsController < ApplicationController
   # GET /inventory_items.json
   def index
     @inventory_items = InventoryItem.all
-    @clothes_category = Category.where(:category => "Clothing").first
-    @electronics_category = Category.where(:category => "Electronics").first
-    @food_category = Category.where(:category => "Food").first
-    @books_category = Category.where(:category => "Books").first
-    @clothes = @inventory_items.where(:category_id => @clothes_category)
-    @electronics = @inventory_items.where(:category_id => @electronics_category)
-    @food = @inventory_items.where(:category_id => @food_category)
-    @books = @inventory_items.select { |item| item.category == @books_category }#.where(:category_id => @food_category)
-    @miscellaneous = @inventory_items.where(:category_id => nil)
+    @all_items = Array.new
+    @categories = Category.all
+    @categories.each do |category|
+      puts category.category
+      @category_items = @inventory_items.select { |item| item.category == category }
+      if @category_items.count > 0
+        @all_items << @category_items
+      end
+    end
+    
+    @miscellaneous = @inventory_items.select { |item| item.category == nil }#.where(:category_id => nil)
+    @all_items << @miscellaneous
   end
 
   # GET /inventory_items
@@ -28,17 +31,21 @@ class InventoryItemsController < ApplicationController
     @my_items.each do |item|
       @inventory_items << item.inventory_item
     end
-    @clothes_category = Category.where(:category => "Clothing").first
-    @electronics_category = Category.where(:category => "Electronics").first
-    @food_category = Category.where(:category => "Food").first
-    @books_category = Category.where(:category => "Books").first
-    @furniture_category = Category.where(:category => "Furniture").first
-    @clothes = @inventory_items.select { |item| item.category == @clothes_category }#.where(:category_id => )
-    @electronics = @inventory_items.select { |item| item.category == @electronics_category }#.where(:category_id => @electronics_category)
-    @food = @inventory_items.select { |item| item.category == @food_category }#.where(:category_id => @food_category)
-    @books = @inventory_items.select { |item| item.category == @books_category }#.where(:category_id => @food_category)
-    @furniture = @inventory_items.select { |item| item.category == @furniture_category }#.where(:category_id => @food_category)
+    
+    @all_items = Array.new
+    @categories = Category.all
+    @categories.each do |category|
+      puts category.category
+      @category_items = @inventory_items.select { |item| item.category == category }
+      if @category_items.count > 0
+        @all_items << @category_items
+      end
+    end
+    
     @miscellaneous = @inventory_items.select { |item| item.category == nil }#.where(:category_id => nil)
+    @all_items << @miscellaneous
+    
+    
   end
 
   # GET /inventory_items/1

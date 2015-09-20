@@ -1,6 +1,6 @@
 class InventoryItem < ActiveRecord::Base
   belongs_to :quantity_type
-  belongs_to :category
+  belongs_to :category, class_name: "Category", foreign_key: "category_id"
   belongs_to :subcategory
 
   def full_name

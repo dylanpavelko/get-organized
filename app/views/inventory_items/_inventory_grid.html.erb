@@ -1,25 +1,16 @@
-<table>
-  <tr>
-    <td valign="top">
+<br/>
 <div>
-  <h3>Clothing</h3>
-<ul>
-    <% @clothes.each do |inventory_item| %>
-      <li><% if  inventory_item.amazon_link != '' and inventory_item.amazon_link != nil%><span id="image_preview"><%= raw inventory_item.amazon_link %></span><% end %>
-        <%= link_to inventory_item.full_name , inventory_item %>
-        <% if inventory_item.quantity_type != nil %> <%= inventory_item.quantity_type.quantityType %> <%end%>
-        <%= link_to 'Edit', edit_inventory_item_path(inventory_item) %> <%= link_to '+', new_inventory_owner_path(inventory_item) %>
-        
-      </li>
+<% @all_items.each do |items| %>
+<div id="inventory_category"><% puts "test" %><% puts items.first %>
+  <h3>
+    <% if items.first.category != nil %>
+      <%= items.first.category.category %>
+    <% else %>
+      Miscellaneous
     <% end %>
-  </ul>
-</div>
-</td>
-<td valign="top">
-<div>
-  <h3>Electronics</h3>
+  </h3>
 <ul>
-    <% @electronics.each do |inventory_item| %>
+    <% items.each do |inventory_item| %>
       <li><% if  inventory_item.amazon_link != '' and inventory_item.amazon_link != nil%><span id="image_preview"><%= raw inventory_item.amazon_link %></span><% end %>
         <%= link_to inventory_item.full_name , inventory_item %>
         <% if inventory_item.quantity_type != nil %> <%= inventory_item.quantity_type.quantityType %> <%end%>
@@ -28,65 +19,5 @@
     <% end %>
   </ul>
 </div>
-</td>
-<td valign="top">
-<h3>Food</h3>
-<ul>
-    <% @food.each do |inventory_item| %>
-      <li><% if  inventory_item.amazon_link != '' and inventory_item.amazon_link != nil%><span id="image_preview"><%= raw inventory_item.amazon_link %></span><% end %>
-        <%= link_to inventory_item.full_name , inventory_item %>
-        <% if inventory_item.quantity_type != nil %> <%= inventory_item.quantity_type.quantityType %> <%end%>
-        <%= link_to 'Edit', edit_inventory_item_path(inventory_item) %> <%= link_to '+', new_inventory_owner_path(inventory_item) %>
-      </li>
-    <% end %>
-  </ul>
+<% end %>
 </div>
-</td>
-<td valign="top">
-<h3>Miscellaneous</h3>
-<ul>
-    <% @miscellaneous.each do |inventory_item| %>
-      <li><% if  inventory_item.amazon_link != '' and inventory_item.amazon_link != nil%><span id="image_preview"><%= raw inventory_item.amazon_link %></span><% end %>
-        <%= link_to inventory_item.full_name , inventory_item %>
-        <% if inventory_item.quantity_type != nil %> <%= inventory_item.quantity_type.quantityType %> <%end%>
-        <%= link_to 'Edit', edit_inventory_item_path(inventory_item) %> <%= link_to '+', new_inventory_owner_path(inventory_item) %>
-      </li>
-    <% end %>
-  </ul>
-</div>
-</td>
-</tr>
-<tr>
-<td valign="top">
-<h3>Library</h3>
-<ul>
-    <% @books.each do |inventory_item| %>
-      <li><% if  inventory_item.amazon_link != '' and inventory_item.amazon_link != nil%><span id="image_preview"><%= raw inventory_item.amazon_link %></span><% end %>
-        <%= link_to inventory_item.full_name , inventory_item %>
-        <% if inventory_item.quantity_type != nil %> <%= inventory_item.quantity_type.quantityType %> <%end%>
-        <%= link_to 'Edit', edit_inventory_item_path(inventory_item) %> <%= link_to '+', new_inventory_owner_path(inventory_item) %>
-      </li>
-    <% end %>
-  </ul>
-</td>
-  <td valign="top">
-<h3>Furniture</h3>
-<ul>
-    <% @furniture.each do |inventory_item| %>
-      <li><% if  inventory_item.amazon_link != '' and inventory_item.amazon_link != nil%><span id="image_preview"><%= raw inventory_item.amazon_link %></span><% end %>
-        <%= link_to inventory_item.full_name , inventory_item %>
-        <% if inventory_item.quantity_type != nil %> <%= inventory_item.quantity_type.quantityType %> <%end%>
-        <%= link_to 'Edit', edit_inventory_item_path(inventory_item) %> <%= link_to '+', new_inventory_owner_path(inventory_item) %>
-      </li>
-    <% end %>
-  </ul>
-</div>
-  <td>
-  <td>
-  </td>
-  <td>
-  </td>
-  <td>
-  </td>
-</tr>
-</table>
