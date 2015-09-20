@@ -67,7 +67,11 @@
   </div>
   <div class="field">
     <%= f.label :public %><br>
-    <%= f.check_box :public, {checked: true} %>
+    <% if @inventory_item.public %>
+      <%= f.check_box :public, {checked: true} %>
+    <% else %>
+      <%= f.check_box :public %>
+    <% end %>
   </div>
   <div class="field">
     Purchase Price:<br>
