@@ -6,8 +6,10 @@ class Trip < ActiveRecord::Base
   	@activities = ItineraryActivity.where(:trip_id => self.id).order(:datetime)
     @activities = @activities.reject {|x| x.datetime == nil}
   	if @activities.count > 0 
+puts self.name + " " + @activities.first.date
   		return @activities.first.date
   	else
+puts "no date"
   		return ''
   	end
   end

@@ -24,7 +24,7 @@ class TripsController < ApplicationController
     end
     puts "past trips"
     @past_trips = @past_trips.sort {|a,b| Date.parse(a.first_date) <=> Date.parse(b.first_date)}
-    puts "future_trips"
+    puts "future trips"
     @future_trips = @future_trips.sort {|a,b| Date.parse(a.first_date) <=> Date.parse(b.first_date)}
   end
 
