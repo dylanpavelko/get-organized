@@ -1,3 +1,7 @@
+<% @activities_array = 0 %>
+<% @packed_items_array = 1 %>
+
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -20,37 +24,10 @@
 
 </p>
 
-<!-- LIST FORMAT OF ITINERARY
-<p>
-  <strong>Itinerary:</strong>
-  <% if @days.count > 0 %>
-  Days: <%= @days.count %>
-  <ul>
-    <% @days.each do |day| %>
-      <% day.each do |activity| %>
-        <% if activity == day.first %>
-          <strong><%= activity.date %></strong>
-        <% end %>
-        <li> 
-          <%= activity.datetime.strftime("%I:%M %p - ") %>
-          <%= link_to activity.get_name, activity.activity %> 
-          <% if activity.airline != nil %> 
-            <%= link_to image_tag(activity.airline.image, height: '12'), activity.airline %>
-          <% elsif activity.attraction != nil and activity.attraction.hotel != nil%>
-            <%= link_to image_tag(activity.attraction.hotel.image, height: '12'), activity.attraction.hotel %>
-          <% end %>
-          <%= link_to 'edit', edit_itinerary_activity_path(activity) %>
-        </li>
-      <% end %>
-    <% end %>
-  </ul>
-  <a href='#'>Add Itinerary Activity</a>  <%= link_to 'Temporary Add Activity' , new_itinerary_activity_path %>
-<% end %>
-</p> -->
 
+<strong>Itinerary:</strong><br/>
+Number of Days: <%= @total_days %>
 
-
-<strong>Itinerary:</strong>
  <% if @no_date_activities.count > 0 %>
 <br/>
  <em>Unscheduled Activities</em><br/>
@@ -68,48 +45,75 @@
   <span class='activity_header'><strong>Pack</strong></span>
   <% activity_count = 0 %>
   <% @days.each do |day| %>
-      <% day.each do |row| %>
-        <% if row == day.first %>
-        <div class='day' id=<%= 'day' + (@days.index(day)+1).to_s %>>
-          <span class='datename'><strong><%= row.date %></strong></span>
-
-        <% end %>
-        <div class=
-        <% if row.attraction != nil and row.attraction.attraction_category != nil and row.attraction.attraction_category.name == "Hotel" %>
-          "item lodging"
-        <% elsif row.airline != nil %>
-          "item travel"
-        <% else %>
-          "item activity"
-        <% end %>
-        id=<%= activity_count = activity_count + 1 %>>
-          <%= row.datetime.try(:strftime, "%I:%M %p ") %>
-                <br/>
-                <%= link_to row.get_name, row.activity %> 
-                <%= link_to 'edit', edit_itinerary_activity_path(row.activity) %>
-        </div>
-        <% if row.pair == "pair" %>
-          <div class=
-          <% if row.attraction != nil and row.attraction.attraction_category != nil and row.attraction.attraction_category.name == "Hotel" %>
-            "lodging_connector"
-          <% elsif row.airline != nil %>
-            "travel_connector"
-          <% else %>
-            "item activity"
-          <% end %> 
-          >
-            <% if row.airline != nil %> 
-                   <%= link_to image_tag(row.airline.image, height: '12'), row.airline %>
-                <% elsif row.attraction != nil and row.attraction.hotel != nil%>
-                  <%= link_to image_tag(row.attraction.hotel.image, height: '12'), row.attraction.hotel %>
-                <% end %>
-          </div>
-        <% end %>
+      <% if day[@activities_array].count == 0 and day[@packed_items_array].count > 0 %>
+          <div class='day' id=<%= 'day' + (@days.index(day)+1).to_s %>>
+            <span class='datename'>
+              <strong><%= day[@packed_items_array].first.date.try(:strftime, "%A - %b %d, %Y") %></strong>
+            </span>
       <% end %>
+      
+      <% day[@activities_array].each do |row| %>
+        <% if row == day[@activities_array].first %>
+          <div class='day' id=<%= 'day' + (@days.index(day)+1).to_s %>>
+            <span class='datename'>
+              <strong><%= row.date %></strong>
+            </span>
+          <div class="time_based">
+        <% end %>
+          <div class=
+            <% if row.attraction != nil and row.attraction.attraction_category != nil and row.attraction.attraction_category.name == "Hotel" %>
+              "item lodging"
+            <% elsif row.airline != nil %>
+              "item travel"
+            <% else %>
+              "item activity"
+            <% end %>
+            id=<%= activity_count = activity_count + 1 %>>
+  
+            <%= row.datetime.try(:strftime, "%I:%M %p ") %>
+            <br/>
+            <%= link_to row.get_name, row.activity %> 
+            <%= link_to 'edit', edit_itinerary_activity_path(row.activity) %>
+          </div>
+            
+            <% if row.pair == "pair" %>
+              <div class=
+              <% if row.attraction != nil and row.attraction.attraction_category != nil and row.attraction.attraction_category.name == "Hotel" %>
+                "lodging_connector"
+              <% elsif row.airline != nil %>
+                "travel_connector"
+              <% else %>
+                "item activity"
+              <% end %> 
+              >
+                <% if row.airline != nil %> 
+                       <%= link_to image_tag(row.airline.image, height: '12'), row.airline %>
+                <% elsif row.attraction != nil and row.attraction.hotel != nil%>
+                      <%= link_to image_tag(row.attraction.hotel.image, height: '12'), row.attraction.hotel %>
+                <% end %>
+
               </div>
+            <% end %>
+            </div>
+            
+ 
+      <% end %>
+            <div class=<% if day[0].count == 0 %> 
+                          "pack_items no-time-based"
+                        <% else %>
+                          "pack_items"
+                        <% end %>
+                          >
+              <ul>
+                <% day[1].each do |trip_item| %>
+                  <li><%= link_to trip_item.inventory_item.full_name, trip_item.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(trip_item) %></li>
+                <% end %>
+              </ul>
+            </div>
+    </div>
     <% end %>
 </div>
-</div>
+
 <%= link_to 'Add Itinerary Activity' , new_itinerary_activity_path(@trip) %>
 
 <% end %>
@@ -117,14 +121,14 @@
 <div>
 
 
-<div id='bottom'>
+<div>
 <p>
   <strong>Pack List:</strong>
   <ul>
     <% @trip_items.each do |item| %>
-      <li><%= link_to item.inventory_item.full_name, item.inventory_item %> <a href='#'>remove</a></li>
+      <li><%= link_to item.inventory_item.full_name, item.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(item) %> <a href='#'>remove</a></li>
     <% end %>
-    <li><span id="newItem"><button id='addItem'>+ Add Item</button></span></li>
+    <li><span id="newItem"><button id='addItem'>Add Item</button></span></li>
   </ul>
 
 </p>

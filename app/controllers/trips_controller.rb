@@ -16,14 +16,14 @@ class TripsController < ApplicationController
     @trips.each do |trip|
       if trip.last_date == ''
         @future_trips << trip
-      elsif Date.parse(trip.last_date).past?
+      elsif trip.last_date.past?
         @past_trips << trip
       else
         @upcoming_trips << trip
       end
     end
-    @upcoming_trips = @upcoming_trips.sort {|a,b| Date.parse(a.first_date) <=> Date.parse(b.first_date)}
-    @past_trips = @past_trips.sort {|a,b| Date.parse(a.first_date) <=> Date.parse(b.first_date)}
+    @upcoming_trips = @upcoming_trips.sort {|a,b| a.first_date <=> b.first_date}
+    @past_trips = @past_trips.sort {|a,b| b.first_date <=> a.first_date}
   end
 
   # GET /trips/1
@@ -48,28 +48,75 @@ class TripsController < ApplicationController
 
      @itinerary_rows = @itinerary_rows.sort_by {|obj| obj.datetime}
 
-     @days = Array.new
-     @activities=Array.new
+    
+    @first_date = @trip.first_date
+    @last_date = @trip.last_date
+    if @itinerary_rows.count > 0
+      @total_days = @last_date.mjd - @first_date.mjd + 1
+    else
+      @total_days = 0;
+    end
      
+    @days = Array.new(@total_days)
+    @days.each do |day|
+      @days[@days.index(day)] = [Array.new, Array.new]
+    end
+    
+
+
+     
+     ##should get first and last day of trip and add that many days, then have 
+     ### each item/activity add itself to appropriate day
+     
+     @i = 0;
+     @activities = Array.new
      @itinerary_rows.each do |activity| 
-       if(activity.date != nil)
-          if (@activities.count == 0 ) or (@activities.last.date == activity.date)
+      if(activity.date != nil)
+          if @activities.count == 0 or (@activities.last.date == activity.date) 
             @activities << activity
           else
-            @days << @activities
+            @delta = Date.parse(activity.date).mjd - Date.parse(@activities.last.date).mjd
+            @days[@i] = [@activities, Array.new]
             @activities = Array.new
             @activities << activity
-
+            @i = @i + @delta
           end
       else
-        @no_date_activities << activity
+          @no_date_activities << activity
+      end
+
+    end
+    @days[(@i)] = [@activities, Array.new]
+
+    @un_dated_packed_items = Array.new
+    @dated_packed_items = Array.new
+    @packed_items = TripHasInventoryItem.where(:trip_id => @trip)
+    @packed_items.each do |packed_item|
+      if packed_item.date == nil
+        @un_dated_packed_items << packed_item
+      else
+        @dated_packed_items << packed_item
       end
     end
-     @days << @activities
 
-
-
-    
+    #Figure what is packed
+    @dayPack = Array.new
+    @day = 0
+    @packed_items = @dated_packed_items.sort_by {|obj| obj.date}
+    @packed_items.each do |item|
+        @item_date = item.date
+        if @dayPack.count == 0 or @dayPack.last.date == @item_date
+          @day = @item_date.mjd - @first_date.mjd
+          @dayPack << item
+        else
+          @days[@day][1] = @dayPack
+          @day = @item_date.mjd - @first_date.mjd
+          @dayPack = Array.new
+          @dayPack << item
+        end
+    end
+    @days[@day][1] = @dayPack
+  
   end
 
   # GET /trips/new

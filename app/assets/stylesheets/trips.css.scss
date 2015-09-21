@@ -13,6 +13,28 @@
 	width: 98%;
 }
 
+.time_based{
+	display: inline-block;
+	vertical-align: top;
+}
+
+.pack_items{
+	display: inline-block;
+	vertical-align: top;
+	background-color:white;
+	border-radius:4px;
+	padding: .5em;
+	margin: .5em;
+	border: 1px solid black;
+	margin-left: 250px;
+	width: 200px;
+}
+
+.no-time-based{
+	margin-left: 1200px;
+
+}
+
 .item{
 	background-color:white;
 	border-radius:4px;

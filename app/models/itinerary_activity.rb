@@ -9,6 +9,10 @@ class ItineraryActivity < ActiveRecord::Base
   validates :trip_id, :presence => true
 
   def date
+    return self.datetime.to_date
+  end
+  
+  def date_string
   	return self.datetime.try(:strftime, "%A - %b %d, %Y")
   end
 

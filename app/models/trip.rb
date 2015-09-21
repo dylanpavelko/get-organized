@@ -31,4 +31,5 @@ class Trip < ActiveRecord::Base
     end
     return true
   end
+
 end
