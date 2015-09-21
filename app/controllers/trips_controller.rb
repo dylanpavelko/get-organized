@@ -22,8 +22,8 @@ class TripsController < ApplicationController
         @upcoming_trips << trip
       end
     end
-    @upcoming_trips = @past_trips.sort {|a,b| Date.parse(a.first_date) <=> Date.parse(b.first_date)}
-    @future_trips = @future_trips.sort {|a,b| Date.parse(a.first_date) <=> Date.parse(b.first_date)}
+    @upcoming_trips = @upcoming_trips.sort {|a,b| Date.parse(a.first_date) <=> Date.parse(b.first_date)}
+    @past_trips = @past_trips.sort {|a,b| Date.parse(a.first_date) <=> Date.parse(b.first_date)}
   end
 
   # GET /trips/1
