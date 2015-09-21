@@ -68,8 +68,8 @@ Number of Days: <%= @total_days %>
             <% else %>
               "item activity"
             <% end %>
-            id=<%= activity_count = activity_count + 1 %>>
-  
+            id=<%= activity_count = activity_count + 1 %>
+          >
             <%= row.datetime.try(:strftime, "%I:%M %p ") %>
             <br/>
             <%= link_to row.get_name, row.activity %> 
@@ -92,12 +92,13 @@ Number of Days: <%= @total_days %>
                       <%= link_to image_tag(row.attraction.hotel.image, height: '12'), row.attraction.hotel %>
                 <% end %>
 
-
-            <% end %>
             </div>
+            <% end %>
             
- 
+
       <% end %>
+                        
+       </div>
             <div class=<% if day[0].count == 0 %> 
                           "pack_items no-time-based"
                         <% else %>
@@ -111,6 +112,7 @@ Number of Days: <%= @total_days %>
               </ul>
             </div>
     </div>
+
     <% end %>
 </div>
 
