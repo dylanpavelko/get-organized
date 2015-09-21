@@ -50,7 +50,7 @@
 	  	<% elsif activity.airline != nil %>
 	  		<%= link_to image_tag(activity.airline.image, height: '18'), activity.airline %>
 	  	<% end %>
-  		<%= activity.date + ' '%><%= link_to(activity.trip.name, activity.trip)%> - <%= link_to(activity.get_name, activity) %>
+  		<%= activity.date_string + ' '%><%= link_to(activity.trip.name, activity.trip)%> - <%= link_to(activity.get_name, activity) %>
   	</li>
   <% end %>
   </ul>

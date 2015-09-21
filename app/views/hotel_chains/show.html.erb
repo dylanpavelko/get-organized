@@ -24,7 +24,7 @@
   <ul>
   <% @recent_visits.each do |visit| %>
   	<li>
-  		<%= link_to(visit.attraction.name, visit.attraction) %> - <%= visit.date + ' '%><%= link_to(visit.trip.name, visit.trip)%> - <%= link_to(visit.get_name, visit) %>
+  		<%= link_to(visit.attraction.name, visit.attraction) %> - <%= visit.date_string + ' '%><%= link_to(visit.trip.name, visit.trip)%> - <%= link_to(visit.get_name, visit) %>
   	</li>
   <% end %>
   </ul>

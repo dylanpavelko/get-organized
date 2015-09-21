@@ -16,7 +16,7 @@
   <ul>
   <% @recent_trips.each do |flight| %>
   	<li>
-  		<%= flight.date + ' ' +flight.datetime.strftime("%I:%M %p - ") %><%= link_to(flight.trip.name, flight.trip)%> - <%= link_to(flight.get_name, flight) %>
+  		<%= flight.date_string + ' ' +flight.datetime.strftime("%I:%M %p - ") %><%= link_to(flight.trip.name, flight.trip)%> - <%= link_to(flight.get_name, flight) %>
   	</li>
   <% end %>
   </ul>
