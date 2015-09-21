@@ -153,7 +153,8 @@ function addItem(){
     var trip_id = <%= @trip.id %>;
     var item_id = $('#inventory_item_id').children(":selected").attr("value");
     var amount = $('#trip_has_inventory_item_amount').val();
-    var new_item = $.ajax({url: "add_item", type: "POST", data: {'trip_id': trip_id ,'inventory_item_id': item_id, 'amount': amount}, dataType: 'json'}).done(function(data){ 
+    var date = $('#item_date').val()
+    var new_item = $.ajax({url: "add_item", type: "POST", data: {'trip_id': trip_id ,'inventory_item_id': item_id, 'amount': amount, 'date': date}, dataType: 'json'}).done(function(data){ 
       $('#newItem').before("<li><a href='/inventory_items/"+data[1]+"'>" + data[0] + "</a> <a href='#'>remove</a></li>");
       $('#newItem').html("<li><span id='newItem'><button id='addItem' onclick='addRow()''>+ Add Item</button></span></li>");
 

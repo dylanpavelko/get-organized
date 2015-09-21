@@ -171,7 +171,8 @@ class TripsController < ApplicationController
   def add_item_to_trip
     @trip_has_inventory_item = TripHasInventoryItem.new(:trip_id => params[:trip_id],
                                                         :inventory_item_id => params[:inventory_item_id],
-                                                        :amount => params[:amount])
+                                                        :amount => params[:amount],
+                                                        :date => params[:date])
     @trip_has_inventory_item.save
     @response = [@trip_has_inventory_item.inventory_item.full_name, @trip_has_inventory_item.inventory_item_id]
     render json: @response
