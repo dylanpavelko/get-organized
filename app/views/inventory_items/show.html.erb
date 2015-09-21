@@ -108,7 +108,7 @@
     <% end %>
   </ul>
   <% end %>
-  <a href='#'>Add to Trip</a>  <%= link_to 'Temporary Add Item' , new_trip_has_inventory_item_path %>
+  <%= link_to 'Temporary Add to Trip' , new_trip_has_inventory_item_path({:item => @inventory_item}) %>
 </p>
 
 <p>

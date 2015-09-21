@@ -120,15 +120,12 @@
 <div id='bottom'>
 <p>
   <strong>Pack List:</strong>
-  <% if @trip_items.count > 0 %>
   <ul>
     <% @trip_items.each do |item| %>
       <li><%= link_to item.inventory_item.full_name, item.inventory_item %> <a href='#'>remove</a></li>
     <% end %>
     <li><span id="newItem"><button id='addItem'>+ Add Item</button></span></li>
   </ul>
-  <% end %>
-  <%= link_to 'Temporary Add Item' , new_trip_has_inventory_item_path %>
 
 </p>
 </div>

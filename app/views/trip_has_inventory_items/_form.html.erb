@@ -10,21 +10,20 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :trip_id %><br>
-    <% if @trip_has_inventory_item != nil %>
-      <%= f.select :trip_id, options_from_collection_for_select(Trip.all, :id, :name, @trip_has_inventory_item.trip_id), :include_blank => true %>
-    <% else %>
-      <%= f.select :trip_id, options_from_collection_for_select(Trip.all, :id, :name), :include_blank => true %>
-    <% end %>
-  </div>
   <div class="field">
     <%= f.label :inventory_item_id %><br>
     <% if @trip_has_inventory_item != nil %>
       <%= f.select :inventory_item_id, options_from_collection_for_select(InventoryItem.all, :id, :full_name, @trip_has_inventory_item.inventory_item_id), :include_blank => true %>
     <% else %>
       <%= f.select :inventory_item_id, options_from_collection_for_select(InventoryItem.all, :id, :full_name), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :trip_id %><br>
+    <% if @trip_has_inventory_item != nil %>
+      <%= f.select :trip_id, options_from_collection_for_select(Trip.all, :id, :name, @trip_has_inventory_item.trip_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :trip_id, options_from_collection_for_select(Trip.all, :id, :name), :include_blank => true %>
     <% end %>
   </div>
   <div class="field">

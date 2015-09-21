@@ -17,7 +17,7 @@ class TripHasInventoryItemsController < ApplicationController
 
   # GET /trip_has_inventory_items/new
   def new
-    @trip_has_inventory_item = TripHasInventoryItem.new
+    @trip_has_inventory_item = TripHasInventoryItem.new(:inventory_item_id => params[:item])
   end
 
   # GET /trip_has_inventory_items/1/edit
@@ -83,6 +83,6 @@ class TripHasInventoryItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trip_has_inventory_item_params
-      params.require(:trip_has_inventory_item).permit(:trip_id, :inventory_item_id, :date, :amount)
+      params.require(:trip_has_inventory_item).permit(:trip_id, :inventory_item_id, :date, :amount, :item)
     end
 end
