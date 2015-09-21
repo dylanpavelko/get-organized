@@ -9,7 +9,7 @@ class TripsController < ApplicationController
   # GET /trips
   # GET /trips.json
   def index
-    @trips = Trip.all.sort {|a,b| Date.parse(a.first_date) <=> Date.parse(b.first_date)}
+    @trips = Trip.all
     @past_trips = Array.new
     @upcoming_trips = Array.new
     @future_trips = Array.new
@@ -22,6 +22,8 @@ class TripsController < ApplicationController
         @upcoming_trips << trip
       end
     end
+    @past_trips = @past_trips.sort {|a,b| Date.parse(a.first_date) <=> Date.parse(b.first_date)}
+    @future_trips = @future_trips.sort {|a,b| Date.parse(a.first_date) <=> Date.parse(b.first_date)}
   end
 
   # GET /trips/1

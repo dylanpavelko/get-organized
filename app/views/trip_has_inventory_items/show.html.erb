@@ -7,7 +7,7 @@
 
 <p>
   <strong>Inventory item:</strong>
-  <%= @trip_has_inventory_item.inventory_item.full_name %>
+  <%= link_to @trip_has_inventory_item.inventory_item.full_name, @trip_has_inventory_item.inventory_item %>
 </p>
 
 <%= link_to 'Edit', edit_trip_has_inventory_item_path(@trip_has_inventory_item) %> |
