@@ -24,16 +24,6 @@
   	<% end %>
   <% end %>
 </p>
-<% if @attraction.trip_advisor_link != nil and  @attraction.trip_advisor_link != '' %>
-	<div id="TA_cdsratingsonlynarrow74" class="TA_cdsratingsonlynarrow">
-	<ul id="70CkSg5" class="TA_links Q8YmqqWp0">
-	<li id="x2jv1QJDiRe3" class="qss0FQOkEJ">
-	<a target="_blank" href="http://www.tripadvisor.com/"><img src="http://www.tripadvisor.com/img/cdsi/img2/branding/tripadvisor_logo_transp_340x80-18034-2.png" alt="TripAdvisor"/></a>
-	</li>
-	</ul>
-	</div>
-	<script src="http://www.jscache.com/wejs?wtype=cdsratingsonlynarrow&amp;uniq=74&amp;locationId=<%= @attraction.trip_advisor_location_id %>&amp;lang=en_US&amp;border=true&amp;display_version=2"></script>
-<% end %>
 
 <p>
   <strong>Recent Visits:</strong><br/>
@@ -48,3 +38,13 @@
 
 <%= link_to 'Edit', edit_attraction_path(@attraction) %> |
 <%= link_to 'Back', attractions_path %>
+
+
+<div id="TA_selfserveprop104" class="TA_selfserveprop">
+<ul id="Ng5lvBHxf8" class="TA_links pUK76uDW5">
+<li id="zJ1CKg" class="XOsDp3aTOI6">
+<a target="_blank" href="http://www.tripadvisor.com/"><img src="https://www.tripadvisor.com/img/cdsi/img2/branding/150_logo-11900-2.png" alt="TripAdvisor"/></a>
+</li>
+</ul>
+</div>
+<script src="https://www.tripadvisor.com/WidgetEmbed-selfserveprop?amp;locationId=<%= @attraction.trip_advisor_location_id %>&amp;writereviewlink=true&amp;rating=true&amp;border=true&amp;uniq=104&amp;iswide=false&amp;popIdx=true&amp;lang=en_US&amp;nreviews=5&amp;display_version=2"></script>
