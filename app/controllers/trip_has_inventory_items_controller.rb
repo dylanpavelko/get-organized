@@ -83,6 +83,6 @@ class TripHasInventoryItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trip_has_inventory_item_params
-      params.require(:trip_has_inventory_item).permit(:trip_id, :inventory_item_id, :date, :amount, :item)
+      params.require(:trip_has_inventory_item).permit(:trip_id, :inventory_item_id, :date, :amount, :item, :packed)
     end
 end

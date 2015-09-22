@@ -136,6 +136,17 @@ Number of Days: <%= @total_days %>
 </p>
 </div>
 <div>
+<p>
+  <strong>Packed Items:</strong>
+  <ul>
+    <% @packed_trip_items.each do |item| %>
+      <li><%= link_to item.inventory_item.full_name, item.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(item) %> <a href='#'>remove</a></li>
+    <% end %>
+  </ul>
+
+</p>
+</div>
+
 
 
 <%= link_to 'Edit', edit_trip_path(@trip) %> |

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150919174317) do
+ActiveRecord::Schema.define(version: 20150922032821) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -256,6 +256,7 @@ ActiveRecord::Schema.define(version: 20150919174317) do
     t.datetime "updated_at"
     t.date     "date"
     t.decimal  "amount"
+    t.boolean  "packed"
   end
 
   add_index "trip_has_inventory_items", ["inventory_item_id"], name: "index_trip_has_inventory_items_on_inventory_item_id"

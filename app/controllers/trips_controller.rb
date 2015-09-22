@@ -116,7 +116,17 @@ class TripsController < ApplicationController
         end
     end
     @days[@day][1] = @dayPack
-  
+    
+    @packed_trip_items = Array.new
+    @unpacked = Array.new
+    @trip_items.each do |item|
+      if item.packed
+        @packed_trip_items << item
+      else
+        @unpacked << item    
+      end
+    end
+    @trip_items = @unpacked
   end
 
   # GET /trips/new
