@@ -48,7 +48,7 @@
     <% @past_trips.each do |trip| %>
       <tr>
         <td>
-          <strong><%= link_to trip.name , trip %></strong> <br/><%= trip.first_date %> to <%= trip.last_date%> <br/>
+          <strong><%= link_to trip.name , trip %></strong> <br/><%= trip.first_date.try(:strftime, "%A - %b %d, %Y") %> to <%= trip.last_date.try(:strftime, "%A - %b %d, %Y") %> <br/>
           <em><%= trip.description %></em>
         </td>
         <td><%= trip.blog_link %></td>

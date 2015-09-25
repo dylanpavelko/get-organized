@@ -39,12 +39,13 @@
 <%= link_to 'Edit', edit_attraction_path(@attraction) %> |
 <%= link_to 'Back', attractions_path %>
 
-
-<div id="TA_selfserveprop104" class="TA_selfserveprop">
-<ul id="Ng5lvBHxf8" class="TA_links pUK76uDW5">
-<li id="zJ1CKg" class="XOsDp3aTOI6">
-<a target="_blank" href="http://www.tripadvisor.com/"><img src="https://www.tripadvisor.com/img/cdsi/img2/branding/150_logo-11900-2.png" alt="TripAdvisor"/></a>
-</li>
-</ul>
-</div>
-<script src="https://www.tripadvisor.com/WidgetEmbed-selfserveprop?amp;locationId=<%= @attraction.trip_advisor_location_id %>&amp;writereviewlink=true&amp;rating=true&amp;border=true&amp;uniq=104&amp;iswide=false&amp;popIdx=true&amp;lang=en_US&amp;nreviews=5&amp;display_version=2"></script>
+<% if @attraction.trip_advisor_link != '' %>
+  <div id="TA_selfserveprop104" class="TA_selfserveprop">
+  <ul id="Ng5lvBHxf8" class="TA_links pUK76uDW5">
+  <li id="zJ1CKg" class="XOsDp3aTOI6">
+  <a target="_blank" href="http://www.tripadvisor.com/"><img src="https://www.tripadvisor.com/img/cdsi/img2/branding/150_logo-11900-2.png" alt="TripAdvisor"/></a>
+  </li>
+  </ul>
+  </div>
+  <script src="https://www.tripadvisor.com/WidgetEmbed-selfserveprop?amp;locationId=<%= @attraction.trip_advisor_location_id %>&amp;writereviewlink=true&amp;rating=true&amp;border=true&amp;uniq=104&amp;iswide=false&amp;popIdx=true&amp;lang=en_US&amp;nreviews=5&amp;display_version=2"></script>
+<% end %>
