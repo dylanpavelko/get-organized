@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922032821) do
+ActiveRecord::Schema.define(version: 20150925045612) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 20150922032821) do
     t.integer  "destination_id"
     t.integer  "airline_id"
     t.datetime "end"
+    t.text     "note"
   end
 
   add_index "itinerary_activities", ["airline_id"], name: "index_itinerary_activities_on_airline_id"
@@ -257,6 +258,7 @@ ActiveRecord::Schema.define(version: 20150922032821) do
     t.date     "date"
     t.decimal  "amount"
     t.boolean  "packed"
+    t.boolean  "reused"
   end
 
   add_index "trip_has_inventory_items", ["inventory_item_id"], name: "index_trip_has_inventory_items_on_inventory_item_id"

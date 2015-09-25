@@ -72,6 +72,7 @@ class ItineraryActivitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def itinerary_activity_params
-      params.require(:itinerary_activity).permit(:name, :attraction_id, :cost, :basis_id, :datetime, :end, :order, :trip_id, :origination_id, :destination_id, :airline_id)
+      params.require(:itinerary_activity).permit(:name, :attraction_id, :cost, :basis_id, :datetime, :end, 
+      :order, :trip_id, :origination_id, :destination_id, :airline_id, :note)
     end
 end

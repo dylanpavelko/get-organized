@@ -181,10 +181,11 @@ Number of Days: <%= @total_days %>
                 <% end %>
                 
                 
-                
+                <% if day[1].count > 0 %>
                 <em>Other</em><br/>
                 <% day[1].each do |trip_item| %>
                   <li><%= link_to trip_item.inventory_item.full_name, trip_item.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(trip_item) %></li>
+                <% end %>
                 <% end %>
               </ul>
             </div>
@@ -204,8 +205,16 @@ Number of Days: <%= @total_days %>
 <p>
   <strong>Pack List:</strong>
   <ul>
-    <% @trip_items.each do |item| %>
-      <li><%= link_to item.inventory_item.full_name, item.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(item) %> <a href='#'>remove</a></li>
+    <% @unique_items = @trip_items.uniq{|x| x.inventory_item.id} %>
+    <% @unique_items.each do |item| %>
+      <% @count = 0 %>
+      <% @trip_items.find_all {|x| x.inventory_item.id == item.inventory_item.id}.each do |count_item|  %>
+        <% if ! count_item.reused? %>
+          <% @count = @count + count_item.get_amount.to_i %>
+        <% end %>
+      <% end %>
+
+      <li><% if @count > 1 %>(<%= @count %>) <% end %><%= link_to item.inventory_item.full_name, item.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(item) %> <a href='#'>remove</a></li>
     <% end %>
     <li><span id="newItem"><button id='addItem'>Add Item</button></span></li>
   </ul>
