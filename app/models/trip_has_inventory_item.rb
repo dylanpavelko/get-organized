@@ -9,5 +9,4 @@ class TripHasInventoryItem < ActiveRecord::Base
       return self.amount
     end
   end
-  
 end
