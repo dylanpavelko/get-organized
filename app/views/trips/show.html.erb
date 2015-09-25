@@ -119,7 +119,7 @@ Number of Days: <%= @total_days %>
                     <li><%= link_to shirt.inventory_item.full_name, shirt.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(shirt) %></li>
                   <% end %>
                 <% else %>
-                  <%= link_to "choose pants", new_trip_has_inventory_item_path, {:style=>'color:red;', :class => "css_class"} %> <br/>
+                  <%= link_to "choose shirt", new_trip_has_inventory_item_path, {:style=>'color:red;', :class => "css_class"} %> <br/>
                 <% end %>
                 
                 <% @pants = Array.new %>
@@ -178,6 +178,22 @@ Number of Days: <%= @total_days %>
                 <% @undershirts.each do |undershirt| %>
                     <li><%= link_to undershirt.inventory_item.full_name, undershirt.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(undershirt) %></li>
                   <% end %>
+                <% end %>
+                
+                 <% @shoes = Array.new %>
+                <% day[1].each do |trip_item|  %>
+                  <% if trip_item.inventory_item.subcategory != nil and trip_item.inventory_item.subcategory.subcategory == "Shoes" %>
+                    <% @shoes << trip_item %>
+                    <% day[1].delete(trip_item) %>
+                  <% end %>
+                <% end %>
+                <em>Shoes</em><br/>
+                <% if @shoes.count > 0 %>
+                <% @shoes.each do |shoe| %>
+                    <li><%= link_to shoe.inventory_item.full_name, shoe.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(shoe) %></li>
+                  <% end %>
+                <% else %>
+                  <%= link_to "choose shoes", new_trip_has_inventory_item_path, {:style=>'color:red;', :class => "css_class"} %> <br/>
                 <% end %>
                 
                 
