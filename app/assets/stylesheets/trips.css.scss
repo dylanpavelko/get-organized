@@ -59,6 +59,8 @@
 
 .activity{
 	margin-left: 720px;
+	z-index: 1;
+	position: relative;
 }
 
 .travel_header{
@@ -102,6 +104,21 @@
 	border: 1px solid black;
 	width: 170px;
 	margin-left: 495px;
+	margin-top: -10px;
+	margin-bottom: -10px;
+	position: relative;
+	z-index:0;
+}
+
+.activity_connector{
+
+	background-color:white;
+	border-radius:4px;
+	padding: .5em;
+	margin: .5em;
+	border: 1px solid black;
+	width: 170px;
+	margin-left: 735px;
 	margin-top: -10px;
 	margin-bottom: -10px;
 	position: relative;
