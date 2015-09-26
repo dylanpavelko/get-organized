@@ -1,0 +1,65 @@
+<%= form_for(@transaction) do |f| %>
+  <% if @transaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+      <ul>
+      <% @transaction.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :inventory_item_id %><br>
+    <% if @transaction.inventory_item_id != nil %>
+      <%= f.select :inventory_item_id, options_from_collection_for_select(InventoryItem.all, :id, :full_name, @transaction.inventory_item_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :inventory_item_id, options_from_collection_for_select(InventoryItem.all, :id, :full_name), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :buyer_person_id %><br>
+    <% if @transaction.buyer_person_id != nil %>
+      <%= f.select :buyer_person_id, options_from_collection_for_select(Person.all, :id, :first_name, @transaction.buyer_person_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :buyer_person_id, options_from_collection_for_select(Person.all, :id, :first_name, @current_user.person_id), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :seller_business_id %><br>
+    <% if @transaction.buyer_person_id != nil %>
+      <%= f.select :seller_business_id, options_from_collection_for_select(Business.all, :id, :name, @transaction.seller_business_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :seller_business_id, options_from_collection_for_select(Business.all, :id, :name), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    $<%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br>
+    <%= f.text_field :amount %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity_type_id %><br>
+    <% if @transaction.quantity_type_id != nil %>
+      <%= f.select :quantity_type_id, options_from_collection_for_select(QuantityType.all, :id, :quantityType, @transaction.quantity_type_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :quantity_type_id, options_from_collection_for_select(QuantityType.all, :id, :quantityType), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :transaction_date %><br>
+    <%= f.date_field :transaction_date, :value => Time.now.strftime('%Y-%m-%d') %>
+  </div>
+  <div class="field">
+    <%= f.label :shopping_list %> (Future Purchase)<br>
+    <%= f.check_box :shopping_list %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

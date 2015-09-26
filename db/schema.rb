@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150925045612) do
+ActiveRecord::Schema.define(version: 20150926225051) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -68,6 +68,12 @@ ActiveRecord::Schema.define(version: 20150925045612) do
   add_index "attractions", ["attraction_category_id"], name: "index_attractions_on_attraction_category_id"
   add_index "attractions", ["hotel_id"], name: "index_attractions_on_hotel_id"
   add_index "attractions", ["location_id"], name: "index_attractions_on_location_id"
+
+  create_table "businesses", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "categories", force: true do |t|
     t.string   "category"
@@ -249,6 +255,24 @@ ActiveRecord::Schema.define(version: 20150925045612) do
   end
 
   add_index "tasks", ["security_domain_id"], name: "index_tasks_on_security_domain_id"
+
+  create_table "transactions", force: true do |t|
+    t.integer  "inventory_item_id"
+    t.integer  "buyer_person_id"
+    t.integer  "seller_business_id"
+    t.decimal  "price"
+    t.date     "transaction_date"
+    t.decimal  "amount"
+    t.integer  "quantity_type_id"
+    t.boolean  "shopping_list"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "transactions", ["buyer_person_id"], name: "index_transactions_on_buyer_person_id"
+  add_index "transactions", ["inventory_item_id"], name: "index_transactions_on_inventory_item_id"
+  add_index "transactions", ["quantity_type_id"], name: "index_transactions_on_quantity_type_id"
+  add_index "transactions", ["seller_business_id"], name: "index_transactions_on_seller_business_id"
 
   create_table "trip_has_inventory_items", force: true do |t|
     t.integer  "trip_id"

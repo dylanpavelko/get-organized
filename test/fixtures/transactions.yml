@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  inventory_item_id: 
+  buyer_person_id: 
+  seller_business_id: 
+  price: 9.99
+  transaction_date: 2015-09-26
+  amount: 9.99
+  quantity_type_id: 
+  shopping_list: false
+
+two:
+  inventory_item_id: 
+  buyer_person_id: 
+  seller_business_id: 
+  price: 9.99
+  transaction_date: 2015-09-26
+  amount: 9.99
+  quantity_type_id: 
+  shopping_list: false

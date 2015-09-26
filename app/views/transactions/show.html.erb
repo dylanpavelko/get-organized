@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Inventory item:</strong>
+  <%= link_to @transaction.inventory_item.full_name, @transaction.inventory_item %>
+</p>
+
+<p>
+  <strong>Buyer person:</strong>
+  <%= @transaction.buyer_person %>
+</p>
+
+<p>
+  <strong>Seller business:</strong>
+  <%= @transaction.seller_business %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @transaction.price %>
+</p>
+
+<p>
+  <strong>Transaction date:</strong>
+  <%= @transaction.transaction_date %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @transaction.amount %>
+</p>
+
+<p>
+  <strong>Quantity type:</strong>
+  <%= @transaction.quantity_type %>
+</p>
+
+<p>
+  <strong>Shopping list:</strong>
+  <%= @transaction.shopping_list %>
+</p>
+
+<%= link_to 'Edit', edit_transaction_path(@transaction) %> |
+<%= link_to 'Back', transactions_path %>

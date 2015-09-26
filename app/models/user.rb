@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
 	def clear_password
 	  self.password = nil
 	end
+	
+	def person_id
+		return Person.where(:user_account_id => self.id).first.id
+	end
 
 	def self.authenticate(username_or_email="", login_password="")
 	  if  EMAIL_REGEX.match(username_or_email)    

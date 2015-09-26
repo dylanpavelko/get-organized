@@ -58,6 +58,8 @@ class InventoryItemsController < ApplicationController
     @ownerships = InventoryOwner.where(:inventory_item_id => @inventory_item, :person => @current_person)
 
     @contains = InventoryOwner.where(:stored_in_id => @inventory_item)
+    
+    @transactions = Transaction.where(:inventory_item_id => @inventory_item)
   end
 
   # GET /inventory_items/new

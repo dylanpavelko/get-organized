@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :businesses
+
+  resources :transactions
+
   resources :user_has_roles
 
   resources :security_domain_has_roles

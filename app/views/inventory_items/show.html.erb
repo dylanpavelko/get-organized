@@ -94,6 +94,22 @@
     <% else %>
        <br/><%= link_to 'Add to My Inventory', new_inventory_owner_path(@inventory_item) %>
     <% end %>
+    <% if @transactions.count > 0 %>
+    <br/>Transactions:
+    <% end %>
+    <% @transactions.each do |transaction| %>
+      <br/>
+      <%= transaction.transaction_date.try(:strftime, "%D") %> |
+      $<%= transaction.price %> - 
+      <%= transaction.amount %> 
+      <% if transaction.quantity_type != nil %>
+        <%= transaction.quantity_type.quantityType %>
+      <% end %>
+      @ 
+      <%= transaction.seller_business.name %> <%= link_to 'edit', edit_transaction_path(transaction) %>
+    <% end %>
+    <br/>
+    <%= link_to 'Add Transaction', new_transaction_path(@inventory_item) %>
   </div>
 </div>
 
