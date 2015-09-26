@@ -68,7 +68,7 @@ Number of Days: <%= @total_days %>
             <% else %>
               "item activity"
             <% end %>
-            id=<%= activity_count = activity_count + 1 %>
+            id=activity<%= activity_count = activity_count + 1 %>
           >
             <%= row.datetime.try(:strftime, "%I:%M %p ") %>
             <br/>
@@ -230,7 +230,7 @@ Number of Days: <%= @total_days %>
         <% end %>
       <% end %>
     <% if ! item.reused? %>
-      <li>
+      <li class='items'>
         <% if @count > 1%>
           (<%= @count %>) 
         <% end %>
@@ -239,15 +239,16 @@ Number of Days: <%= @total_days %>
           <%= link_to "change", edit_trip_has_inventory_item_path(item) %> 
         
         <% if @count > 1 %>
+          <img class="pack-all-items" id=<%= item.id %>  src='http://cdn.flaticon.com/svg/31/31290.svg' width='20' /> all
           <img class="pack-item-single" id=<%= item.id %> src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />(1) 
-          <img class="pack-all-items" id=<%= item.id %>  src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' /> all
+
         <% else %>
           <img class="pack-item" id=<%= item.id %> src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />
         <% end %>
       </li>
     <% end %>
     <% end %>
-    <li><span id="newItem"><button id='addItem'>Add Item</button></span></li>
+    <span id="newItem"><button id='addItem'>Add Item</button></span>
   </ul>
 
 </p>
@@ -257,7 +258,7 @@ Number of Days: <%= @total_days %>
   <strong>Packed Items:</strong>
   <ul id='packed_list'>
     <% @packed_trip_items.each do |item| %>
-      <li><%= link_to item.inventory_item.full_name, item.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(item) %></li>
+      <li class='items'><%= link_to item.inventory_item.full_name, item.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(item) %></li>
     <% end %>
   </ul>
 
