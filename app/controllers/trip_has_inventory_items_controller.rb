@@ -85,8 +85,7 @@ class TripHasInventoryItemsController < ApplicationController
   def pack_item_multiple
     @trip_item = TripHasInventoryItem.find(params[:id])
     @item = @trip_item.inventory_item
-puts "all status"
-puts params[:all]
+    
     if params[:all] == "true"
       #pack all trip items of inventory type
       @items = TripHasInventoryItem.where(:inventory_item_id => @item.id, :trip_id => @trip_item.trip_id)
@@ -99,18 +98,13 @@ puts params[:all]
       @unpacked = TripHasInventoryItem.where(:inventory_item_id => @item.id, :packed => false, :trip_id => @trip_item.trip_id)
       @unpacked_nil = TripHasInventoryItem.where(:inventory_item_id => @item.id, :packed => nil, :trip_id => @trip_item.trip_id)
       @unpacked = @unpacked + @unpacked_nil
-puts "number of levis unpacked"
-puts @unpacked.count
+
       @unpacked_count = @unpacked.count
-puts @unpacked_count
-@unpacked.each do |unpack|
-  puts "id " + unpack.id.to_s
-end
+
       @unpacked.first.update(:packed => true)
-puts @unpacked_count
       @data = [ @trip_item, @trip_item.inventory_item.id, @trip_item.inventory_item.full_name, (@unpacked_count - 1)]
     end
-puts @unpacked_count    
+   
     render json: @data
   end
 

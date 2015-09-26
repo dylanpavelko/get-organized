@@ -229,14 +229,15 @@ Number of Days: <%= @total_days %>
           <% @count = @count + count_item.get_amount.to_i %>
         <% end %>
       <% end %>
-
+    <% if ! item.reused? %>
       <li>
-        <% if @count > 1 %>
+        <% if @count > 1%>
           (<%= @count %>) 
         <% end %>
-        <%= link_to item.inventory_item.full_name, item.inventory_item %> 
-        <%= link_to "change", edit_trip_has_inventory_item_path(item) %> 
 
+          <%= link_to item.inventory_item.full_name, item.inventory_item %> 
+          <%= link_to "change", edit_trip_has_inventory_item_path(item) %> 
+        
         <% if @count > 1 %>
           <img class="pack-item-single" id=<%= item.id %> src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />(1) 
           <img class="pack-all-items" id=<%= item.id %>  src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' /> all
@@ -244,6 +245,7 @@ Number of Days: <%= @total_days %>
           <img class="pack-item" id=<%= item.id %> src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />
         <% end %>
       </li>
+    <% end %>
     <% end %>
     <li><span id="newItem"><button id='addItem'>Add Item</button></span></li>
   </ul>
