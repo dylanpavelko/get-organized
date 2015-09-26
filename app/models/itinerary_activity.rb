@@ -95,6 +95,8 @@ class ItineraryRow
       return "Depart from " + Location.where(:id => self.location).first.display_name
     elsif self.name == "" and self.location != nil and !self.start
       return "Arrive at " + Location.where(:id => self.location).first.display_name
+    elsif !self.start
+      return self.name + " Ends"      
     else
       return name
     end

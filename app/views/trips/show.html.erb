@@ -230,7 +230,20 @@ Number of Days: <%= @total_days %>
         <% end %>
       <% end %>
 
-      <li><% if @count > 1 %>(<%= @count %>) <% end %><%= link_to item.inventory_item.full_name, item.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(item) %> <a href='#'>remove</a></li>
+      <li>
+        <% if @count > 1 %>
+          (<%= @count %>) 
+        <% end %>
+        <%= link_to item.inventory_item.full_name, item.inventory_item %> 
+        <%= link_to "change", edit_trip_has_inventory_item_path(item) %> 
+
+        <% if @count > 1 %>
+          <img class="pack-item-single" id=<%= item.id %> src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />(1) 
+          <img class="pack-all-items" src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' /> all
+        <% else %>
+          <img class="pack-item" id=<%= item.id %> src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />
+        <% end %>
+      </li>
     <% end %>
     <li><span id="newItem"><button id='addItem'>Add Item</button></span></li>
   </ul>
@@ -240,9 +253,9 @@ Number of Days: <%= @total_days %>
 <div>
 <p>
   <strong>Packed Items:</strong>
-  <ul>
+  <ul id='packed_list'>
     <% @packed_trip_items.each do |item| %>
-      <li><%= link_to item.inventory_item.full_name, item.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(item) %> <a href='#'>remove</a></li>
+      <li><%= link_to item.inventory_item.full_name, item.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(item) %></li>
     <% end %>
   </ul>
 
@@ -270,9 +283,22 @@ function addItem(){
     var amount = $('#trip_has_inventory_item_amount').val();
     var date = $('#item_date').val()
     var new_item = $.ajax({url: "add_item", type: "POST", data: {'trip_id': trip_id ,'inventory_item_id': item_id, 'amount': amount, 'date': date}, dataType: 'json'}).done(function(data){ 
-      $('#newItem').before("<li><a href='/inventory_items/"+data[1]+"'>" + data[0] + "</a> <a href='#'>remove</a></li>");
+      $('#newItem').before("<li><a href='/inventory_items/"+data[1]+"'>" + data[0] + "</a></li>");
       $('#newItem').html("<li><span id='newItem'><button id='addItem' onclick='addRow()''>+ Add Item</button></span></li>");
 
      });
 }
+
+
+$('.pack-item').click(function(){
+  var $item_line = this;
+  var new_item = $.ajax({url: "/trips/pack_item", type: "POST", data: {'id': this.id}, dataType: 'json'}).done(function(data){ 
+      console.log(data);
+      $('#'+data[0].id).parent().remove();
+      $('#packed_list').append("<li><a href='/inventory_items/"+data[1]+"'>" + data[2] + "</a> <a href='/trip_has_inventory_items/"+data[0].id+"/edit'>change</a></li>");
+
+     });
+})
+
+
 </script>

@@ -74,6 +74,13 @@ class TripHasInventoryItemsController < ApplicationController
     #   format.json { head :no_content }
     # end
   end
+  
+  def pack_item
+    @trip_item = TripHasInventoryItem.find(params[:id])
+    @trip_item.update(:packed => true)
+    @data = [ @trip_item, @trip_item.inventory_item.id, @trip_item.inventory_item.full_name]
+    render json: @data
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

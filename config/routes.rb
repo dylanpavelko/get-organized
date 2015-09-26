@@ -58,6 +58,8 @@ Rails.application.routes.draw do
   get 'my_inventory' => 'inventory_items#my_inventory'
 
   post 'trips/add_item' => 'trips#add_item_to_trip'
+  
+  post 'trips/pack_item' => 'trip_has_inventory_items#pack_item'
 
   post 'instant_search_inventory' => 'inventory_items#instant_search_inventory'
 
