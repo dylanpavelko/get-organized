@@ -142,8 +142,21 @@ img.pack-item{
 
 img.pack-item-single{
 	float: right;
+	margin-right:0.25em;
 }
 
 img.pack-all-items{
 	float: right;
+}
+
+#pack_list{
+	display: inline-block;
+	vertical-align: top;
+	width:500;
+}
+
+#packed_list{
+	display: inline-block;
+	vertical-align: top;
+	width:500;
 }

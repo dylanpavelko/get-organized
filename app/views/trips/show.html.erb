@@ -217,7 +217,7 @@ Number of Days: <%= @total_days %>
 <div>
 
 
-<div>
+<div id='pack_list'>
 <p>
   <strong>Pack List:</strong>
   <ul>
@@ -239,8 +239,8 @@ Number of Days: <%= @total_days %>
           <%= link_to "change", edit_trip_has_inventory_item_path(item) %> 
         
         <% if @count > 1 %>
-          <img class="pack-all-items" id=<%= item.id %>  src='http://cdn.flaticon.com/svg/31/31290.svg' width='20' /> all
-          <img class="pack-item-single" id=<%= item.id %> src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />(1) 
+           <img class="pack-all-items" id=<%= item.id %>  src='http://cdn.flaticon.com/svg/31/31290.svg' width='20' /> all
+           <img class="pack-item-single" id=<%= item.id %> src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />(1) 
 
         <% else %>
           <img class="pack-item" id=<%= item.id %> src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />
@@ -253,23 +253,26 @@ Number of Days: <%= @total_days %>
 
 </p>
 </div>
-<div>
+<div id='packed_list' valign='top'>
 <p>
   <strong>Packed Items:</strong>
   <ul id='packed_list'>
     <% @packed_trip_items.each do |item| %>
-      <li class='items'><%= link_to item.inventory_item.full_name, item.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(item) %></li>
+      <% if ! item.reused? %>
+        <li class='items'><%= link_to item.inventory_item.full_name, item.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(item) %></li>
+      <% end %>
     <% end %>
   </ul>
 
 </p>
 </div>
 
-
+<div>
 
 <%= link_to 'Edit', edit_trip_path(@trip) %> |
 <%= link_to 'All Trips', trips_path %>
 
+</div>
 
 <script type="text/javascript">
 $('#addItem').click(function(){
@@ -296,7 +299,7 @@ function addItem(){
 $('.pack-item').click(function(){
   var new_item = $.ajax({url: "/trips/pack_item", type: "POST", data: {'id': this.id}, dataType: 'json'}).done(function(data){ 
       $('#'+data[0].id).parent().remove();
-      $('#packed_list').append("<li><a href='/inventory_items/"+data[1]+"'>" + data[2] + "</a> <a href='/trip_has_inventory_items/"+data[0].id+"/edit'>change</a></li>");
+      $('#packed_list').append("<li class='items'><a href='/inventory_items/"+data[1]+"'>" + data[2] + "</a> <a href='/trip_has_inventory_items/"+data[0].id+"/edit'>change</a></li>");
 
      });
 })
@@ -306,14 +309,14 @@ $(document).on("click", "img.pack-item-single", function(){
     console.log(data);
       if(data[3] >= 2){
         $('#'+data[0].id).parent().replaceWith(
-          "<li>("+ (data[3]) +") <a href='/inventory_items/"+data[1]+"'>" + data[2] + "</a> <a href='/trip_has_inventory_items/"+data[0].id+"/edit'>change</a> <img class='pack-item-single' id="+data[0].id+" src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />(1) <img class='pack-all-items' id="+data[0].id+" src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />all</li>");
+          "<li class='items'>("+ (data[3]) +") <a href='/inventory_items/"+data[1]+"'>" + data[2] + "</a> <a href='/trip_has_inventory_items/"+data[0].id+"/edit'>change</a> <img class='pack-item-single' id="+data[0].id+" src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />(1) <img class='pack-all-items' id="+data[0].id+" src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />all</li>");
       }else if(data[3] == 1){
         $('#'+data[0].id).parent().replaceWith(
-          "<li><a href='/inventory_items/"+data[1]+"'>" + data[2] + "</a> <a href='/trip_has_inventory_items/"+data[0].id+"/edit'>change</a> <img class='pack-item-single' id="+data[0].id+" src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' /></li>");
+          "<li class='items'><a href='/inventory_items/"+data[1]+"'>" + data[2] + "</a> <a href='/trip_has_inventory_items/"+data[0].id+"/edit'>change</a> <img class='pack-item-single' id="+data[0].id+" src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' /></li>");
       }else{
         $('#'+data[0].id).parent().remove();
       }
-      $('#packed_list').append("<li><a href='/inventory_items/"+data[1]+"'>" + data[2] + "</a> <a href='/trip_has_inventory_items/"+data[0].id+"/edit'>change</a></li>");
+      $('#packed_list').append("<li class='items'><a href='/inventory_items/"+data[1]+"'>" + data[2] + "</a> <a href='/trip_has_inventory_items/"+data[0].id+"/edit'>change</a></li>");
 
   });
 });
@@ -321,7 +324,7 @@ $(document).on("click", "img.pack-item-single", function(){
 $('.pack-all-items').click(function(){
   var new_item = $.ajax({url: "/trips/pack_item_multiple", type: "POST", data: {'id': this.id, 'all': true}, dataType: 'json'}).done(function(data){ 
       $('#'+data[0].id).parent().remove();
-      $('#packed_list').append("<li>(" + data[3] + ") <a href='/inventory_items/"+data[1]+"'>" + data[2] + "</a> <a href='/trip_has_inventory_items/"+data[0].id+"/edit'>change</a></li>");
+      $('#packed_list').append("<li class='items'>(" + data[3] + ") <a href='/inventory_items/"+data[1]+"'>" + data[2] + "</a> <a href='/trip_has_inventory_items/"+data[0].id+"/edit'>change</a></li>");
 
      });
 })
