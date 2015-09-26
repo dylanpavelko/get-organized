@@ -60,6 +60,8 @@ Rails.application.routes.draw do
   post 'trips/add_item' => 'trips#add_item_to_trip'
   
   post 'trips/pack_item' => 'trip_has_inventory_items#pack_item'
+  
+  post 'trips/pack_item_multiple' => 'trip_has_inventory_items#pack_item_multiple'
 
   post 'instant_search_inventory' => 'inventory_items#instant_search_inventory'
 

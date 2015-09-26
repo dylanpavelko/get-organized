@@ -81,6 +81,38 @@ class TripHasInventoryItemsController < ApplicationController
     @data = [ @trip_item, @trip_item.inventory_item.id, @trip_item.inventory_item.full_name]
     render json: @data
   end
+  
+  def pack_item_multiple
+    @trip_item = TripHasInventoryItem.find(params[:id])
+    @item = @trip_item.inventory_item
+puts "all status"
+puts params[:all]
+    if params[:all] == "true"
+      #pack all trip items of inventory type
+      @items = TripHasInventoryItem.where(:inventory_item_id => @item.id, :trip_id => @trip_item.trip_id)
+      @items.each do |pack_item|
+        pack_item.update(:packed => true)
+      end
+      @data = [ @trip_item, @trip_item.inventory_item.id, @trip_item.inventory_item.full_name, @items.count]
+    else
+      #find next right trip item to pack
+      @unpacked = TripHasInventoryItem.where(:inventory_item_id => @item.id, :packed => false, :trip_id => @trip_item.trip_id)
+      @unpacked_nil = TripHasInventoryItem.where(:inventory_item_id => @item.id, :packed => nil, :trip_id => @trip_item.trip_id)
+      @unpacked = @unpacked + @unpacked_nil
+puts "number of levis unpacked"
+puts @unpacked.count
+      @unpacked_count = @unpacked.count
+puts @unpacked_count
+@unpacked.each do |unpack|
+  puts "id " + unpack.id.to_s
+end
+      @unpacked.first.update(:packed => true)
+puts @unpacked_count
+      @data = [ @trip_item, @trip_item.inventory_item.id, @trip_item.inventory_item.full_name, (@unpacked_count - 1)]
+    end
+puts @unpacked_count    
+    render json: @data
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -90,6 +122,6 @@ class TripHasInventoryItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trip_has_inventory_item_params
-      params.require(:trip_has_inventory_item).permit(:trip_id, :inventory_item_id, :date, :amount, :item, :packed, :reused)
+      params.require(:trip_has_inventory_item).permit(:trip_id, :inventory_item_id, :date, :amount, :item, :packed, :reused, :all)
     end
 end
