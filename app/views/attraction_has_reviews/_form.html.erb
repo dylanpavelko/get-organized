@@ -1,0 +1,25 @@
+<%= form_for(@attraction_has_review) do |f| %>
+  <% if @attraction_has_review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@attraction_has_review.errors.count, "error") %> prohibited this attraction_has_review from being saved:</h2>
+
+      <ul>
+      <% @attraction_has_review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :attraction_id %><br>
+    <%= f.text_field :attraction_id %>
+  </div>
+  <div class="field">
+    <%= f.label :review_id %><br>
+    <%= f.text_field :review_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

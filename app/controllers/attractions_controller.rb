@@ -14,6 +14,11 @@ class AttractionsController < ApplicationController
   # GET /attractions/1.json
   def show
     @recent_visits = ItineraryActivity.where(:attraction_id => @attraction)
+    @attraction_reviews = AttractionHasReview.where(:attraction_id => @attraction)
+    @reviews = Array.new
+    @attraction_reviews.each do |ar|
+      @reviews << ar.review
+    end
   end
 
   # GET /attractions/new

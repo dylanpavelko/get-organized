@@ -42,9 +42,6 @@
   <div class="field">
     <%= f.label :amount %><br>
     <%= f.text_field :amount %>
-  </div>
-  <div class="field">
-    <%= f.label :quantity_type_id %><br>
     <% if @transaction.quantity_type_id != nil %>
       <%= f.select :quantity_type_id, options_from_collection_for_select(QuantityType.all, :id, :quantityType, @transaction.quantity_type_id), :include_blank => true %>
     <% else %>

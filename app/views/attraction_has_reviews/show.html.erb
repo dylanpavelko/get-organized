@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Attraction:</strong>
+  <%= @attraction_has_review.attraction %>
+</p>
+
+<p>
+  <strong>Review:</strong>
+  <%= @attraction_has_review.review %>
+</p>
+
+<%= link_to 'Edit', edit_attraction_has_review_path(@attraction_has_review) %> |
+<%= link_to 'Back', attraction_has_reviews_path %>

@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :attraction_has_reviews
+
+  resources :reviews
+
+  resources :comments
+
   resources :businesses
 
   resources :transactions

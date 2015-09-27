@@ -2,10 +2,16 @@
 
 <p>
   <h3><%= @attraction.name %></h3>
-  <strong>category:</strong>
   <% if @attraction.attraction_category != nil %>
   	<%= @attraction.attraction_category.name %>
-  	<% end %>
+  <% end %>
+  <br/><%= link_to 'Add Review', new_review_path(@attraction) %>
+  <% @reviews.each do |review|%>
+    <div><%= review.get_reviewer.first_name %> says... <br/>
+          <%= review.comment.body %><br/>
+          <%= review.rating %> stars <%= link_to "edit", edit_review_path(review) %>
+    </div>
+  <% end %>
   <br/><br/>
 
   <% if @attraction.hotel_id != nil %>

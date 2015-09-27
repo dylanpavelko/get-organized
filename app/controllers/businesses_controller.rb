@@ -1,6 +1,9 @@
 class BusinessesController < ApplicationController
   before_action :set_business, only: [:show, :edit, :update, :destroy]
 
+  before_filter :authenticate_user
+  before_filter :authorized_only
+
   # GET /businesses
   # GET /businesses.json
   def index

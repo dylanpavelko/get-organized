@@ -1,0 +1,27 @@
+<h1>Listing attraction_has_reviews</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Attraction</th>
+      <th>Review</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @attraction_has_reviews.each do |attraction_has_review| %>
+      <tr>
+        <td><%= attraction_has_review.attraction %></td>
+        <td><%= attraction_has_review.review %></td>
+        <td><%= link_to 'Show', attraction_has_review %></td>
+        <td><%= link_to 'Edit', edit_attraction_has_review_path(attraction_has_review) %></td>
+        <td><%= link_to 'Destroy', attraction_has_review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Attraction has review', new_attraction_has_review_path %>

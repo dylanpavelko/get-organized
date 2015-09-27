@@ -95,7 +95,7 @@
        <br/><%= link_to 'Add to My Inventory', new_inventory_owner_path(@inventory_item) %>
     <% end %>
     <% if @transactions.count > 0 %>
-    <br/>Transactions:
+    <br/><br/>Transactions:
     <% end %>
     <% @transactions.each do |transaction| %>
       <br/>
@@ -106,7 +106,10 @@
         <%= transaction.quantity_type.quantityType %>
       <% end %>
       @ 
-      <%= transaction.seller_business.name %> <%= link_to 'edit', edit_transaction_path(transaction) %>
+      <% if transaction.seller_business != nil %>
+        <%= transaction.seller_business.name %>
+      <% end %>  
+        <%= link_to 'edit', edit_transaction_path(transaction) %>
     <% end %>
     <br/>
     <%= link_to 'Add Transaction', new_transaction_path(@inventory_item) %>
