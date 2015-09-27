@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150927000701) do
+ActiveRecord::Schema.define(version: 20150927195232) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -321,15 +321,8 @@ ActiveRecord::Schema.define(version: 20150927000701) do
   add_index "trip_has_inventory_items", ["inventory_item_id"], name: "index_trip_has_inventory_items_on_inventory_item_id"
   add_index "trip_has_inventory_items", ["trip_id"], name: "index_trip_has_inventory_items_on_trip_id"
 
-  create_table "trips", force: true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.string   "blog_link"
-    t.string   "photo_link"
-    t.string   "tripit_link"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+# Could not dump table "trips" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "user_has_roles", force: true do |t|
     t.integer  "user_id"

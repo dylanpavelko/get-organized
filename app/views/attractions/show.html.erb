@@ -7,9 +7,9 @@
   <% end %>
   <div id="reviews"><%= link_to 'Add Review', new_review_path(@attraction) %>
   <% @reviews.each do |review|%>
-    <div id="review">	<img src= <%= @current_user.picture %> class="profile_header"><%= review.get_reviewer.first_name %> says... <br/>
+    <div id="review">	<img src= <%= @current_user.picture %> class="profile_header"><em><%= review.get_reviewer.first_name %> says...</em> <br/>
           <%= review.comment.body %><br/>
-          <%= review.rating %> stars <%= link_to "edit", edit_review_path(review) %>
+          <%= review.rating %> stars <%= link_to "edit", edit_review_path(review) %> Added <%= review.created_at.try(:strftime, "%D") %>
     </div>
   <% end %>
   </div>

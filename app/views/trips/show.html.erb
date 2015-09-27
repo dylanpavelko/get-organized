@@ -8,6 +8,9 @@
   <strong>Trip: <%= @trip.name %></strong>
   <br/>
   <%= @trip.description %>
+  <% if @trip.owner != nil %>
+    <br/>Owner: <%= @trip.owner.first_name %>
+  <% end %>
 </p>
 
 <p>

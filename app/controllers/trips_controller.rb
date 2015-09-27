@@ -25,6 +25,26 @@ class TripsController < ApplicationController
     @upcoming_trips = @upcoming_trips.sort {|a,b| a.first_date <=> b.first_date}
     @past_trips = @past_trips.sort {|a,b| b.first_date <=> a.first_date}
   end
+  
+  # GET /my_trips
+  # GET /trips.json
+  def my_trips
+    @trips = Trip.get_my_trips(@current_user)
+    @past_trips = Array.new
+    @upcoming_trips = Array.new
+    @future_trips = Array.new
+    @trips.each do |trip|
+      if trip.last_date == ''
+        @future_trips << trip
+      elsif trip.last_date.past?
+        @past_trips << trip
+      else
+        @upcoming_trips << trip
+      end
+    end
+    @upcoming_trips = @upcoming_trips.sort {|a,b| a.first_date <=> b.first_date}
+    @past_trips = @past_trips.sort {|a,b| b.first_date <=> a.first_date}
+  end
 
   # GET /trips/1
   # GET /trips/1.json
@@ -201,6 +221,6 @@ class TripsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trip_has_inventory_item_params
-      params.require(:trip_has_inventory_item).permit(:trip_id, :inventory_item_id, :date, :amount)
+      params.require(:trip_has_inventory_item).permit(:trip_id, :inventory_item_id, :date, :amount, :owner_id)
     end
 end

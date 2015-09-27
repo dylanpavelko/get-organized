@@ -1,6 +1,19 @@
 class Trip < ActiveRecord::Base
   belongs_to :itinerary_item
   has_many :itinerary_activities
+  belongs_to :owner_id, class_name: "Person", foreign_key: "owner_id"
+  
+  def self.get_my_trips(current_user)
+    mine = Array.new
+    Trip.all.each do |trip|
+      if trip.owner != nil
+        if trip.owner == current_user.person_id
+          mine << trip
+        end
+      end
+    end
+    return mine
+  end
 
   def first_date
   	@activities = ItineraryActivity.where(:trip_id => self.id).order(:datetime)
