@@ -24,7 +24,9 @@
     <%= f.label :comment_id %>
     <input id="comment_id" name="comment[id]" type="hidden" value=<%= @review.comment_id %>>
     <br>
-    <textarea cols="60" id="review_comment" name="review[comment]" rows="10"><%= @review.comment.body %></textarea>
+    <textarea cols="60" id="review_comment" name="review[comment]" rows="10">
+      <% if @review.comment != nil %><%= @review.comment.body %><% end %>
+    </textarea>
   </div>
   <div class="field">
     <%= f.label :public %><br>
