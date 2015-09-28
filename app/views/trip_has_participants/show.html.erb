@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Participant:</strong>
+  <%= @trip_has_participant.participant %>
+</p>
+
+<p>
+  <strong>Organizer:</strong>
+  <%= @trip_has_participant.organizer %>
+</p>
+
+<p>
+  <strong>Private viewer:</strong>
+  <%= @trip_has_participant.private_viewer %>
+</p>
+
+<p>
+  <strong>Traveler:</strong>
+  <%= @trip_has_participant.traveler %>
+</p>
+
+<%= link_to 'Edit', edit_trip_has_participant_path(@trip_has_participant) %> |
+<%= link_to 'Back', trip_has_participants_path %>

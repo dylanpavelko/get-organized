@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150927195232) do
+ActiveRecord::Schema.define(version: 20150927232318) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -321,8 +321,32 @@ ActiveRecord::Schema.define(version: 20150927195232) do
   add_index "trip_has_inventory_items", ["inventory_item_id"], name: "index_trip_has_inventory_items_on_inventory_item_id"
   add_index "trip_has_inventory_items", ["trip_id"], name: "index_trip_has_inventory_items_on_trip_id"
 
-# Could not dump table "trips" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "trip_has_participants", force: true do |t|
+    t.integer  "trip_id"
+    t.integer  "participant_id"
+    t.boolean  "organizer"
+    t.boolean  "private_viewer"
+    t.boolean  "traveler"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "trip_has_participants", ["participant_id"], name: "index_trip_has_participants_on_participant_id"
+  add_index "trip_has_participants", ["trip_id"], name: "index_trip_has_participants_on_trip_id"
+
+  create_table "trips", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "itinerary_item_id"
+    t.string   "blog_link"
+    t.string   "photo_link"
+    t.string   "tripit_link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "owner_id"
+  end
+
+  add_index "trips", ["itinerary_item_id"], name: "index_trips_on_itinerary_item_id"
 
   create_table "user_has_roles", force: true do |t|
     t.integer  "user_id"

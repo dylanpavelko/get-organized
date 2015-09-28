@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :trip_has_participants
+
   resources :attraction_has_reviews
 
   resources :reviews

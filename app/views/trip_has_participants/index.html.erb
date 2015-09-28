@@ -1,0 +1,31 @@
+<h1>Listing trip_has_participants</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Participant</th>
+      <th>Organizer</th>
+      <th>Private viewer</th>
+      <th>Traveler</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @trip_has_participants.each do |trip_has_participant| %>
+      <tr>
+        <td><%= trip_has_participant.participant %></td>
+        <td><%= trip_has_participant.organizer %></td>
+        <td><%= trip_has_participant.private_viewer %></td>
+        <td><%= trip_has_participant.traveler %></td>
+        <td><%= link_to 'Show', trip_has_participant %></td>
+        <td><%= link_to 'Edit', edit_trip_has_participant_path(trip_has_participant) %></td>
+        <td><%= link_to 'Destroy', trip_has_participant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Trip has participant', new_trip_has_participant_path %>

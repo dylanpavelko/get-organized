@@ -216,11 +216,11 @@ class TripsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trip_params
-      params.require(:trip).permit(:name, :description, :blog_link, :photo_link, :tripit_link)
+      params.require(:trip).permit(:name, :description, :blog_link, :photo_link, :tripit_link, :owner_id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trip_has_inventory_item_params
-      params.require(:trip_has_inventory_item).permit(:trip_id, :inventory_item_id, :date, :amount, :owner_id)
+      params.require(:trip_has_inventory_item).permit(:trip_id, :inventory_item_id, :date, :amount)
     end
 end

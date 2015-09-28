@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  participant: 
+  organizer: false
+  private_viewer: false
+  traveler: false
+
+two:
+  participant: 
+  organizer: false
+  private_viewer: false
+  traveler: false

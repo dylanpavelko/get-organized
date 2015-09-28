@@ -1,5 +1,5 @@
 class AddOwnerToTrip < ActiveRecord::Migration
   def change
-    add_column :trips, :owner, :reference
+    add_reference :trips, :owner
   end
 end

@@ -1,13 +1,13 @@
 class Trip < ActiveRecord::Base
   belongs_to :itinerary_item
   has_many :itinerary_activities
-  belongs_to :owner_id, class_name: "Person", foreign_key: "owner_id"
+  belongs_to :owner, class_name: "Person", foreign_key: "owner_id"
   
   def self.get_my_trips(current_user)
     mine = Array.new
     Trip.all.each do |trip|
-      if trip.owner != nil
-        if trip.owner == current_user.person_id
+      if trip.owner_id != nil
+        if trip.owner_id == current_user.person_id
           mine << trip
         end
       end

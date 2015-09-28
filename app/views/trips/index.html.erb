@@ -9,7 +9,7 @@
     <% @upcoming_trips.each do |trip| %>
       <tr>
         <td class="trips">
-          <strong><%= link_to trip.name , trip %></strong> <br/><%= trip.first_date.try(:strftime, "%A - %b %d, %Y") %> to <%= trip.last_date.try(:strftime, "%A - %b %d, %Y") %> <br/>
+          <strong><%= trip.owner.first_name %>'s Trip: <%= link_to trip.name , trip %></strong> <br/><%= trip.first_date.try(:strftime, "%A - %b %d, %Y") %> to <%= trip.last_date.try(:strftime, "%A - %b %d, %Y") %> <br/>
           <em><%= trip.description %></em>
         </td>
         <td><%= trip.blog_link %></td>
@@ -31,7 +31,7 @@
   <tbody>
     <% @future_trips.each do |trip| %>
       <tr>
-        <td><strong><%= link_to trip.name , trip %></strong><br/>
+        <td><strong><%= trip.owner.first_name %>'s Trip: <%= link_to trip.name , trip %></strong><br/>
           <em><%= trip.description %></em></td>
         <td><%= link_to 'Edit', edit_trip_path(trip) %></td>
         <td><%= link_to 'Destroy', trip, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -48,7 +48,7 @@
     <% @past_trips.each do |trip| %>
       <tr>
         <td>
-          <strong><%= link_to trip.name , trip %></strong> <br/><%= trip.first_date.try(:strftime, "%A - %b %d, %Y") %> to <%= trip.last_date.try(:strftime, "%A - %b %d, %Y") %> <br/>
+          <strong><%= trip.owner.first_name %>'s Trip: <%= link_to trip.name , trip %></strong> <br/><%= trip.first_date.try(:strftime, "%A - %b %d, %Y") %> to <%= trip.last_date.try(:strftime, "%A - %b %d, %Y") %> <br/>
           <em><%= trip.description %></em>
         </td>
         <td><%= trip.blog_link %></td>

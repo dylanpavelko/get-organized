@@ -1,0 +1,33 @@
+<%= form_for(@trip_has_participant) do |f| %>
+  <% if @trip_has_participant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@trip_has_participant.errors.count, "error") %> prohibited this trip_has_participant from being saved:</h2>
+
+      <ul>
+      <% @trip_has_participant.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :participant %><br>
+    <%= f.text_field :participant %>
+  </div>
+  <div class="field">
+    <%= f.label :organizer %><br>
+    <%= f.check_box :organizer %>
+  </div>
+  <div class="field">
+    <%= f.label :private_viewer %><br>
+    <%= f.check_box :private_viewer %>
+  </div>
+  <div class="field">
+    <%= f.label :traveler %><br>
+    <%= f.check_box :traveler %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

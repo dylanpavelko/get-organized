@@ -32,7 +32,7 @@
     <%= f.text_field :tripit_link %>
   </div>
   <div class="field">
-    <%= f.label :owner_id %><br>
+    <%= f.label :owner %><br>
     <% if @trip.owner_id != nil %>
       <%= f.select :owner_id, options_from_collection_for_select(Person.all, :id, :first_name, @trip.owner), :include_blank => true %>
     <% else %>
