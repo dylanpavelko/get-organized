@@ -10,6 +10,13 @@
   <%= @trip.description %>
   <% if @trip.owner != nil %>
     <br/>Owner: <%= @trip.owner.first_name %>
+    <% if @travelers.count >0 %>
+      <br/>Travelers:
+      <% @travelers.each do |traveler| %>
+        <br/><%= traveler.participant.first_name %>
+      <% end %>
+    <% end %>
+    <br/><%= link_to "Add People", new_trip_has_participant_path(@trip) %>
   <% end %>
 </p>
 

@@ -50,6 +50,10 @@ class TripsController < ApplicationController
   # GET /trips/1.json
   def show
 
+    @travelers = TripHasParticipant.where(:trip_id => @trip, :traveler => true)
+    @organizers = TripHasParticipant.where(:trip_id => @trip, :organizer => true)
+    @viewers = TripHasParticipant.where(:trip_id => @trip, :viewer => true)
+
      @trip_items = TripHasInventoryItem.where(:trip_id => @trip)
      
      @trip_activities = ItineraryActivity.where(:trip_id => @trip).order(:datetime)

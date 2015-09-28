@@ -1,6 +1,9 @@
 class TripHasParticipantsController < ApplicationController
   before_action :set_trip_has_participant, only: [:show, :edit, :update, :destroy]
 
+  before_filter :authenticate_user
+  before_filter :authorized_only
+
   # GET /trip_has_participants
   # GET /trip_has_participants.json
   def index
@@ -15,10 +18,12 @@ class TripHasParticipantsController < ApplicationController
   # GET /trip_has_participants/new
   def new
     @trip_has_participant = TripHasParticipant.new
+    @trip = Trip.where(:id => params[:format]).first
   end
 
   # GET /trip_has_participants/1/edit
   def edit
+    @trip = Trip.where(:id => @trip_has_participant.trip).first
   end
 
   # POST /trip_has_participants
@@ -69,6 +74,6 @@ class TripHasParticipantsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trip_has_participant_params
-      params.require(:trip_has_participant).permit(:participant, :organizer, :private_viewer, :traveler)
+      params.require(:trip_has_participant).permit(:participant_id, :organizer, :private_viewer, :traveler, :trip_id)
     end
 end

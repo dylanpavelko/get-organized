@@ -10,10 +10,17 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
-    <%= f.label :participant %><br>
-    <%= f.text_field :participant %>
+    <%= f.label :trip_id %>: <%= @trip.name %>
+    <%= f.hidden_field :trip_id, :value => @trip.id %>
+  </div>
+  <div class="field">
+    <%= f.label :participant_id %><br>
+    <% if @trip_has_participant.participant_id != nil %>
+      <%= f.select :participant_id, options_from_collection_for_select(Person.all, :id, :first_name, @trip_has_participant.buyer_person_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :participant_id, options_from_collection_for_select(Person.all, :id, :first_name), :include_blank => true %>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :organizer %><br>

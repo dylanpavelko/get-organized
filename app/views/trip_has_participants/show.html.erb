@@ -1,8 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Trip:</strong>
+  <%= link_to @trip_has_participant.trip.name, @trip_has_participant.trip %>
+</p>
+
+<p>
   <strong>Participant:</strong>
-  <%= @trip_has_participant.participant %>
+  <%= @trip_has_participant.participant.first_name %>
 </p>
 
 <p>
