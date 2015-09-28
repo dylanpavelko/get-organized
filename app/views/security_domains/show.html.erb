@@ -1,9 +1,26 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<h3>
+  <strong>Security Domain:</strong>
   <%= @security_domain.name %>
+</h3>
+
+<p>
+	<strong>Roles:</strong>
+	<ul>
+		<% @security_domain.roles.each do |role| %>
+			<li><%= link_to role.name, role %></li>
+		<% end %>
+	</ul>
 </p>
 
+<p>
+	<strong>Tasks:</strong>
+	<ul>
+		<% @tasks.each do |task| %>
+			<li><%= link_to task.task_name, task %></li>
+		<% end %>
+	</ul>
+</p>
 <%= link_to 'Edit', edit_security_domain_path(@security_domain) %> |
 <%= link_to 'Back', security_domains_path %>

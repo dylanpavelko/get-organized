@@ -12,7 +12,7 @@
 
 <p>
   <strong>Security domain:</strong>
-  <%= @task.security_domain.name %>
+  <%= link_to @task.security_domain.name, @task.security_domain %>
 </p>
 
 <%= link_to 'Edit', edit_task_path(@task) %> |

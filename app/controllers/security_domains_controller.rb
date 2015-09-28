@@ -13,6 +13,7 @@ class SecurityDomainsController < ApplicationController
   # GET /security_domains/1
   # GET /security_domains/1.json
   def show
+    @tasks = Task.where(:security_domain_id => @security_domain.id)
   end
 
   # GET /security_domains/new

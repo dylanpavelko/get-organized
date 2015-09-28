@@ -28,6 +28,10 @@ class User < ActiveRecord::Base
 		return Person.where(:user_account_id => self.id).first.id
 	end
 
+	def person
+		return Person.where(:user_account_id => self.id).first
+	end
+
 	def self.authenticate(username_or_email="", login_password="")
 	  if  EMAIL_REGEX.match(username_or_email)    
 	    user = User.find_by_email(username_or_email)

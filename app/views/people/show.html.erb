@@ -1,24 +1,36 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>First name:</strong>
-  <%= @person.first_name %>
-</p>
-
-<p>
-  <strong>Nick name:</strong>
-  <%= @person.nick_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @person.last_name %>
-</p>
-
-<p>
-  <strong>User account:</strong>
   <% if @person.user_account != nil %>
-	<%= @person.user_account.username %>
+    <img src= <%= @person.user_account.picture %> >
+  <% end %>
+
+<h3> <%= @person.first_name %> <%= @person.last_name %> </h3>
+<% if @person.nick_name != '' %>
+  <p>
+    <strong>Nick name:</strong>
+    <%= @person.nick_name %>
+  </p>
+<% end %>
+
+<p>
+
+  
+</p>
+
+<p>
+
+  <% if @person.user_account != nil %>
+    <strong>Email:</strong> <%= @person.user_account.email %><br/>
+
+    <strong>Username:</strong> <%= @person.user_account.username %>
+
+    <br/>
+    <strong>Security roles: </strong>
+    <ul>
+      <% @person.user_account.roles.each do |role| %>
+        <li><%= link_to role.name, role %></li>
+      <% end %>
+    </ul>
+
   <% end %>
 </p>
 

@@ -1,8 +1,36 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<h3>
+  <strong>Role:</strong>
   <%= @role.name %>
+</h3>
+
+<p>
+	<table border='1'>
+		<th>
+			<strong>Security Domain</strong></th>
+			<th><strong>Security Tasks</strong></th>
+			<th><strong>Search Indexed</strong></th>
+
+		<% @role_has_domains.each do |role_has_domain| %>
+			<tr colspan=<%= role_has_domain.domain.tasks.count %>>
+				<td style="padding:1em"><%= link_to role_has_domain.domain.name, role_has_domain.domain %></td>
+					<% role_has_domain.domain.tasks.each do |task| %>
+						<td style="padding:1em"><%= link_to task.task_name, task %></td>
+						<td style="padding:1em"><%= task.search_indexed %></td>
+					<% end %>
+			</tr>
+		<% end %>
+	</table>
+</p>
+
+<p>
+	<strong>Users:</strong>
+	<ul>
+		<% @users.each do |user| %>
+			<li><%= link_to user.person.first_name, user.person %></li>
+		<% end %>
+	</ul>
 </p>
 
 <%= link_to 'Edit', edit_role_path(@role) %> |

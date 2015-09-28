@@ -13,6 +13,12 @@ class RolesController < ApplicationController
   # GET /roles/1
   # GET /roles/1.json
   def show
+    @role_has_domains = SecurityDomainHasRole.where(:role_id => @role.id)
+    @user_has_roles = UserHasRole.where(:role_id => @role.id)
+    @users = Array.new
+    @user_has_roles.each do |has_role|
+      @users << has_role.user
+    end
   end
 
   # GET /roles/new
