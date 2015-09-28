@@ -7,7 +7,7 @@ class Trip < ActiveRecord::Base
     mine = Array.new
     Trip.all.each do |trip|
       if trip.owner_id != nil
-        if trip.owner_id == current_user.person_id
+        if trip.owner_id == current_user.person_id or TripHasParticipant.where(:trip_id => trip.id, :participant_id => current_user.person_id).count > 0
           mine << trip
         end
       end
