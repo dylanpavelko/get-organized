@@ -16,7 +16,11 @@
 			<tr colspan=<%= role_has_domain.domain.tasks.count %>>
 				<td style="padding:1em"><%= link_to role_has_domain.domain.name, role_has_domain.domain %></td>
 					<% role_has_domain.domain.tasks.each do |task| %>
-					<tr>
+					<% if task != role_has_domain.domain.tasks.first %>
+						<tr><td></td>
+					<% end %>
+					
+
 						<td style="padding:1em"><%= link_to task.task_name, task %></td>
 						<td style="padding:1em"><%= task.search_indexed %></td>
 					</tr>
