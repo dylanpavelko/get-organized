@@ -13,11 +13,11 @@
 			<th><strong>Search Indexed</strong></th>
 
 		<% @role_has_domains.each do |role_has_domain| %>
-			<tr colspan=<%= role_has_domain.domain.tasks.count %>>
-				<td style="padding:1em"><%= link_to role_has_domain.domain.name, role_has_domain.domain %></td>
+			<tr >
+				<td rowspan=<%= role_has_domain.domain.tasks.count %> style="padding:1em"><%= link_to role_has_domain.domain.name, role_has_domain.domain %></td>
 					<% role_has_domain.domain.tasks.each do |task| %>
 					<% if task != role_has_domain.domain.tasks.first %>
-						<tr><td></td>
+						<tr>
 					<% end %>
 					
 
