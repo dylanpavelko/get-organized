@@ -3,16 +3,22 @@
 		<em>DEV</em>
 	<% end %>
 
-	<strong><%= link_to 'Get Organized', root_path %></strong>
+	<strong><%= link_to 'Get Organized', sessions_home_path %></strong>
 	<input id="header_search" type="search">
 
 	<div id="header_search_results">
 	</div>
 
 	<%= link_to 'Travel & Leisure', my_trips_path %>
-	<%= link_to 'My Inventory', my_inventory_path %>
-	<%= link_to 'Activities', activities_path %>
-	<%= link_to 'Exercise Centers', exercise_centers_path %>
+  <% if @current_user.has_access_to_path("inventory_items" , "my_inventory", nil) %>
+  	<%= link_to 'My Inventory', my_inventory_path %>
+  <% end %>
+  <% if @current_user.has_access_to_path("activities" , "index", nil) %>
+	 <%= link_to 'Activities', activities_path %>
+	<% end %>
+  <% if @current_user.has_access_to_path("exercise_centers" , "index", nil) %>
+   <%= link_to 'Exercise Centers', exercise_centers_path %>
+  <% end %>
 
 	<div id='profile'>
 	<% if @current_user!=nil%>

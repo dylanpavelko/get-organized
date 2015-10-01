@@ -139,7 +139,9 @@ class TripsController < ApplicationController
           @dayPack << item
         end
     end
-    @days[@day][1] = @dayPack
+    if @packed_items.count > 0 
+      @days[@day][1] = @dayPack
+    end
     
     @packed_trip_items = Array.new
     @unpacked = Array.new

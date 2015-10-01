@@ -3,9 +3,9 @@
 <% @all_items.each do |items| %>
 <div id="inventory_category"><% puts "test" %><% puts items.first %>
   <h3>
-    <% if items.first.category != nil %>
+    <% if items.first != nil and items.first.category != nil %>
       <%= items.first.category.category %>
-    <% else %>
+    <% elsif items.first != nil %>
       Miscellaneous
     <% end %>
   </h3>

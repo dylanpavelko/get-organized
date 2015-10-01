@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>Trip</th>
       <th>Name</th>
       <th>Attraction</th>
       <th>Cost</th>
@@ -16,6 +17,7 @@
   <tbody>
     <% @itinerary_activities.each do |itinerary_activity| %>
       <tr>
+        <td><%= link_to itinerary_activity.trip.name, itinerary_activity.trip %></td>
         <td><%= link_to itinerary_activity.name, itinerary_activity %></td>
         <td><%= itinerary_activity.attraction %></td>
         <td><%= itinerary_activity.cost %></td>

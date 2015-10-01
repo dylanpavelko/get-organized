@@ -32,7 +32,7 @@ puts "controller/action" + params[:controller] + "/" + params[:action]
 	    @current_user = User.find session[:user_id] 
 	    if @current_user.power_admin
 	       	return true
-	    elsif @current_user.has_access_to_path(params[:controller] , params[:action])
+	    elsif @current_user.has_access_to_path(params[:controller] , params[:action], params[:id])
 	    	return true
 	    else
 	    	redirect_to(sessions_profile_path)
