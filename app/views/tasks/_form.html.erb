@@ -20,6 +20,14 @@
     <%= f.text_field :task_path %>
   </div>
   <div class="field">
+    <%= f.label :controller %><br>
+    <%= f.text_field :controller %>
+  </div>
+    <div class="field">
+    <%= f.label :action %><br>
+    <%= f.text_field :action %>
+  </div>
+  <div class="field">
     Security Domain:<br>
     <% if @task.security_domain_id != nil %>
       <%= f.select :security_domain_id, options_from_collection_for_select(SecurityDomain.all, :id, :name, @task.security_domain_id), :include_blank => true %>

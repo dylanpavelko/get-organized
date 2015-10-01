@@ -72,10 +72,10 @@ class User < ActiveRecord::Base
 		return @roles
 	end
 	
-	def has_access_to_path(path)
-		@security_domain = Task.where(:task_path => path)
+	def has_access_to_path(requested_controller, requested_action)
+		@security_domain = Task.where(:controller => requested_controller, :action => requested_action)
 		if @security_domain.count > 0
-			@security_domain = @security_domain.first.security_domain
+			@security_domain = @security_domain.first.security_domain 	#for now should always just be 1, because tasks are tied to a domain
 		end
 		self.roles.each do |role|
 			if SecurityDomainHasRole.where(:domain_id => @security_domain,

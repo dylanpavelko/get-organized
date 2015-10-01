@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150927232318) do
+ActiveRecord::Schema.define(version: 20151001000819) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -285,6 +285,8 @@ ActiveRecord::Schema.define(version: 20150927232318) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "search_indexed"
+    t.string   "controller"
+    t.string   "action"
   end
 
   add_index "tasks", ["security_domain_id"], name: "index_tasks_on_security_domain_id"
