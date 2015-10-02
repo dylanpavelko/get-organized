@@ -88,6 +88,15 @@ class User < ActiveRecord::Base
 					else
 						return false
 					end
+				elsif requested_controller == 'itinerary_activities' and requested_action == 'show'
+					@trips = Trip.get_my_trips(self)
+					@activity = ItineraryActivity.where(:id => id).first
+					puts @activity.trip.name
+					if @trips.include? Trip.find(@activity.trip_id)
+						return true
+					else
+						return false
+					end
 				else
 					return true
 				end

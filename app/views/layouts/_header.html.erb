@@ -4,7 +4,9 @@
 	<% end %>
 
 	<strong><%= link_to 'Get Organized', sessions_home_path %></strong>
-	<input id="header_search" type="search">
+
+  <% if @current_user!=nil%>
+  	<input id="header_search" type="search">
 
 	<div id="header_search_results">
 	</div>
@@ -19,7 +21,7 @@
   <% if @current_user.has_access_to_path("exercise_centers" , "index", nil) %>
    <%= link_to 'Exercise Centers', exercise_centers_path %>
   <% end %>
-
+<% end %>
 	<div id='profile'>
 	<% if @current_user!=nil%>
 			<img src= <%= @current_user.picture %> class="profile_header">
