@@ -49,6 +49,10 @@ class InventoryItemsController < ApplicationController
   def publish
     @item = InventoryItem.where(:id => params[:id]).first
     @item.update(:public => true)
+    @publish_requests = PublicInventoryItemQueue.where(:item_id => @item)
+    @publish_requests.each do |request|
+      request.update(:reviewed => true)
+    end
     render json: @item
   end
 

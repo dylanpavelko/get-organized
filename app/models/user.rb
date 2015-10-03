@@ -97,6 +97,22 @@ class User < ActiveRecord::Base
 					else
 						return false
 					end
+				elsif requested_controller == 'inventory_items' and requested_action == 'show'
+					@inventory_item = InventoryItem.find(id)
+					@allMyItems = InventoryItem.get_all_public_and_my_items(self)
+					if @allMyItems.include?(@inventory_item) or self.has_access_to_path("public_inventory_item_queue" , "index", nil)
+						return true
+					else
+						return false
+					end
+				elsif requested_controller == 'inventory_items' and requested_action == 'edit'
+					@inventory_item = InventoryItem.find(id)
+					@allMyItems = InventoryItem.get_all_public_and_my_items(self)
+					if ((@inventory_item.public != true) and @allMyItems.include?(@inventory_item)) or self.has_access_to_path("public_inventory_item_queue" , "index", nil)
+						return true
+					else
+						return false
+					end
 				else
 					return true
 				end

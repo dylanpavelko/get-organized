@@ -154,7 +154,9 @@
 </span>
 Item is <%= @inventory_item.public %>!
 </p>
-<%= link_to 'Edit', edit_inventory_item_path(@inventory_item) %>
+<% if @current_user.has_access_to_path("inventory_items" , "edit", @inventory_item.id) %>
+  <%= link_to 'Edit', edit_inventory_item_path(@inventory_item) %>
+<% end %>
 <%= link_to 'All Inventory Items', inventory_items_path %>
 
 
@@ -162,7 +164,8 @@ Item is <%= @inventory_item.public %>!
 
 $('#publish').click(function(){
   var publish = $.ajax({url: "/inventory_items/publish", type: "POST", data: {'id': <%= @inventory_item.id %>, 'publish': true}, dataType: 'json'}).done(function(data){ 
-      $('.itemPrivacy').html("Inventory Item is public.")
+    console.log(data);
+      $('#itemPrivacy').html("Inventory Item is public.");
     });
 });
 
