@@ -32,7 +32,7 @@
   </div>
 <% if @inventory_item.id == nil %>
   <div class="field">
-    Owned By:<br>
+    Added By:<br>
     <% @current_person = Person.where(:user_account => @current_user).first %>
     <%= select_tag :person_id, options_from_collection_for_select(Person.all, :id, :first_name, @current_person.id), {:include_blank => true} %>
   </div>
@@ -66,20 +66,18 @@
     <%= f.check_box :container %>
   </div>
   <div class="field">
-    <%= f.label :public %><br>
-    <% if @inventory_item.public or @inventory_item.public == nil %>
-      <%= f.check_box :public, {checked: true} %>
-    <% else %>
-      <%= f.check_box :public %>
-    <% end %>
-  </div>
-  <div class="field">
-    Purchase Price:<br>
-    <%= f.text_field :price %>
-  </div>
-  <div class="field">
     <%= f.label :note %><br>
     <%= f.text_area :note %>
+  </div>
+  <div class="field">
+    <%= f.label :public_request %> - All fields would become public, and would no longer be editable except by inventory moderators.<br>
+    <% if @inventory_item.public_status %>
+      <%= f.check_box :public_request, {checked: true} %>
+    <% elsif @inventory_item.public == nil %>
+      <%= f.check_box :public_request, {checked: false} %>    
+    <% else %>
+      <%= f.check_box :public_request %>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>

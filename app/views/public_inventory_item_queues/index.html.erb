@@ -1,0 +1,23 @@
+<h1>Listing public_inventory_item_queues</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Reviewed</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @public_inventory_item_queues.each do |public_inventory_item_queue| %>
+      <tr>
+        <td><%= link_to public_inventory_item_queue.item.full_name, public_inventory_item_queue.item %></td>
+        <td><%= public_inventory_item_queue.reviewed %></td>
+        <td><%= link_to 'Destroy', public_inventory_item_queue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

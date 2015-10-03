@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001000819) do
+ActiveRecord::Schema.define(version: 20151003194611) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -218,6 +218,15 @@ ActiveRecord::Schema.define(version: 20151001000819) do
   end
 
   add_index "people", ["user_account_id"], name: "index_people_on_user_account_id"
+
+  create_table "public_inventory_item_queues", force: true do |t|
+    t.integer  "item_id"
+    t.boolean  "reviewed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "public_inventory_item_queues", ["item_id"], name: "index_public_inventory_item_queues_on_item_id"
 
   create_table "quantity_types", force: true do |t|
     t.string   "quantityType"

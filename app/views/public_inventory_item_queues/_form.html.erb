@@ -1,0 +1,25 @@
+<%= form_for(@public_inventory_item_queue) do |f| %>
+  <% if @public_inventory_item_queue.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@public_inventory_item_queue.errors.count, "error") %> prohibited this public_inventory_item_queue from being saved:</h2>
+
+      <ul>
+      <% @public_inventory_item_queue.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :item_id %><br>
+    <%= f.text_field :item_id %>
+  </div>
+  <div class="field">
+    <%= f.label :reviewed %><br>
+    <%= f.check_box :reviewed %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

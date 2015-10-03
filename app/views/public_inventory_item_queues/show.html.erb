@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Item:</strong>
+  <%= @public_inventory_item_queue.item %>
+</p>
+
+<p>
+  <strong>Reviewed:</strong>
+  <%= @public_inventory_item_queue.reviewed %>
+</p>
+
+<%= link_to 'Edit', edit_public_inventory_item_queue_path(@public_inventory_item_queue) %> |
+<%= link_to 'Back', public_inventory_item_queues_path %>

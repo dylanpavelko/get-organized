@@ -141,6 +141,29 @@
   <% end %>
   <a href='#'>Add as Gear for Activity</a>  <%= link_to 'Temporary Add Item' , new_activity_has_inventory_item_path %>
 </p>
-
-<%= link_to 'Edit', edit_inventory_item_path(@inventory_item) %> <%#=  link_to 'Destroy', @inventory_item, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<p>
+<span id="itemPrivacy">Inventory Item is 
+<% if @inventory_item.public == nil or @inventory_item.public == false %>
+  private.   
+  <% if @current_user.has_access_to_path("public_inventory_item_queue" , "index", nil) and PublicInventoryItemQueue.where(:item_id => @inventory_item.id, :reviewed => false).count > 0 %>
+    Item Requested to be public. <button id='publish'>Publish Item</button>
+  <% end %>
+<% else %>
+  public.
+<% end %> 
+</span>
+Item is <%= @inventory_item.public %>!
+</p>
+<%= link_to 'Edit', edit_inventory_item_path(@inventory_item) %>
 <%= link_to 'All Inventory Items', inventory_items_path %>
+
+
+<script type="text/javascript">
+
+$('#publish').click(function(){
+  var publish = $.ajax({url: "/inventory_items/publish", type: "POST", data: {'id': <%= @inventory_item.id %>, 'publish': true}, dataType: 'json'}).done(function(data){ 
+      $('.itemPrivacy').html("Inventory Item is public.")
+    });
+});
+
+</script>

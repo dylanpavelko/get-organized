@@ -7,7 +7,7 @@ class InventoryItemsController < ApplicationController
   # GET /inventory_items
   # GET /inventory_items.json
   def index
-    @inventory_items = InventoryItem.all
+    @inventory_items = InventoryItem.get_all_public_and_my_items(@current_user)
     @all_items = Array.new
     @categories = Category.all
     @categories.each do |category|
@@ -18,7 +18,7 @@ class InventoryItemsController < ApplicationController
       end
     end
     
-    @miscellaneous = @inventory_items.select { |item| item.category == nil }#.where(:category_id => nil)
+    @miscellaneous = @inventory_items.select { |item| item.category == nil }
     @all_items << @miscellaneous
   end
 
@@ -42,10 +42,14 @@ class InventoryItemsController < ApplicationController
       end
     end
     
-    @miscellaneous = @inventory_items.select { |item| item.category == nil }#.where(:category_id => nil)
+    @miscellaneous = @inventory_items.select { |item| item.category == nil }
     @all_items << @miscellaneous
-    
-    
+  end
+
+  def publish
+    @item = InventoryItem.where(:id => params[:id]).first
+    @item.update(:public => true)
+    render json: @item
   end
 
   # GET /inventory_items/1
@@ -82,6 +86,10 @@ class InventoryItemsController < ApplicationController
         @owernship.save
       end
       if @inventory_item.save
+        if params[:inventory_item][:public_request] == "1"
+          @request = PublicInventoryItemQueue.new(:item_id => @inventory_item.id, :reviewed => false)
+          @request.save
+        end
         format.html { redirect_to @inventory_item, notice: 'Inventory item was successfully created.' }
         format.json { render :show, status: :created, location: @inventory_item }
       else
@@ -96,6 +104,10 @@ class InventoryItemsController < ApplicationController
   def update
     respond_to do |format|
       if @inventory_item.update(inventory_item_params)
+        if (params[:inventory_item][:public_request] == "1") and PublicInventoryItemQueue.where(:item_id => @inventory_item.id, :reviewed => false).count < 1
+          @request = PublicInventoryItemQueue.new(:item_id => @inventory_item.id, :reviewed => false)
+          @request.save
+        end
         format.html { redirect_to @inventory_item, notice: 'Inventory item was successfully updated.' }
         format.json { render :show, status: :ok, location: @inventory_item }
       else
@@ -140,6 +152,6 @@ class InventoryItemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through. 
     def inventory_item_params
       params.require(:inventory_item).permit(:name, :amazon_link, :quantity_type_id, :consumable, :price, :purchase_date,
-       :note, :detail, :brand, :category_id, :subcategory_id, :person_id, :container, :public)
+       :note, :detail, :brand, :category_id, :subcategory_id, :person_id, :container)
     end
 end

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :public_inventory_item_queues
+
   resources :trip_has_participants
 
   resources :attraction_has_reviews
@@ -70,6 +72,8 @@ Rails.application.routes.draw do
   get 'my_inventory' => 'inventory_items#my_inventory'
 
   post 'trips/add_item' => 'trips#add_item_to_trip'
+
+    post 'inventory_items/publish' => 'inventory_items#publish'
   
   post 'trips/pack_item' => 'trip_has_inventory_items#pack_item'
   

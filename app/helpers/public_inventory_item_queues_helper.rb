@@ -1,0 +1,2 @@
+module PublicInventoryItemQueuesHelper
+end
