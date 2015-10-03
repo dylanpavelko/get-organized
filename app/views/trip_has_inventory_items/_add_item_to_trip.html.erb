@@ -1,6 +1,6 @@
 
   <div class="field">
-    <%= select_tag :inventory_item_id, options_from_collection_for_select(InventoryItem.all, :id, :full_name), :include_blank => true %>
+    <%= select_tag :inventory_item_id, options_from_collection_for_select(InventoryItem.get_all_public_and_my_items(@current_user), :id, :full_name), :include_blank => true %>
     Amount: <%= text_field :trip_has_inventory_item, :amount %>
     For Date:
     <%= date_field :item, "date", {:include_blank => true} %>
