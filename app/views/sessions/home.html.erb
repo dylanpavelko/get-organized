@@ -1,7 +1,12 @@
 <h1>Get Organized!</h1>
+<h3>Travel Calendar</h3>
 <p>
 	<strong>Happening Now:</strong>
 </p>
 <p>
-	<strong>Up Next</strong>
+	<strong>Up Next:</strong><br/>
+	<% @sorted_activities[0..4].each do |activity| %>
+		<%= link_to activity.trip.name, activity.trip %> 
+		> <%= link_to (activity.datetime.strftime("%m/%d/%Y at %I:%M%p") + " " + activity.get_name), activity %><br/>
+	<% end %>
 </p>

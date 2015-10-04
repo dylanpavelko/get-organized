@@ -108,6 +108,15 @@ class TripHasInventoryItemsController < ApplicationController
     render json: @data
   end
 
+  def select_trip_to_copy
+  end
+
+  def select_items_to_copy
+  end
+
+  def copy_selected_items_to_trip
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_trip_has_inventory_item

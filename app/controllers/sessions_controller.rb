@@ -27,6 +27,15 @@ class SessionsController < ApplicationController
 	end
 
   def home
+  	@activities = ItineraryActivity.all
+  	@current_and_upcoming = Array.new
+  	@activities.each do |activity|
+  		if ! activity.datetime.past?
+  			@current_and_upcoming << activity
+  		end
+  	end
+  	@sorted_activities = @current_and_upcoming.sort {|a,b| a.datetime <=> b.datetime}
+
   end
 
   def profile
