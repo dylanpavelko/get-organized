@@ -110,7 +110,7 @@ class TripsController < ApplicationController
       end
 
     end
-    @days[(@i)] = [[@activities], [Array.new]]
+    @days[(@i)] = [@activities, Array.new]
 
     @un_dated_packed_items = Array.new
     @dated_packed_items = Array.new
