@@ -1,0 +1,43 @@
+<h1>Select Items to Copy to Target Trip
+</h1>
+<div>
+	<h3>Source Trip: <%= link_to @source_trip.name, @source_trip %> >
+	Target Trip: <%= link_to @target_trip.name, @target_trip %></h3>
+</div>
+
+<table border='1'>
+	<th>Inventory Item</th>
+	<th>Packed for Source Trip</th>
+	<th>Already Planned for Target Trip</th>
+	<th>Add</th>
+	<th>Total Planned</th>
+	<% @unique_items.each do |item| %>
+		<tr>
+			<td><%= link_to item[0].full_name, item[0] %></td>
+			<td><%= item[1] %></td>
+			<td><%= item[2] %></td>
+			<td><%= number_field_tag 'quantity-'+item[0].id.to_s, 0 %></td>
+			<td></td>
+		</tr>
+	<% end %>
+</table>
+
+<br/>
+<a href='/trip_has_inventory_items/select_trips_to_copy'>Back</a> 
+<button id='next'>Add Items to Trip > </button>
+
+
+<script type="text/javascript">
+$("#next").click(function(){
+	//get data to package
+	var $data_package = [];
+	var $inputs = $('input[id*="quantity"]');
+	$.each( $inputs, function( index, value ){
+    	$data_package.push([value.id.split('-')[1], value.value]);
+	});
+	var target_trip_id = <%= @target_trip.id %> ;
+	var new_item = $.ajax({url: "/trip_has_inventory_items/copy_selected_items_to_trip", type: "POST", data: {'trip_id': target_trip_id, 'payload': $data_package}, dataType: 'json'}).done(function(data){
+  			window.location.href = '/trips/'+target_trip_id;
+     });
+});
+</script>

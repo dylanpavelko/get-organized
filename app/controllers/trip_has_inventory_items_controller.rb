@@ -108,13 +108,39 @@ class TripHasInventoryItemsController < ApplicationController
     render json: @data
   end
 
-  def select_trip_to_copy
+  def select_trips_to_copy
+    @my_trips = Trip.get_my_trips(@current_user)
   end
 
   def select_items_to_copy
+    @source_trip = Trip.find(params[:source])
+    @target_trip = Trip.find(params[:target])
+
+    @source_items = TripHasInventoryItem.where(:trip_id => @source_trip.id)
+    @target_items = TripHasInventoryItem.where(:trip_id => @target_trip.id)
+
+    @unique_items = Array.new
+    @source_items.each do |item|
+      @unique_items << [item.inventory_item, @source_items.where(:inventory_item => item.inventory_item.id).count, @target_items.where(:inventory_item => item.inventory_item.id).count]
+    end
+
   end
 
   def copy_selected_items_to_trip
+    @target_trip = Trip.find(params[:trip_id])
+    @payload = params[:payload]
+    @payload.each do |data|
+      puts "create " + data[1][1].to_s + " of " + data[1][0].to_s
+      number = data[1][1]
+      item_id = data[1][0]
+      if number.to_i > 0
+        number.to_i.times do
+          @new_pack_item = TripHasInventoryItem.new(:trip_id => @target_trip.id, :inventory_item_id => item_id)
+          @new_pack_item.save
+        end 
+      end
+    end
+    render json: @target_trip
   end
 
   private

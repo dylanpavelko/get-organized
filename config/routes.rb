@@ -35,6 +35,12 @@ Rails.application.routes.draw do
 
   resources :loyalty_programs
 
+  get 'trip_has_inventory_items/select_trips_to_copy'
+
+  get 'trip_has_inventory_items/select_items_to_copy'
+
+  post '/trip_has_inventory_items/copy_selected_items_to_trip'
+
   get 'sessions/login'
 
   get 'sessions/home'

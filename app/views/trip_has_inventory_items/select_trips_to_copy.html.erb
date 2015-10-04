@@ -1,0 +1,18 @@
+<h1>Select Trip to Copy Packed Items From</h1>
+
+Source:<br/>
+<%= select :source_trip_id, nil, options_from_collection_for_select(@my_trips, :id, :name) %>
+<br/>
+Target:<br/>
+<%= select :target_trip_id, nil, options_from_collection_for_select(@my_trips, :id, :name) %><br/>
+<br/>
+<button id='next'>Next > </button>
+
+
+<script type="text/javascript">
+$("#next").click(function(){
+	var $source = $('#source_trip_id_').val()
+	var $target = $('#target_trip_id_').val()
+	window.location.href = '/trip_has_inventory_items/select_items_to_copy?source='+$source+'&target='+$target;
+});
+</script>
