@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
   	@activities = ItineraryActivity.all
   	@current_and_upcoming = Array.new
   	@activities.each do |activity|
-  		if ! activity.datetime.past?
+  		if activity.datetime != nil and !activity.datetime.past?
   			@current_and_upcoming << activity
   		end
   	end
