@@ -221,8 +221,11 @@ img.pack-all-items{
     position: fixed;
     left: 250px;
     width: 0;
-    height: 100%;
+    height: 90%;
+    margin-top:-35px;
     margin-left: -250px;
+    margin-bottom:5px;
+    padding-bottom:10px;
     overflow-y: auto;
     background: #FFF;
     -webkit-transition: all 0.5s ease;
@@ -253,6 +256,7 @@ img.pack-all-items{
     top: 0;
     width: 250px;
     margin: 0;
+    margin-bottom:3em;
     padding: 0;
     list-style: none;
 }
