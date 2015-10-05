@@ -1,327 +1,67 @@
-<% @activities_array = 0 %>
-<% @packed_items_array = 1 %>
+ <div id="wrapper">
 
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+          <h4 style="padding:5px;">Pack List</h4>
+          <ul style="padding:5px">
+          <% @unique_items = @trip_items.uniq{|x| x.inventory_item.id} %>
+          <% @unique_items.each do |item| %>
+            <% @count = 0 %>
+            <% @trip_items.find_all {|x| x.inventory_item.id == item.inventory_item.id}.each do |count_item|  %>
+              <% if ! count_item.reused? %>
+                <% @count = @count + count_item.get_amount.to_i %>
+              <% end %>
+            <% end %>
+          <% if ! item.reused? %>
+            <li class='items'>
+              <% if @count > 1%>
+                (<%= @count %>) 
+              <% end %>
 
-<p id="notice"><%= notice %></p>
-<h3>Trip: <%= @trip.name %></h3>
+                <%= link_to item.inventory_item.full_name, item.inventory_item %> 
+                <%= link_to "change", edit_trip_has_inventory_item_path(item) %> 
+              
+              <% if @count > 1 %>
+                 <img class="pack-all-items" id=<%= item.id %>  src='http://cdn.flaticon.com/svg/31/31290.svg' width='20' /> all
+                 <img class="pack-item-single" id=<%= item.id %> src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />(1) 
 
-<div id="slide-panel">
-    <a href="#" class="btn btn-danger" id="opener"><i class="glyphicon glyphicon-align-justify"></i></a>
-    <ul style="padding:5px">
-    <% @unique_items = @trip_items.uniq{|x| x.inventory_item.id} %>
-    <% @unique_items.each do |item| %>
-      <% @count = 0 %>
-      <% @trip_items.find_all {|x| x.inventory_item.id == item.inventory_item.id}.each do |count_item|  %>
-        <% if ! count_item.reused? %>
-          <% @count = @count + count_item.get_amount.to_i %>
-        <% end %>
-      <% end %>
-    <% if ! item.reused? %>
-      <li class='items'>
-        <% if @count > 1%>
-          (<%= @count %>) 
-        <% end %>
+              <% else %>
+                <img class="pack-item" id=<%= item.id %> src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />
+              <% end %>
+            </li>
+          <% end %>
+          <% end %>
+          <span id="newItem"><button id='addItem'>Add Item</button></span>
+        </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
 
-          <%= link_to item.inventory_item.full_name, item.inventory_item %> 
-          <%= link_to "change", edit_trip_has_inventory_item_path(item) %> 
-        
-        <% if @count > 1 %>
-           <img class="pack-all-items" id=<%= item.id %>  src='http://cdn.flaticon.com/svg/31/31290.svg' width='20' /> all
-           <img class="pack-item-single" id=<%= item.id %> src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />(1) 
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
 
-        <% else %>
-          <img class="pack-item" id=<%= item.id %> src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />
-        <% end %>
-      </li>
-    <% end %>
-    <% end %>
-    <span id="newItem"><button id='addItem'>Add Item</button></span>
-  </ul>
-</div>
-
-<p>
-  <br/>
-  <%= @trip.description %>
-  <% if @trip.owner != nil %>
-    <br/>Owner: <%= @trip.owner.first_name %>
-    <% if @travelers.count >0 %>
-      <br/>Travelers:
-      <% @travelers.each do |traveler| %>
-        <br/><%= traveler.participant.first_name %>
-      <% end %>
-    <% end %>
-    <br/><%= link_to "Add People", new_trip_has_participant_path(@trip) %>
-  <% end %>
-</p>
-
-<p>
-  <% if @trip.blog_link != '' %>
-    <%= link_to 'Blog Link', @trip.blog_link, target: "_blank" %>
-
-  <% end %>
-  <% if @trip.photo_link != '' %>
-    <%= link_to 'Photos Link', @trip.photo_link, target: "_blank" %>
-
-  <% end %>
-
-  <% if @trip.tripit_link != '' %>
-    <%= link_to 'Tripit Link', @trip.tripit_link, target: "_blank" %>
-
-  <% end %>
-
-</p>
-
-
-
-<strong>Itinerary:</strong><br/>
-Number of Days: <%= @total_days %>
-
- <% if @no_date_activities.count > 0 %>
-<br/>
- <em>Unscheduled Activities:</em><br/>
-  <% @no_date_activities.each do |activity| %>
-    <%= link_to activity.get_name, activity %> <%= link_to 'edit', edit_itinerary_activity_path(activity) %><br/>
-  <% end %>
-<% end %>
-<% if @days.count > 0 %>
-  <% activity_count = 0 %>
-  <% @days.each do |day| %>
-      <div class="container">
-        <% day[@activities_array].each do |row| %>
-        <%# If it is the first activity for the day, generate a day header and a day pack list %>
-        <% if row == day[@activities_array].first %>
-          <!-- Day Header -->
-          <h4><%= row.date %></h4>
-          
-          <!-- Day Pack List -->
-          <div class="row">
-          <div class="col-sm-6 span2">
-            <div class="panel panel-default">
-            <div class="panel-body">
-            <ul>
-                <% @shirts = Array.new %>
-                <% day[1].each do |trip_item|  %>
-                  <% if trip_item.inventory_item.subcategory != nil and trip_item.inventory_item.subcategory.subcategory == "Shirts" %>
-                    <% @shirts << trip_item %>
-                    <% day[1].delete(trip_item) %>
-                  <% end %>
-                <% end %>
-                <em>Shirt</em><br/>
-                <% if @shirts.count > 0 %>
-                  <% @shirts.each do |shirt| %>
-                    <li><%= link_to shirt.inventory_item.full_name, shirt.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(shirt) %></li>
-                  <% end %>
-                <% else %>
-                  <%= link_to "choose shirt", new_trip_has_inventory_item_path, {:style=>'color:red;', :class => "css_class"} %> <br/>
-                <% end %>
-                
-                <% @pants = Array.new %>
-                <% day[1].each do |trip_item|  %>
-                  <% if trip_item.inventory_item.subcategory != nil and trip_item.inventory_item.subcategory.subcategory == "Pants" %>
-                    <% @pants << trip_item %>
-                    <% day[1].delete(trip_item) %>
-                  <% end %>
-                <% end %>
-                <em>Pants</em><br/>
-                <% if @pants.count > 0 %>
-                <% @pants.each do |shirt| %>
-                    <li><%= link_to shirt.inventory_item.full_name, shirt.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(shirt) %></li>
-                  <% end %>
-                <% else %>
-                  <%= link_to "choose pants", new_trip_has_inventory_item_path, {:style=>'color:red;', :class => "css_class"} %> <br/>
-                <% end %>
-                
-                <% @boxers = Array.new %>
-                <% @socks = Array.new %>
-                <% @undershirts = Array.new %>
-                <% day[1].each do |trip_item|  %>
-                  <% if trip_item.inventory_item.subcategory != nil and trip_item.inventory_item.subcategory.subcategory == "Boxers" %>
-                    <% @boxers << trip_item %>
-                    <% day[1].delete(trip_item) %>
-                  <% end %>
-                <% end %>
-                <% day[1].each do |trip_item|  %>
-                  <% if trip_item.inventory_item.subcategory != nil and trip_item.inventory_item.subcategory.subcategory == "Socks" %>
-                    <% @socks << trip_item %>
-                    <% day[1].delete(trip_item) %>
-                  <% end %>
-                <% end %>
-                <% day[1].each do |trip_item|  %>
-                  <% if trip_item.inventory_item.subcategory != nil and trip_item.inventory_item.subcategory.subcategory == "Undershirts" %>
-                    <% @undershirts << trip_item %>
-                    <% day[1].delete(trip_item) %>
-                  <% end %>
-                <% end %>
-                <em>Undergarments</em><br/>
-                <% if @socks.count > 0 %>
-                <% @socks.each do |socks| %>
-                    <li><%= link_to socks.inventory_item.full_name, socks.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(socks) %></li>
-                  <% end %>
-                <% else %>
-                  <%= link_to "add socks", new_trip_has_inventory_item_path, {:style=>'color:red;', :class => "css_class"} %> <br/>
-                <% end %>
-                <% if @boxers.count > 0 %>
-                <% @boxers.each do |boxers| %>
-                    <li><%= link_to boxers.inventory_item.full_name, boxers.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(boxers) %></li>
-                  <% end %>
-                <% else %>
-                  <%= link_to "add boxers", new_trip_has_inventory_item_path, {:style=>'color:red;', :class => "css_class"} %> <br/>
-                <% end %>
-                <% if @undershirts.count > 0 %>
-                <% @undershirts.each do |undershirt| %>
-                    <li><%= link_to undershirt.inventory_item.full_name, undershirt.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(undershirt) %></li>
-                  <% end %>
-                <% end %>
-                
-                 <% @shoes = Array.new %>
-                <% day[1].each do |trip_item|  %>
-                  <% if trip_item.inventory_item.subcategory != nil and trip_item.inventory_item.subcategory.subcategory == "Shoes" %>
-                    <% @shoes << trip_item %>
-                    <% day[1].delete(trip_item) %>
-                  <% end %>
-                <% end %>
-                <em>Shoes</em><br/>
-                <% if @shoes.count > 0 %>
-                <% @shoes.each do |shoe| %>
-                    <li><%= link_to shoe.inventory_item.full_name, shoe.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(shoe) %></li>
-                  <% end %>
-                <% else %>
-                  <%= link_to "choose shoes", new_trip_has_inventory_item_path, {:style=>'color:red;', :class => "css_class"} %> <br/>
-                <% end %>
-                
-                
-                <% if day[1].count > 0 %>
-                <em>Other</em><br/>
-                <% day[1].each do |trip_item| %>
-                  <li><%= link_to trip_item.inventory_item.full_name, trip_item.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(trip_item) %></li>
-                <% end %>
-                <% end %>
-              </ul>
-              </div>
+                        <%= render 'trip_details' %>
+                    </div>
+                </div>
             </div>
-            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
 
-          <div class="col-sm-6">
-        <% end %>  
-        <!-- Activities for Day -->
-            <div class="panel panel-default">
-              <div class="panel-heading"><%= row.datetime.try(:strftime, "%I:%M %p ") %></div>
-              <div class="panel-body">
-                <%= link_to row.get_name, row.activity %> <br/>
-                  <% if row.airline != nil %> 
-                      <%= link_to image_tag(row.airline.image, height: '12'), row.airline %>
-                  <% elsif row.attraction != nil and row.attraction.hotel != nil%>
-                    <%= link_to image_tag(row.attraction.hotel.image, height: '12'), row.attraction.hotel %>
-                  <% end %>
-                  <%= link_to 'edit', edit_itinerary_activity_path(row.activity) %>
-              </div>
-            </div>
-      <% end %>
-       </div>
-      </div>
-    </div>               
+    </div>
+    <!-- /#wrapper -->
 
-    <% end %>
-</div>
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
 
-<%= link_to 'Add Itinerary Activity' , new_itinerary_activity_path(@trip) %>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
 
-<% end %>
-<br/><br/><br/>
-<div>
-
-
-<div id='pack_list'>
-<p>
-  <strong>Pack List:</strong>
-  
-
-</p>
-</div>
-<div id='packed_list' valign='top'>
-<p>
-  <strong>Packed Items:</strong>
-  <ul id='packed_list'>
-    <% @packed_trip_items.each do |item| %>
-      <% if ! item.reused? %>
-        <li class='items'><%= link_to item.inventory_item.full_name, item.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(item) %></li>
-      <% end %>
-    <% end %>
-  </ul>
-
-</p>
-
-
-<div>
-
-<%= link_to 'Edit', edit_trip_path(@trip) %> |
-<%= link_to 'All Trips', trips_path %>
-
-</div>
-
-<script type="text/javascript">
-$('#addItem').click(function(){
-    addRow();
-});
-
-function addRow(){
-  $('#newItem').html("<%= j render 'trip_has_inventory_items/add_item_to_trip' %>");
-}
-
-function addItem(){
-    var trip_id = <%= @trip.id %>;
-    var item_id = $('#inventory_item_id').children(":selected").attr("value");
-    var amount = $('#trip_has_inventory_item_amount').val();
-    var date = $('#item_date').val()
-    var new_item = $.ajax({url: "add_item", type: "POST", data: {'trip_id': trip_id ,'inventory_item_id': item_id, 'amount': amount, 'date': date}, dataType: 'json'}).done(function(data){ 
-      $('#newItem').before("<li><a href='/inventory_items/"+data[1]+"'>" + data[0] + "</a></li>");
-      $('#newItem').html("<li><span id='newItem'><button id='addItem' onclick='addRow()''>+ Add Item</button></span></li>");
-
-     });
-}
-
-
-$('.pack-item').click(function(){
-  var new_item = $.ajax({url: "/trips/pack_item", type: "POST", data: {'id': this.id}, dataType: 'json'}).done(function(data){ 
-      $('#'+data[0].id).parent().remove();
-      $('#packed_list').append("<li class='items'><a href='/inventory_items/"+data[1]+"'>" + data[2] + "</a> <a href='/trip_has_inventory_items/"+data[0].id+"/edit'>change</a></li>");
-
-     });
-})
-
-$(document).on("click", "img.pack-item-single", function(){
-  var new_item = $.ajax({url: "/trips/pack_item_multiple", type: "POST", data: {'id': this.id, 'all': false}, dataType: 'json'}).done(function(data){ 
-    console.log(data);
-      if(data[3] >= 2){
-        $('#'+data[0].id).parent().replaceWith(
-          "<li class='items'>("+ (data[3]) +") <a href='/inventory_items/"+data[1]+"'>" + data[2] + "</a> <a href='/trip_has_inventory_items/"+data[0].id+"/edit'>change</a> <img class='pack-item-single' id="+data[0].id+" src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />(1) <img class='pack-all-items' id="+data[0].id+" src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />all</li>");
-      }else if(data[3] == 1){
-        $('#'+data[0].id).parent().replaceWith(
-          "<li class='items'><a href='/inventory_items/"+data[1]+"'>" + data[2] + "</a> <a href='/trip_has_inventory_items/"+data[0].id+"/edit'>change</a> <img class='pack-item-single' id="+data[0].id+" src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' /></li>");
-      }else{
-        $('#'+data[0].id).parent().remove();
-      }
-      $('#packed_list').append("<li class='items'><a href='/inventory_items/"+data[1]+"'>" + data[2] + "</a> <a href='/trip_has_inventory_items/"+data[0].id+"/edit'>change</a></li>");
-
-  });
-});
-
-$('.pack-all-items').click(function(){
-  var new_item = $.ajax({url: "/trips/pack_item_multiple", type: "POST", data: {'id': this.id, 'all': true}, dataType: 'json'}).done(function(data){ 
-      $('#'+data[0].id).parent().remove();
-      $('#packed_list').append("<li class='items'>(" + data[3] + ") <a href='/inventory_items/"+data[1]+"'>" + data[2] + "</a> <a href='/trip_has_inventory_items/"+data[0].id+"/edit'>change</a></li>");
-
-     });
-})
-
-  $('#opener').on('click', function() {   
-    var panel = $('#slide-panel');
-    if (panel.hasClass("visible")) {
-      panel.removeClass('visible').animate({'margin-right':'-300px'});
-    } else {
-      panel.addClass('visible').animate({'margin-right':'0px'});
-    } 
-    return false; 
-  });
-
-</script>
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
