@@ -12,9 +12,11 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap_and_overrides
+ *
  */
 body{
-	background-color: #191970;
+	/*background-color: #191970;*/
 	font-family: 'Raleway', sans-serif;
 }
 
@@ -22,16 +24,4 @@ body{
 	background-color: white;
 	padding:2em;
 	border-radius: 15px;
-}
-
-
-div#profile{
-	float: right;
-	padding-right:1em;
-	vertical-align: text-top;
-}
-
-.profile_header{
-	border-radius: 50%;
-	height:30px;
 }

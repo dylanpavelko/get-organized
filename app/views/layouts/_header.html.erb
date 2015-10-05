@@ -1,20 +1,51 @@
-<div id='header-fixed'>
-	<% if Rails.env.development? %>
-		<em>DEV</em>
-	<% end %>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
 
-	<strong><%= link_to 'Get Organized', sessions_home_path %></strong>
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+
+          <% if Rails.env.development? %>
+            <%= link_to 'DEV - Get Organized', sessions_home_path, {:class => "navbar-brand" } %>
+          <% else %>
+            <%= link_to 'Get Organized', sessions_home_path, {:class => "navbar-brand" } %>
+          <% end %>
+    </div>
+
+
+
+
+
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <% if @current_user!= nil %>
+      <ul class="nav navbar-nav">
+        <li class="active"><%= link_to 'Travel & Leisure', my_trips_path %></a></li>
+        <% if @current_user.has_access_to_path("inventory_items" , "my_inventory", nil) %>
+          <li><%= link_to 'My Inventory', my_inventory_path %></li>
+        <% end %>
+      </ul>
+    <% end %>
 
   <% if @current_user!=nil%>
-  	<input id="header_search" type="search">
+  <form class="navbar-form navbar-left" role="search">
+    <div class="form-group">
+      <input id="header_search" type="text" class="form-control" placeholder="Search">
+    </div>
+<!--     <button type="submit" class="btn btn-default">Submit</button> -->
 
-	<div id="header_search_results">
-	</div>
+  <div id="header_search_results">
+  </div>
+  </form>
 
-	<%= link_to 'Travel & Leisure', my_trips_path %>
-  <% if @current_user.has_access_to_path("inventory_items" , "my_inventory", nil) %>
-  	<%= link_to 'My Inventory', my_inventory_path %>
-  <% end %>
+
+
+	
+
   <% if @current_user.has_access_to_path("activities" , "index", nil) %>
 	 <%= link_to 'Activities', activities_path %>
 	<% end %>
@@ -22,18 +53,33 @@
    <%= link_to 'Exercise Centers', exercise_centers_path %>
   <% end %>
 <% end %>
-	<div id='profile'>
-	<% if @current_user!=nil%>
-			<img src= <%= @current_user.picture %> class="profile_header">
-			<%= link_to @current_user.username, sessions_profile_path %>   
-			<%= link_to 'Log Out', logout_path %>
-		<% else %>
-			<%= link_to 'Log In', sessions_login_path %> or 
-			<%= link_to 'Sign Up', users_new_path %>
-		<%end%>
-	</div>
-</div>
 
+
+
+  <% if @current_user!=nil%>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <img src= <%= @current_user.picture %> class="navbar-brand profile_header_pic" ></li><li><%= link_to @current_user.username, sessions_profile_path, {:class => 'navbar-link'} %>
+        </li>
+        <li>  
+          <%= link_to 'Log Out', logout_path, {:class => 'navbar-link'} %>
+        </li>
+      </ul>
+    <% else %>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <%= link_to 'Log In', sessions_login_path %> 
+        </li>
+        <li>  
+          <%= link_to 'Sign Up', users_new_path %>
+        </li>
+      </ul>
+    <%end%>
+
+</div>
+   
+
+</nav>
 
 <script type="text/javascript">
 	 var timeoutID = null;
