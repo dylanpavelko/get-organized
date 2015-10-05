@@ -71,7 +71,7 @@
   </div>
   <div class="field">
     <%= f.label :public_request %> - All fields would become public, and would no longer be editable except by inventory moderators.<br>
-    <% if @inventory_item.public_status %>
+    <% if @inventory_item.public %>
       <%= f.check_box :public_request, {checked: true} %>
     <% elsif @inventory_item.public == nil %>
       <%= f.check_box :public_request, {checked: false} %>    
