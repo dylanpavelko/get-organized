@@ -45,7 +45,7 @@ class TripHasInventoryItemsController < ApplicationController
   def update
     respond_to do |format|
       if @trip_has_inventory_item.update(trip_has_inventory_item_params)
-        format.html { redirect_to @trip_has_inventory_item, notice: 'Trip has inventory item was successfully updated.' }
+        format.html { redirect_to @trip_has_inventory_item.trip, notice: 'Trip has inventory item was successfully updated.' }
         format.json { render :show, status: :ok, location: @trip_has_inventory_item }
       else
         format.html { render :edit }
