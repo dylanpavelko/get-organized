@@ -4,32 +4,33 @@
         <div id="sidebar-wrapper">
           <h4 style="padding:5px;">Pack List</h4>
           <ul style="padding:5px">
-          <% @unique_items = @trip_items.uniq{|x| x.inventory_item.id} %>
-          <% @unique_items.each do |item| %>
+          <% @trip_items.sort_by!{|x| x.inventory_item.full_name} %>
+          <% @trip_items.each do |item| %>
             <% @count = 0 %>
             <% @trip_items.find_all {|x| x.inventory_item.id == item.inventory_item.id}.each do |count_item|  %>
               <% if ! count_item.reused? %>
                 <% @count = @count + count_item.get_amount.to_i %>
               <% end %>
             <% end %>
-          <% if ! item.reused? %>
-            <li class='items'>
-              <% if @count > 1%>
-                (<%= @count %>) 
-              <% end %>
 
+            <li class='items'>
+                <% if item.date != nil %>
+                  <%= item.date.try(:strftime, "%m/%d/%y") %>
+                <% end %>
                 <%= link_to item.inventory_item.full_name, item.inventory_item %> 
                 <%= link_to "change", edit_trip_has_inventory_item_path(item) %> 
               
-              <% if @count > 1 %>
-                 <img class="pack-all-items" id=<%= item.id %>  src='http://cdn.flaticon.com/svg/31/31290.svg' width='20' /> all
-                 <img class="pack-item-single" id=<%= item.id %> src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />(1) 
+              <% if !item.packed and !item.reused %>
+                <% if @count > 1 %>
+                   <img class="pack-all-items" id=<%= item.id %>  src='http://cdn.flaticon.com/svg/31/31290.svg' width='20' /> all
+                   <img class="pack-item-single" id=<%= item.id %> src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />(1) 
 
-              <% else %>
-                <img class="pack-item" id=<%= item.id %> src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />
+                <% else %>
+                  <img class="pack-item" id=<%= item.id %> src='http://cdn.flaticon.com/svg/61/61161.svg' width='20' />
+                <% end %>
               <% end %>
             </li>
-          <% end %>
+
           <% end %>
           <span id="newItem"><button id='addItem'>Add Item</button></span>
         </ul>
@@ -52,11 +53,6 @@
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
 
     <!-- Menu Toggle Script -->
     <script>

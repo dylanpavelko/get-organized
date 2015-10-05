@@ -6,7 +6,14 @@
 <p>
 	<strong>Up Next:</strong><br/>
 	<% @sorted_activities[0..4].each do |activity| %>
-		<%= link_to activity.trip.name, activity.trip %> 
-		> <%= link_to (activity.datetime.strftime("%m/%d/%Y at %I:%M%p") + " " + activity.get_name), activity %><br/>
+		<div class="panel panel-default">
+              <div class="panel-heading"><%= link_to activity.trip.name, activity.trip %> </div>
+              <div class="panel-body">
+              	<%= link_to (activity.datetime.strftime("%m/%d/%Y at %I:%M%p") + " " + activity.get_name), activity %>
+              </div>
+            </div>
 	<% end %>
 </p>
+
+
+            

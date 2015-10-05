@@ -9,7 +9,7 @@
           <h3 style:"margin-top:0;">Trip: <%= @trip.name %></h3>
 <p id="notice"><%= notice %></p>
 <div id="trip_details">
-<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Show Pack List</a>
+<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Hide Pack List</a>
 <p>
   <br/>
   <%= @trip.description %>
@@ -25,35 +25,30 @@
   <% end %>
 </p>
 
+<!-- Trip Links -->
 <p>
   <% if @trip.blog_link != '' %>
     <%= link_to 'Blog Link', @trip.blog_link, target: "_blank" %>
-
   <% end %>
   <% if @trip.photo_link != '' %>
     <%= link_to 'Photos Link', @trip.photo_link, target: "_blank" %>
-
   <% end %>
-
   <% if @trip.tripit_link != '' %>
     <%= link_to 'Tripit Link', @trip.tripit_link, target: "_blank" %>
-
   <% end %>
-
 </p>
 
 
-
-<strong>Itinerary:</strong><br/>
-Number of Days: <%= @total_days %>
-
- <% if @no_date_activities.count > 0 %>
+<!-- Activities Not Associated with a Date -->
+<% if @no_date_activities.count > 0 %>
 <br/>
  <em>Unscheduled Activities:</em><br/>
   <% @no_date_activities.each do |activity| %>
     <%= link_to activity.get_name, activity %> <%= link_to 'edit', edit_itinerary_activity_path(activity) %><br/>
   <% end %>
 <% end %>
+
+
 <% if @days.count > 0 %>
   <% activity_count = 0 %>
   <% @days.each do |day| %>
@@ -65,7 +60,7 @@ Number of Days: <%= @total_days %>
           <h4><%= row.date %></h4>
           
           <!-- Day Pack List -->
-          <div class="row">
+
           <div class="col-sm-4">
             <div class="panel panel-default">
             <div class="panel-body">
@@ -198,35 +193,10 @@ Number of Days: <%= @total_days %>
 <%= link_to 'Add Itinerary Activity' , new_itinerary_activity_path(@trip) %>
 
 <% end %>
-<br/><br/><br/>
-<div>
-
-
-<div id='pack_list'>
-<p>
-  <strong>Pack List:</strong>
-  
-
-</p>
-</div>
-<div id='packed_list' valign='top'>
-<p>
-  <strong>Packed Items:</strong>
-  <ul id='packed_list'>
-    <% @packed_trip_items.each do |item| %>
-      <% if ! item.reused? %>
-        <li class='items'><%= link_to item.inventory_item.full_name, item.inventory_item %> <%= link_to "change", edit_trip_has_inventory_item_path(item) %></li>
-      <% end %>
-    <% end %>
-  </ul>
-
-</p>
-
 
 <div>
 
-<%= link_to 'Edit', edit_trip_path(@trip) %> |
-<%= link_to 'All Trips', trips_path %>
+<%= link_to 'Edit', edit_trip_path(@trip) %>
 
 </div>
 </div>
@@ -263,9 +233,7 @@ function addItem(){
 
 $('.pack-item').click(function(){
   var new_item = $.ajax({url: "/trips/pack_item", type: "POST", data: {'id': this.id}, dataType: 'json'}).done(function(data){ 
-      $('#'+data[0].id).parent().remove();
-      $('#packed_list').append("<li class='items'><a href='/inventory_items/"+data[1]+"'>" + data[2] + "</a> <a href='/trip_has_inventory_items/"+data[0].id+"/edit'>change</a></li>");
-
+      $('#'+data[0].id).remove();
      });
 })
 

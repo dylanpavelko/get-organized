@@ -49,7 +49,6 @@ class TripsController < ApplicationController
   # GET /trips/1
   # GET /trips/1.json
   def show
-
     @travelers = TripHasParticipant.where(:trip_id => @trip, :traveler => true)
     @organizers = TripHasParticipant.where(:trip_id => @trip, :organizer => true)
     @viewers = TripHasParticipant.where(:trip_id => @trip, :viewer => true)
@@ -69,10 +68,8 @@ class TripsController < ApplicationController
             end
           end
 
+    @itinerary_rows = @itinerary_rows.sort_by {|obj| obj.datetime}
 
-     @itinerary_rows = @itinerary_rows.sort_by {|obj| obj.datetime}
-
-    
     @first_date = @trip.first_date
     @last_date = @trip.last_date
     if @itinerary_rows.count > 0
@@ -152,7 +149,7 @@ class TripsController < ApplicationController
         @unpacked << item    
       end
     end
-    @trip_items = @unpacked
+    @trip_items = @unpacked + @packed_trip_items
   end
 
   # GET /trips/new
