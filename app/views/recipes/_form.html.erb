@@ -1,0 +1,114 @@
+<%= form_for(@recipe) do |f| %>
+  <% if @recipe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+      <ul>
+      <% @recipe.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field col-md-12">
+    Recipe Title<br>
+    <%= f.text_field :name, :class => "form-control" %>
+  </div>
+  <div class="field col-md-4">
+    <%= f.label :serving_size %><br>
+    <%= f.text_field :serving_size, :class => "form-control"  %>
+  </div>
+  <div class="field col-md-4">
+    <%= f.label :source %><br>
+    <%= f.text_field :source , :class => "form-control" %>
+  </div>
+  <div class="field  col-md-12">
+    <%= f.label :description %><br>
+    <%= f.text_area :description, :class => "form-control"  %>
+  </div>
+  <div class="field col-md-12">
+    <strong>Ingredients</strong><br>
+    <table>
+      <th>Amount</th>
+        <th>Quantity Type</th>
+        <th>Ingredient</th>
+      <tr>
+        <td><%= text_field_tag :amount, "", :class => "form-control last_ingredient" , size: '5', :name => "recipe[ingredient_amount]"%></td>
+        <td> <%= select_tag :quantity_type_id, options_from_collection_for_select(QuantityType.all, :id, :quantityType), {:include_blank => true, :class => "form-control"}%></td>
+        <td><%= select_tag :food_item_id, options_from_collection_for_select(FoodItem.all, :id, :name), {:include_blank => true, :class => "form-control last_food_ingredient"} %></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+    <div class="field col-md-12">
+    <strong>Instructions</strong><br>
+      <div class="field">
+        <table>
+          <tr>
+            <td><%= hidden_field_tag :order , "", :readonly => true%></td>
+            <td><%= text_area_tag :instruction, "", :class => "form-control instruction last_instruction", rows: "1", cols: "50" %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="field col-md-12">
+    <%= f.label :notes %><br>
+    <%= f.text_area :notes, :class => "form-control"  %>
+  </div>
+  <div class="field col-md-12">
+    <%= f.label :author_id %><br>
+    <%= f.select :author_id, options_from_collection_for_select(Person.all, :id, :first_name, {:disabled => true}) %>
+  </div>
+  <div class="actions col-md-12">
+    <%= f.submit %>
+    <%= link_to 'Back', recipes_path %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+//on either a keypress in the last ingredient amount OR on a click on the last ingredient item
+$(document).on('keypress','.last_ingredient', function () {
+  addIngredientRow($(this).parent());
+})
+
+$(document).on('click','.remove_row', function () {
+  $amount_element = $(this).parent().parent().remove();
+})
+
+$(document).on('click','.last_food_ingredient', function () {
+  $amount_element = $(this).parent().prev().prev();
+  addIngredientRow($amount_element);
+})
+
+function addIngredientRow(node){
+  node.children().first().removeClass("last_ingredient");
+  node.next().next().children().first().removeClass("last_food_ingredient");
+  node.next().next().after("<td><button type='button' class='btn btn-default remove_row' action='#'>X</button></td></tr>");
+  node.parent().after("<tr>"+
+        "<td><%= escape_javascript(text_field_tag :amount, '', :class => 'form-control last_ingredient', size: '5', :name => 'recipe[ingredient_amount]') %></td>" +
+        "<td> <%= escape_javascript(select_tag :quantity_type_id, options_from_collection_for_select(QuantityType.all, :id, :quantityType), {:include_blank => true, :class => 'form-control'} )%></td>" +
+        "<td><%= escape_javascript(select_tag :food_item_id, options_from_collection_for_select(FoodItem.all, :id, :name), {:include_blank => true, :class => 'form-control last_food_ingredient'}) %></td> " +
+        "<td></td>" +
+      "</tr>");
+}
+
+$steps = 0;
+//on either a keypress in the last ingredient amount OR on a click on the last ingredient item
+$(document).on('keypress','.last_instruction', function () {
+  addInstructionRow($(this));
+})
+
+$(document).on('paste','.last_instruction', function () {
+  addInstructionRow($(this));
+})
+
+function addInstructionRow(node){
+  node.removeClass("last_instruction");
+  node.parent().after("<td><button type='button' id='remove_ingredient' class='btn btn-default remove_row'>X</button>");
+  node.parent().parent().after("<tr>" +
+            "<td><%= escape_javascript(hidden_field_tag :order) %></td>" +
+            "<td><%= escape_javascript(text_area_tag :instruction, '', :class => 'form-control last_instruction', rows: '1', cols: '50') %></td>" +
+          "</tr>");
+}
+</script>

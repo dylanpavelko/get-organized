@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :recipe_ingredients
+
+  resources :food_items
+
+  resources :recipe_steps
+
+  resources :recipes
+
   resources :public_inventory_item_queues
 
   resources :trip_has_participants

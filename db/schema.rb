@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151003194611) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20151125212932) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -29,8 +26,8 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.datetime "updated_at"
   end
 
-  add_index "activity_has_exercise_centers", ["activity_id"], name: "index_activity_has_exercise_centers_on_activity_id", using: :btree
-  add_index "activity_has_exercise_centers", ["exercise_center_id"], name: "index_activity_has_exercise_centers_on_exercise_center_id", using: :btree
+  add_index "activity_has_exercise_centers", ["activity_id"], name: "index_activity_has_exercise_centers_on_activity_id"
+  add_index "activity_has_exercise_centers", ["exercise_center_id"], name: "index_activity_has_exercise_centers_on_exercise_center_id"
 
   create_table "activity_has_inventory_items", force: true do |t|
     t.integer  "activity_id"
@@ -39,8 +36,8 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.datetime "updated_at"
   end
 
-  add_index "activity_has_inventory_items", ["activity_id"], name: "index_activity_has_inventory_items_on_activity_id", using: :btree
-  add_index "activity_has_inventory_items", ["inventory_item_id"], name: "index_activity_has_inventory_items_on_inventory_item_id", using: :btree
+  add_index "activity_has_inventory_items", ["activity_id"], name: "index_activity_has_inventory_items_on_activity_id"
+  add_index "activity_has_inventory_items", ["inventory_item_id"], name: "index_activity_has_inventory_items_on_inventory_item_id"
 
   create_table "airlines", force: true do |t|
     t.string   "name"
@@ -50,7 +47,7 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.datetime "updated_at"
   end
 
-  add_index "airlines", ["loyalty_program_id"], name: "index_airlines_on_loyalty_program_id", using: :btree
+  add_index "airlines", ["loyalty_program_id"], name: "index_airlines_on_loyalty_program_id"
 
   create_table "attraction_categories", force: true do |t|
     t.string   "name"
@@ -65,8 +62,8 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.datetime "updated_at"
   end
 
-  add_index "attraction_has_reviews", ["attraction_id"], name: "index_attraction_has_reviews_on_attraction_id", using: :btree
-  add_index "attraction_has_reviews", ["review_id"], name: "index_attraction_has_reviews_on_review_id", using: :btree
+  add_index "attraction_has_reviews", ["attraction_id"], name: "index_attraction_has_reviews_on_attraction_id"
+  add_index "attraction_has_reviews", ["review_id"], name: "index_attraction_has_reviews_on_review_id"
 
   create_table "attractions", force: true do |t|
     t.integer  "attraction_category_id"
@@ -78,9 +75,9 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.integer  "hotel_id"
   end
 
-  add_index "attractions", ["attraction_category_id"], name: "index_attractions_on_attraction_category_id", using: :btree
-  add_index "attractions", ["hotel_id"], name: "index_attractions_on_hotel_id", using: :btree
-  add_index "attractions", ["location_id"], name: "index_attractions_on_location_id", using: :btree
+  add_index "attractions", ["attraction_category_id"], name: "index_attractions_on_attraction_category_id"
+  add_index "attractions", ["hotel_id"], name: "index_attractions_on_hotel_id"
+  add_index "attractions", ["location_id"], name: "index_attractions_on_location_id"
 
   create_table "businesses", force: true do |t|
     t.string   "name"
@@ -102,14 +99,20 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["author_id"], name: "index_comments_on_author_id", using: :btree
-  add_index "comments", ["reply_to_id"], name: "index_comments_on_reply_to_id", using: :btree
+  add_index "comments", ["author_id"], name: "index_comments_on_author_id"
+  add_index "comments", ["reply_to_id"], name: "index_comments_on_reply_to_id"
 
   create_table "exercise_centers", force: true do |t|
     t.string   "gymType"
     t.string   "name"
     t.string   "site"
     t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "food_items", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -122,7 +125,7 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.datetime "updated_at"
   end
 
-  add_index "hotel_chains", ["loyalty_program_id"], name: "index_hotel_chains_on_loyalty_program_id", using: :btree
+  add_index "hotel_chains", ["loyalty_program_id"], name: "index_hotel_chains_on_loyalty_program_id"
 
   create_table "inventory_items", force: true do |t|
     t.string   "name"
@@ -136,14 +139,14 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.datetime "updated_at"
     t.integer  "category_id"
     t.integer  "subcategory_id"
-    t.text     "amazon_link"
+    t.text     "amazon_link",      limit: 255
     t.boolean  "container"
     t.boolean  "public"
   end
 
-  add_index "inventory_items", ["category_id"], name: "index_inventory_items_on_category_id", using: :btree
-  add_index "inventory_items", ["quantity_type_id"], name: "index_inventory_items_on_quantity_type_id", using: :btree
-  add_index "inventory_items", ["subcategory_id"], name: "index_inventory_items_on_subcategory_id", using: :btree
+  add_index "inventory_items", ["category_id"], name: "index_inventory_items_on_category_id"
+  add_index "inventory_items", ["quantity_type_id"], name: "index_inventory_items_on_quantity_type_id"
+  add_index "inventory_items", ["subcategory_id"], name: "index_inventory_items_on_subcategory_id"
 
   create_table "inventory_owners", force: true do |t|
     t.integer  "inventory_item_id"
@@ -155,10 +158,10 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.integer  "stored_in_id"
   end
 
-  add_index "inventory_owners", ["inventory_item_id"], name: "index_inventory_owners_on_inventory_item_id", using: :btree
-  add_index "inventory_owners", ["person_id"], name: "index_inventory_owners_on_person_id", using: :btree
-  add_index "inventory_owners", ["quantity_type_id"], name: "index_inventory_owners_on_quantity_type_id", using: :btree
-  add_index "inventory_owners", ["stored_in_id"], name: "index_inventory_owners_on_stored_in_id", using: :btree
+  add_index "inventory_owners", ["inventory_item_id"], name: "index_inventory_owners_on_inventory_item_id"
+  add_index "inventory_owners", ["person_id"], name: "index_inventory_owners_on_person_id"
+  add_index "inventory_owners", ["quantity_type_id"], name: "index_inventory_owners_on_quantity_type_id"
+  add_index "inventory_owners", ["stored_in_id"], name: "index_inventory_owners_on_stored_in_id"
 
   create_table "itinerary_activities", force: true do |t|
     t.string   "name"
@@ -177,12 +180,12 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.text     "note"
   end
 
-  add_index "itinerary_activities", ["airline_id"], name: "index_itinerary_activities_on_airline_id", using: :btree
-  add_index "itinerary_activities", ["attraction_id"], name: "index_itinerary_activities_on_attraction_id", using: :btree
-  add_index "itinerary_activities", ["basis_id"], name: "index_itinerary_activities_on_basis_id", using: :btree
-  add_index "itinerary_activities", ["destination_id"], name: "index_itinerary_activities_on_destination_id", using: :btree
-  add_index "itinerary_activities", ["origination_id"], name: "index_itinerary_activities_on_origination_id", using: :btree
-  add_index "itinerary_activities", ["trip_id"], name: "index_itinerary_activities_on_trip_id", using: :btree
+  add_index "itinerary_activities", ["airline_id"], name: "index_itinerary_activities_on_airline_id"
+  add_index "itinerary_activities", ["attraction_id"], name: "index_itinerary_activities_on_attraction_id"
+  add_index "itinerary_activities", ["basis_id"], name: "index_itinerary_activities_on_basis_id"
+  add_index "itinerary_activities", ["destination_id"], name: "index_itinerary_activities_on_destination_id"
+  add_index "itinerary_activities", ["origination_id"], name: "index_itinerary_activities_on_origination_id"
+  add_index "itinerary_activities", ["trip_id"], name: "index_itinerary_activities_on_trip_id"
 
   create_table "locations", force: true do |t|
     t.string   "name"
@@ -200,7 +203,7 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.boolean  "airport"
   end
 
-  add_index "locations", ["timezonen_id"], name: "index_locations_on_timezonen_id", using: :btree
+  add_index "locations", ["timezonen_id"], name: "index_locations_on_timezonen_id"
 
   create_table "loyalty_programs", force: true do |t|
     t.string   "name"
@@ -220,7 +223,7 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.datetime "updated_at"
   end
 
-  add_index "people", ["user_account_id"], name: "index_people_on_user_account_id", using: :btree
+  add_index "people", ["user_account_id"], name: "index_people_on_user_account_id"
 
   create_table "public_inventory_item_queues", force: true do |t|
     t.integer  "item_id"
@@ -229,13 +232,49 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.datetime "updated_at"
   end
 
-  add_index "public_inventory_item_queues", ["item_id"], name: "index_public_inventory_item_queues_on_item_id", using: :btree
+  add_index "public_inventory_item_queues", ["item_id"], name: "index_public_inventory_item_queues_on_item_id"
 
   create_table "quantity_types", force: true do |t|
     t.string   "quantityType"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "recipe_ingredients", force: true do |t|
+    t.integer  "recipe_id"
+    t.string   "amount"
+    t.integer  "quantity_type_id"
+    t.integer  "food_item_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "recipe_ingredients", ["food_item_id"], name: "index_recipe_ingredients_on_food_item_id"
+  add_index "recipe_ingredients", ["quantity_type_id"], name: "index_recipe_ingredients_on_quantity_type_id"
+  add_index "recipe_ingredients", ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
+
+  create_table "recipe_steps", force: true do |t|
+    t.integer  "recipe_id"
+    t.text     "instruction"
+    t.integer  "order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "recipe_steps", ["recipe_id"], name: "index_recipe_steps_on_recipe_id"
+
+  create_table "recipes", force: true do |t|
+    t.string   "name"
+    t.string   "serving_size"
+    t.text     "description"
+    t.string   "source"
+    t.text     "notes"
+    t.integer  "author_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "recipes", ["author_id"], name: "index_recipes_on_author_id"
 
   create_table "reviews", force: true do |t|
     t.integer  "rating"
@@ -246,8 +285,8 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.datetime "updated_at"
   end
 
-  add_index "reviews", ["comment_id"], name: "index_reviews_on_comment_id", using: :btree
-  add_index "reviews", ["reviewer_id"], name: "index_reviews_on_reviewer_id", using: :btree
+  add_index "reviews", ["comment_id"], name: "index_reviews_on_comment_id"
+  add_index "reviews", ["reviewer_id"], name: "index_reviews_on_reviewer_id"
 
   create_table "roles", force: true do |t|
     t.string   "name"
@@ -262,8 +301,8 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.datetime "updated_at"
   end
 
-  add_index "security_domain_has_roles", ["domain_id"], name: "index_security_domain_has_roles_on_domain_id", using: :btree
-  add_index "security_domain_has_roles", ["role_id"], name: "index_security_domain_has_roles_on_role_id", using: :btree
+  add_index "security_domain_has_roles", ["domain_id"], name: "index_security_domain_has_roles_on_domain_id"
+  add_index "security_domain_has_roles", ["role_id"], name: "index_security_domain_has_roles_on_role_id"
 
   create_table "security_domains", force: true do |t|
     t.string   "name"
@@ -278,7 +317,7 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.datetime "updated_at"
   end
 
-  add_index "subcategories", ["category_id"], name: "index_subcategories_on_category_id", using: :btree
+  add_index "subcategories", ["category_id"], name: "index_subcategories_on_category_id"
 
   create_table "task_has_security_domains", force: true do |t|
     t.integer  "task_id"
@@ -287,8 +326,8 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.datetime "updated_at"
   end
 
-  add_index "task_has_security_domains", ["security_domain_id"], name: "index_task_has_security_domains_on_security_domain_id", using: :btree
-  add_index "task_has_security_domains", ["task_id"], name: "index_task_has_security_domains_on_task_id", using: :btree
+  add_index "task_has_security_domains", ["security_domain_id"], name: "index_task_has_security_domains_on_security_domain_id"
+  add_index "task_has_security_domains", ["task_id"], name: "index_task_has_security_domains_on_task_id"
 
   create_table "tasks", force: true do |t|
     t.string   "task_name"
@@ -301,7 +340,7 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.string   "action"
   end
 
-  add_index "tasks", ["security_domain_id"], name: "index_tasks_on_security_domain_id", using: :btree
+  add_index "tasks", ["security_domain_id"], name: "index_tasks_on_security_domain_id"
 
   create_table "transactions", force: true do |t|
     t.integer  "inventory_item_id"
@@ -316,10 +355,10 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.datetime "updated_at"
   end
 
-  add_index "transactions", ["buyer_person_id"], name: "index_transactions_on_buyer_person_id", using: :btree
-  add_index "transactions", ["inventory_item_id"], name: "index_transactions_on_inventory_item_id", using: :btree
-  add_index "transactions", ["quantity_type_id"], name: "index_transactions_on_quantity_type_id", using: :btree
-  add_index "transactions", ["seller_business_id"], name: "index_transactions_on_seller_business_id", using: :btree
+  add_index "transactions", ["buyer_person_id"], name: "index_transactions_on_buyer_person_id"
+  add_index "transactions", ["inventory_item_id"], name: "index_transactions_on_inventory_item_id"
+  add_index "transactions", ["quantity_type_id"], name: "index_transactions_on_quantity_type_id"
+  add_index "transactions", ["seller_business_id"], name: "index_transactions_on_seller_business_id"
 
   create_table "trip_has_inventory_items", force: true do |t|
     t.integer  "trip_id"
@@ -332,8 +371,8 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.boolean  "reused"
   end
 
-  add_index "trip_has_inventory_items", ["inventory_item_id"], name: "index_trip_has_inventory_items_on_inventory_item_id", using: :btree
-  add_index "trip_has_inventory_items", ["trip_id"], name: "index_trip_has_inventory_items_on_trip_id", using: :btree
+  add_index "trip_has_inventory_items", ["inventory_item_id"], name: "index_trip_has_inventory_items_on_inventory_item_id"
+  add_index "trip_has_inventory_items", ["trip_id"], name: "index_trip_has_inventory_items_on_trip_id"
 
   create_table "trip_has_participants", force: true do |t|
     t.integer  "trip_id"
@@ -345,12 +384,13 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.datetime "updated_at"
   end
 
-  add_index "trip_has_participants", ["participant_id"], name: "index_trip_has_participants_on_participant_id", using: :btree
-  add_index "trip_has_participants", ["trip_id"], name: "index_trip_has_participants_on_trip_id", using: :btree
+  add_index "trip_has_participants", ["participant_id"], name: "index_trip_has_participants_on_participant_id"
+  add_index "trip_has_participants", ["trip_id"], name: "index_trip_has_participants_on_trip_id"
 
   create_table "trips", force: true do |t|
     t.string   "name"
     t.text     "description"
+    t.integer  "itinerary_item_id"
     t.string   "blog_link"
     t.string   "photo_link"
     t.string   "tripit_link"
@@ -359,6 +399,8 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.integer  "owner_id"
   end
 
+  add_index "trips", ["itinerary_item_id"], name: "index_trips_on_itinerary_item_id"
+
   create_table "user_has_roles", force: true do |t|
     t.integer  "user_id"
     t.integer  "role_id"
@@ -366,8 +408,8 @@ ActiveRecord::Schema.define(version: 20151003194611) do
     t.datetime "updated_at"
   end
 
-  add_index "user_has_roles", ["role_id"], name: "index_user_has_roles_on_role_id", using: :btree
-  add_index "user_has_roles", ["user_id"], name: "index_user_has_roles_on_user_id", using: :btree
+  add_index "user_has_roles", ["role_id"], name: "index_user_has_roles_on_role_id"
+  add_index "user_has_roles", ["user_id"], name: "index_user_has_roles_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "username"
