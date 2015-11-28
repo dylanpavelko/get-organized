@@ -1,34 +1,55 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<h3>
   <%= @recipe.name %>
-</p>
+</h3>
 
-<p>
+<div class="field col-md-6">
   <strong>Serving size:</strong>
   <%= @recipe.serving_size %>
-</p>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @recipe.description %>
-</p>
-
-<p>
+<div class="field col-md-6">
   <strong>Source:</strong>
   <%= @recipe.source %>
-</p>
+</div>
 
-<p>
+<div class="field col-md-12">
+  <strong>Description:</strong>
+  <%= @recipe.description %>
+</div>
+
+<div class="field col-md-12">
+  <strong>Ingredients:</strong>
+  <ul>
+    <% @ingredients.each do |ingredient| %>
+      <li>
+        <%= ingredient.amount %> <%= ingredient.quantity_type.quantityType %> - 
+        <%= ingredient.food_item.name %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="field col-md-12">
+  <strong>Instructions:</strong>
+  <ol>
+  <% @instructions.each do |step| %>
+    <li><%= step.instruction %></li>
+  <% end %>
+  </ol>
+</div>
+
+
+<div class="field col-md-12">
   <strong>Notes:</strong>
   <%= @recipe.notes %>
-</p>
+</div>
 
-<p>
-  <strong>Author:</strong>
-  <%= @recipe.author_id %>
-</p>
+<div class="field col-md-12">
+  <strong>Added By:</strong>
+  <%= @recipe.author.first_name %>
+</div>
 
 <%= link_to 'Edit', edit_recipe_path(@recipe) %> |
 <%= link_to 'Back', recipes_path %>

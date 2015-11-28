@@ -49,6 +49,8 @@ Rails.application.routes.draw do
 
   post '/trip_has_inventory_items/copy_selected_items_to_trip'
 
+  post '/recipes/sync_recipe'
+
   get 'sessions/login'
 
   get 'sessions/home'
