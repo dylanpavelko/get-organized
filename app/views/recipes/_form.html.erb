@@ -118,7 +118,7 @@ $(document).on('click','.submit', function (){
   var $author = $('#recipe_author_id').val();
   //send to ajax
   var send_data = $.ajax({url: "/recipes/sync_recipe", type: "POST", data: {'id': $id, 'title': $title, 'serving_size': $serving_size, 'source': $source, 'description': $description, 'ingredient_amounts': $ingredient_amounts, 'ingredient_quantity_types': $ingredient_quantity_types, 'ingredient_food_items': $ingredient_food_items, 'instructions': $instructions, 'notes': $notes, 'author_id': $author}, dataType: 'json'}).done(function(data){ 
-      console.log(data);
+      //console.log(data);
       $('form').submit();
       //window.location.href = "/recipes/" + data['id'];
   });
