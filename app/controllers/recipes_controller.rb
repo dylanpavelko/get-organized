@@ -58,7 +58,6 @@ class RecipesController < ApplicationController
       end
     end
 
-
     #get all instructions for recipe, delete them
     @instructions = RecipeStep.where(:recipe_id => @recipe.id)
     @instructions.each do |inst|
@@ -73,7 +72,7 @@ class RecipesController < ApplicationController
       end
     end
 
-    redirect_to @recipe
+    render json: @recipe
   end
 
 
