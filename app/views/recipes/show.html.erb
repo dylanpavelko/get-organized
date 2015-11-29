@@ -28,8 +28,11 @@
   <ul>
     <% @ingredients.each do |ingredient| %>
       <li>
-        <%= ingredient.amount %> <% if ingredient.quantity_type != nil %><%= ingredient.quantity_type.quantityType %> <% end %> - 
+        <%= ingredient.amount %> <% if ingredient.quantity_type != nil %><%= ingredient.quantity_type.quantityType %> <% end %>
+        <% if ingredient.food_item != nil %>
+         - 
         <%= ingredient.food_item.name %>
+        <% end %>
       </li>
     <% end %>
   </ul>
