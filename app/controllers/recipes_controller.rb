@@ -37,7 +37,7 @@ class RecipesController < ApplicationController
     else
       @recipe = Recipe.find(params[:id])
       @recipe.update(:name => params[:title], :serving_size => params[:serving_size], :source => params[:source], :description => params[:description], 
-        :notes => params[:notes], :author_id => params[:author])
+        :notes => params[:notes], :author_id => params[:author_id])
     end
 
     #get all ingredients for recipe, delete them
@@ -125,7 +125,7 @@ class RecipesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-      params.permit(:name, :serving_size, :description, :source, :notes, :author_id,
-       :instructions, :ingredient_amounts, :ingredient_quantity_types, :ingredient_food_items)
+      params.require(:recipe).permit(:name, :serving_size, :description, :source, :notes, :author_id,
+       :instructions, :ingredient_amounts, :ingredient_quantity_types, :ingredient_food_items, :picture_id)
     end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125212932) do
+ActiveRecord::Schema.define(version: 20151128234105) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -225,6 +225,16 @@ ActiveRecord::Schema.define(version: 20151125212932) do
 
   add_index "people", ["user_account_id"], name: "index_people_on_user_account_id"
 
+  create_table "pictures", force: true do |t|
+    t.string   "name"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "public_inventory_item_queues", force: true do |t|
     t.integer  "item_id"
     t.boolean  "reviewed"
@@ -272,9 +282,11 @@ ActiveRecord::Schema.define(version: 20151125212932) do
     t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "picture_id"
   end
 
   add_index "recipes", ["author_id"], name: "index_recipes_on_author_id"
+  add_index "recipes", ["picture_id"], name: "index_recipes_on_picture_id"
 
   create_table "reviews", force: true do |t|
     t.integer  "rating"

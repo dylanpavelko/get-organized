@@ -34,13 +34,15 @@
       <th>Amount</th>
       <th>Quantity Type</th>
       <th>Ingredient</th>
+      <% if @ingredients != nil %>
       <% @ingredients.each do |ingredient| %>
       <tr>
         <td><%= text_field_tag :amount, ingredient.amount, :class => "form-control  ingredient_amount" , size: '5', :name => "recipe[ingredient_amount]"%></td>
         <td> <%= select_tag :quantity_type_id, options_from_collection_for_select(QuantityType.all, :id, :quantityType, ingredient.quantity_type_id), {:include_blank => true, :class => "form-control quantity_type"}%></td>
         <td><%= select_tag :food_item_id, options_from_collection_for_select(FoodItem.all, :id, :name, ingredient.food_item_id), {:include_blank => true, :class => "form-control food_item"} %></td>
-        <td></td>
+        <td><button type='button' class='btn btn-default remove_row' action='#'>X</button></td>
       </tr>
+      <% end %>
       <% end %>
       <tr>
         <td><%= text_field_tag :amount, "", :class => "form-control last_ingredient ingredient_amount" , size: '5', :name => "recipe[ingredient_amount]"%></td>
@@ -60,6 +62,7 @@
             <td><%= text_area_tag :instruction, step.instruction,
             :class => "form-control instruction", 
              rows: "1", cols: "50" %></td>
+             <td><button type='button' class='btn btn-default remove_row' action='#'>X</button></td>
           </tr>
           <% end %>
           <tr>
@@ -72,6 +75,14 @@
     <div class="field col-md-12">
     <%= f.label :notes %><br>
     <%= f.text_area :notes, :class => "form-control"  %>
+  </div>
+  <div class="field col-md-12">
+    <%= f.label :picture_id %><br>
+    <% if @recipe.picture != nil %>
+    <%= f.select :picture_id, options_from_collection_for_select(Picture.all, :id, :name, @recipe.picture.id), {:include_blank => true, :class => "form-control" }  %>
+    <% else %>
+    <%= f.select :picture_id, options_from_collection_for_select(Picture.all, :id, :name), {:include_blank => true, :class => "form-control" }  %>
+    <% end %>
   </div>
   <div class="field col-md-12">
     <%= f.label :author_id %><br>
@@ -106,9 +117,10 @@ $(document).on('click','.submit', function (){
   //get author
   var $author = $('#recipe_author_id').val();
   //send to ajax
-  var send_data = $.ajax({url: "/recipes/sync_recipe", type: "POST", data: {'id': $id, 'title': $title, 'serving_size': $serving_size, 'source': $source, 'description': $description, 'ingredient_amounts': $ingredient_amounts, 'ingredient_quantity_types': $ingredient_quantity_types, 'ingredient_food_items': $ingredient_food_items, 'instructions': $instructions, 'notes': $notes, 'author': $author}, dataType: 'json'}).done(function(data){ 
+  var send_data = $.ajax({url: "/recipes/sync_recipe", type: "POST", data: {'id': $id, 'title': $title, 'serving_size': $serving_size, 'source': $source, 'description': $description, 'ingredient_amounts': $ingredient_amounts, 'ingredient_quantity_types': $ingredient_quantity_types, 'ingredient_food_items': $ingredient_food_items, 'instructions': $instructions, 'notes': $notes, 'author_id': $author}, dataType: 'json'}).done(function(data){ 
       console.log(data);
-      window.location.href = "/recipes/" + data['id'];
+      $('form').submit();
+      //window.location.href = "/recipes/" + data['id'];
   });
 });
 
