@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151128234105) do
+ActiveRecord::Schema.define(version: 20151206044035) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -257,6 +257,7 @@ ActiveRecord::Schema.define(version: 20151128234105) do
     t.integer  "food_item_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "note"
   end
 
   add_index "recipe_ingredients", ["food_item_id"], name: "index_recipe_ingredients_on_food_item_id"

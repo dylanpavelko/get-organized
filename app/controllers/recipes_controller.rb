@@ -48,12 +48,14 @@ class RecipesController < ApplicationController
     #now create all these new ingredients for recipe
     @amounts = params[:ingredient_amounts] 
     @quantity_types = params[:ingredient_quantity_types] 
-    @food_items = params[:ingredient_food_items]  
+    @food_items = params[:ingredient_food_items]
+    @notes = params[:ingredient_notes]  
     @food_items.each_with_index do |inst, i|
       if i != @food_items.size - 1
         @instruction = RecipeIngredient.new(:recipe_id => @recipe.id, :amount => @amounts[i], 
         :quantity_type_id => @quantity_types[i],
-        :food_item_id => @food_items[i])
+        :food_item_id => @food_items[i],
+        :note => @notes[i])
         @instruction.save
       end
     end

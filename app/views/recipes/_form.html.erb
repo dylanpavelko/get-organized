@@ -34,12 +34,14 @@
       <th>Amount</th>
       <th>Quantity Type</th>
       <th>Ingredient</th>
+      <th>Additional Notes</th>
       <% if @ingredients != nil %>
       <% @ingredients.each do |ingredient| %>
       <tr>
         <td><%= text_field_tag :amount, ingredient.amount, :class => "form-control  ingredient_amount" , size: '5', :name => "recipe[ingredient_amount]"%></td>
         <td> <%= select_tag :quantity_type_id, options_from_collection_for_select(QuantityType.all, :id, :quantityType, ingredient.quantity_type_id), {:include_blank => true, :class => "form-control quantity_type"}%></td>
         <td><%= select_tag :food_item_id, options_from_collection_for_select(FoodItem.all, :id, :name, ingredient.food_item_id), {:include_blank => true, :class => "form-control food_item"} %></td>
+        <td><%= text_field_tag :note, ingredient.note, :class => "form-control  ingredient_note" , size: '15', :name => "recipe[ingredient_note]"%></td>
         <td><button type='button' class='btn btn-default remove_row' action='#'>X</button></td>
       </tr>
       <% end %>
@@ -48,6 +50,7 @@
         <td><%= text_field_tag :amount, "", :class => "form-control last_ingredient ingredient_amount" , size: '5', :name => "recipe[ingredient_amount]"%></td>
         <td> <%= select_tag :quantity_type_id, options_from_collection_for_select(QuantityType.all, :id, :quantityType), {:include_blank => true, :class => "form-control quantity_type"}%></td>
         <td><%= select_tag :food_item_id, options_from_collection_for_select(FoodItem.all, :id, :name), {:include_blank => true, :class => "form-control last_food_ingredient food_item"} %></td>
+        <td><%= text_field_tag :note, '', :class => "form-control  ingredient_note" , size: '15', :name => "recipe[ingredient_note]" %></td>
         <td></td>
       </tr>
     </table>
@@ -110,6 +113,7 @@ $(document).on('click','.submit', function (){
   var $ingredient_amounts = $('.ingredient_amount').map(function() {return this.value;  }).get();
   var $ingredient_quantity_types = $('.quantity_type').map(function() {return this.value;  }).get();
   var $ingredient_food_items = $('.food_item').map(function() {return this.value;  }).get();
+  var $ingredient_notes = $('.ingredient_note').map(function() {return this.value;  }).get();
   //get instructions
   var $instructions = $('.instruction').map(function() {return this.value;  }).get()
   //get notes
@@ -122,7 +126,7 @@ $(document).on('click','.submit', function (){
     type: "POST", 
     //success: function(data, textStatus ){ alert('request successful'); },
     error: function(xhr, textStatus, errorThrown){ alert('request failed' + textStatus + errorThrown); },
-    data: {'id': $id, 'title': $title, 'serving_size': $serving_size, 'source': $source, 'description': $description, 'ingredient_amounts': $ingredient_amounts, 'ingredient_quantity_types': $ingredient_quantity_types, 'ingredient_food_items': $ingredient_food_items, 'instructions': $instructions, 'notes': $notes, 'author_id': $author}, dataType: 'json'}
+    data: {'id': $id, 'title': $title, 'serving_size': $serving_size, 'source': $source, 'description': $description, 'ingredient_amounts': $ingredient_amounts, 'ingredient_quantity_types': $ingredient_quantity_types, 'ingredient_food_items': $ingredient_food_items, 'ingredient_notes': $ingredient_notes, 'instructions': $instructions, 'notes': $notes, 'author_id': $author}, dataType: 'json'}
 
     ).done(function(data){ 
       //console.log(data);
@@ -149,11 +153,12 @@ $(document).on('click','.last_food_ingredient', function () {
 function addIngredientRow(node){
   node.children().first().removeClass("last_ingredient");
   node.next().next().children().first().removeClass("last_food_ingredient");
-  node.next().next().after("<td><button type='button' class='btn btn-default remove_row' action='#'>X</button></td></tr>");
+  node.next().next().next().after("<td><button type='button' class='btn btn-default remove_row' action='#'>X</button></td></tr>");
   node.parent().after("<tr>"+
         "<td><%= escape_javascript(text_field_tag :amount, '', :class => 'form-control last_ingredient ingredient_amount', size: '5', :name => 'recipe[ingredient_amount]') %></td>" +
         "<td> <%= escape_javascript(select_tag :quantity_type_id, options_from_collection_for_select(QuantityType.all, :id, :quantityType), {:include_blank => true, :class => 'form-control quantity_type'} )%></td>" +
         "<td><%= escape_javascript(select_tag :food_item_id, options_from_collection_for_select(FoodItem.all, :id, :name), {:include_blank => true, :class => 'form-control last_food_ingredient food_item'}) %></td> " +
+        "<td><%= escape_javascript(text_field_tag :note, '', :class => 'form-control  ingredient_note' , size: '15', :name => 'recipe[ingredient_note]')%></td>" +
         "<td></td>" +
       "</tr>");
 }

@@ -28,7 +28,7 @@
         <% if @current_user.has_access_to_path("inventory_items" , "my_inventory", nil) %>
           <li><%= link_to 'My Inventory', my_inventory_path %></li>
         <% end %>
-        <li><%= link_to 'Health & Wellness', my_trips_path %></a></li>
+        <li><%= link_to 'Health & Wellness', recipes_path %></a></li>
         <li><%= link_to 'Financials', my_trips_path %></a></li>
       </ul>
     <% end %>
