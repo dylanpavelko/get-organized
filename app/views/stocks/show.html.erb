@@ -1,0 +1,90 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Business:</strong>
+  <%= @stock.business.name %>
+</p>
+
+<p>
+  <strong>Symbol:</strong>
+  <%= @stock.symbol %>
+</p>
+  <%= @stock_price = (@stock.quote.previous_close + @stock.quote.change) %>
+<h4>Stock Awards</h4>
+<table border='1'>
+	<thead>
+	    <tr>
+		  <th>Award Date</th>
+	      <th>Award Type</th>
+	      <th>Award ID</th>
+	      <th>Shares Awarded</th>
+	      <th>Accessible Value</th>
+	      <th>Unvested Value</th>
+	      <th>Realized Value</th>
+	      <th>Gross Potential Value</th>
+	    </tr>
+	  </thead>
+
+  <tbody>
+  <% @running_accessible = 0
+  	 @running_unvested = 0
+  	 @running_sold = 0
+  	 @running_net =  0%>
+	<% @my_stock.each do |stock| %>
+		<tr>
+			<td><%= stock.award_date %></td>
+			<td><%= stock.award_type.name %></td>
+			<td><%= link_to stock.award_id, stock %></td>
+			<td><%= link_to stock.shares, stock %></td>
+
+			<td><%= number_to_currency @accessible = stock.accessible_value(@stock_price) %></td>
+			<td><%= number_to_currency @unvested = stock.unvested_value(@stock_price) %></td>
+			<td><%= number_to_currency @sold = stock.sold_value %></td>
+			<td><%= number_to_currency @net = @accessible + @unvested + @sold %></td>
+			<% @running_accessible = @running_accessible + @accessible
+			  	 @running_unvested = @running_unvested + @unvested
+			  	 @running_sold = @running_sold + @sold
+			  	 @running_net =  @running_net + @net %>		
+
+		</tr>
+	<% end %>
+	<tr>
+		<td>Purchases</td>
+	</tr>
+	<% @my_purchases.each do |stock| %>
+		<% if stock.stock_purchase_type.name != "Exercise" %>
+		<tr>
+			<td><%= stock.acquired_date %></td>
+			<td><%= stock.stock_purchase_type.name %></td>
+			<td><%=  %></td>
+			<td><%= link_to stock.shares, stock %></td>
+
+			<td><%= number_to_currency @accessible = stock.accessible_value(@stock_price) %></td>
+			<td> - </td>
+			<td><%= number_to_currency @sold = 0 %></td>
+			<td><%= number_to_currency @net = @accessible + @sold %></td>
+			<% @running_accessible = @running_accessible + @accessible
+			  	 #@running_sold = @running_sold + @sold
+			  	 @running_net =  @running_net + @net %>		
+
+		</tr>
+		<% end %>
+	<% end %>
+	<tr>
+		<td>Totals</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><%= number_to_currency @running_accessible %></td>
+			<td><%= number_to_currency @running_unvested  %></td>
+			<td><%= number_to_currency @running_sold  %></td>
+			<td><%= number_to_currency @running_net %></td>
+	</tr>
+	  </tbody>
+</table>
+<br/>
+
+<%= link_to "Add Stock Award" , new_stock_award_path %>
+<%= link_to "Add Stock Purchase", new_stock_purchase_path %><br/>
+<%= link_to 'Edit', edit_stock_path(@stock) %> |
+<%= link_to 'Back', stocks_path %>

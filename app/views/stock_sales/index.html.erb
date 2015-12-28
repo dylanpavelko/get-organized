@@ -1,0 +1,39 @@
+<h1>Listing stock_sales</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Person</th>
+      <th>Stock</th>
+      <th>Stock purchase</th>
+      <th>Stock award</th>
+      <th>Trade date</th>
+      <th>Price</th>
+      <th>Shares</th>
+      <th>Fees</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stock_sales.each do |stock_sale| %>
+      <tr>
+        <td><%= stock_sale.person %></td>
+        <td><%= stock_sale.stock %></td>
+        <td><%= stock_sale.stock_purchase %></td>
+        <td><%= stock_sale.stock_award %></td>
+        <td><%= stock_sale.trade_date %></td>
+        <td><%= stock_sale.price %></td>
+        <td><%= stock_sale.shares %></td>
+        <td><%= stock_sale.fees %></td>
+        <td><%= link_to 'Show', stock_sale %></td>
+        <td><%= link_to 'Edit', edit_stock_sale_path(stock_sale) %></td>
+        <td><%= link_to 'Destroy', stock_sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Stock sale', new_stock_sale_path %>

@@ -1,0 +1,43 @@
+<h1>Listing stock_purchases</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Person</th>
+      <th>Stock</th>
+      <th>Stock purchase type</th>
+      <th>Stock award</th>
+      <th>Grant date</th>
+      <th>Grant date price</th>
+      <th>Shares</th>
+      <th>Acquired date</th>
+      <th>Acquired price</th>
+      <th>Acquired fmv</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stock_purchases.each do |stock_purchase| %>
+      <tr>
+        <td><%= stock_purchase.person %></td>
+        <td><%= stock_purchase.stock %></td>
+        <td><%= stock_purchase.stock_purchase_type %></td>
+        <td><%= stock_purchase.stock_award %></td>
+        <td><%= stock_purchase.grant_date %></td>
+        <td><%= stock_purchase.grant_date_price %></td>
+        <td><%= stock_purchase.shares %></td>
+        <td><%= stock_purchase.acquired_date %></td>
+        <td><%= stock_purchase.acquired_price %></td>
+        <td><%= stock_purchase.acquired_fmv %></td>
+        <td><%= link_to 'Show', stock_purchase %></td>
+        <td><%= link_to 'Edit', edit_stock_purchase_path(stock_purchase) %></td>
+        <td><%= link_to 'Destroy', stock_purchase, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Stock purchase', new_stock_purchase_path %>

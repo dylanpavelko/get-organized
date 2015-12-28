@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stock_award_id: 
+  vest_date: 2015-12-27
+  vest_quantity: 1
+
+two:
+  stock_award_id: 
+  vest_date: 2015-12-27
+  vest_quantity: 1

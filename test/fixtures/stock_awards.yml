@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  person_id: 
+  stock_id: 
+  award_type: 
+  award_date: 2015-12-27
+  shares: 
+
+two:
+  person_id: 
+  stock_id: 
+  award_type: 
+  award_date: 2015-12-27
+  shares: 

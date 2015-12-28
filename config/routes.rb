@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  resources :stock_sales
+
+  resources :stock_purchases
+
+  resources :stock_purchase_types
+
+  resources :stock_award_vestings
+
+  resources :stock_awards
+
+  resources :stock_award_types
+
+  resources :stocks
+
   resources :pictures
 
   resources :recipe_ingredients

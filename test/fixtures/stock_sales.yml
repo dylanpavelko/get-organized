@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  person_id: 
+  stock_id: 
+  stock_purchase_id: 
+  stock_award_id: 
+  trade_date: 2015-12-27
+  price: 9.99
+  shares: 1
+  fees: 9.99
+
+two:
+  person_id: 
+  stock_id: 
+  stock_purchase_id: 
+  stock_award_id: 
+  trade_date: 2015-12-27
+  price: 9.99
+  shares: 1
+  fees: 9.99

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206044035) do
+ActiveRecord::Schema.define(version: 20151228052532) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -322,6 +322,90 @@ ActiveRecord::Schema.define(version: 20151206044035) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "stock_award_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stock_award_vestings", force: true do |t|
+    t.integer  "stock_award_id"
+    t.date     "vest_date"
+    t.integer  "vest_quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "stock_award_vestings", ["stock_award_id"], name: "index_stock_award_vestings_on_stock_award_id"
+
+  create_table "stock_awards", force: true do |t|
+    t.integer  "person_id"
+    t.integer  "stock_id"
+    t.integer  "award_type_id"
+    t.date     "award_date"
+    t.integer  "shares"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "award_id"
+    t.decimal  "grant_price"
+  end
+
+  add_index "stock_awards", ["person_id"], name: "index_stock_awards_on_person_id"
+  add_index "stock_awards", ["stock_id"], name: "index_stock_awards_on_stock_id"
+
+  create_table "stock_purchase_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stock_purchases", force: true do |t|
+    t.integer  "person_id"
+    t.integer  "stock_id"
+    t.integer  "stock_purchase_type_id"
+    t.integer  "stock_award_id"
+    t.date     "grant_date"
+    t.decimal  "grant_date_price"
+    t.integer  "shares"
+    t.date     "acquired_date"
+    t.decimal  "acquired_price"
+    t.decimal  "acquired_fmv"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "stock_purchases", ["person_id"], name: "index_stock_purchases_on_person_id"
+  add_index "stock_purchases", ["stock_award_id"], name: "index_stock_purchases_on_stock_award_id"
+  add_index "stock_purchases", ["stock_id"], name: "index_stock_purchases_on_stock_id"
+  add_index "stock_purchases", ["stock_purchase_type_id"], name: "index_stock_purchases_on_stock_purchase_type_id"
+
+  create_table "stock_sales", force: true do |t|
+    t.integer  "person_id"
+    t.integer  "stock_id"
+    t.integer  "stock_purchase_id"
+    t.integer  "stock_award_id"
+    t.date     "trade_date"
+    t.decimal  "price"
+    t.integer  "shares"
+    t.decimal  "fees"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "stock_sales", ["person_id"], name: "index_stock_sales_on_person_id"
+  add_index "stock_sales", ["stock_award_id"], name: "index_stock_sales_on_stock_award_id"
+  add_index "stock_sales", ["stock_id"], name: "index_stock_sales_on_stock_id"
+  add_index "stock_sales", ["stock_purchase_id"], name: "index_stock_sales_on_stock_purchase_id"
+
+  create_table "stocks", force: true do |t|
+    t.integer  "business_id"
+    t.string   "symbol"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "stocks", ["business_id"], name: "index_stocks_on_business_id"
 
   create_table "subcategories", force: true do |t|
     t.string   "subcategory"

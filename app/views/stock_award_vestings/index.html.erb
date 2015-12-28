@@ -1,0 +1,29 @@
+<h1>Listing stock_award_vestings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stock award</th>
+      <th>Vest date</th>
+      <th>Vest quantity</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stock_award_vestings.each do |stock_award_vesting| %>
+      <tr>
+        <td><%= stock_award_vesting.stock_award %></td>
+        <td><%= stock_award_vesting.vest_date %></td>
+        <td><%= stock_award_vesting.vest_quantity %></td>
+        <td><%= link_to 'Show', stock_award_vesting %></td>
+        <td><%= link_to 'Edit', edit_stock_award_vesting_path(stock_award_vesting) %></td>
+        <td><%= link_to 'Destroy', stock_award_vesting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Stock award vesting', new_stock_award_vesting_path %>

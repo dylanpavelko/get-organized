@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Stock award:</strong>
+  <%= @stock_award_vesting.stock_award %>
+</p>
+
+<p>
+  <strong>Vest date:</strong>
+  <%= @stock_award_vesting.vest_date %>
+</p>
+
+<p>
+  <strong>Vest quantity:</strong>
+  <%= @stock_award_vesting.vest_quantity %>
+</p>
+
+<%= link_to 'Edit', edit_stock_award_vesting_path(@stock_award_vesting) %> |
+<%= link_to 'Back', stock_award_vestings_path %>

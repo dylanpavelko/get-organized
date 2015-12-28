@@ -1,0 +1,28 @@
+<%= form_for(@stock_award_vesting) do |f| %>
+  <% if @stock_award_vesting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stock_award_vesting.errors.count, "error") %> prohibited this stock_award_vesting from being saved:</h2>
+
+      <ul>
+      <% @stock_award_vesting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.hidden_field :stock_award_id %>
+  </div>
+  <div class="field">
+    <%= f.label :vest_date %><br>
+    <%= f.date_field :vest_date %>
+  </div>
+  <div class="field">
+    <%= f.label :vest_quantity %><br>
+    <%= f.number_field :vest_quantity %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

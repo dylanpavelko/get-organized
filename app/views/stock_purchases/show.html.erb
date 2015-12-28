@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Person:</strong>
+  <%= @stock_purchase.person %>
+</p>
+
+<p>
+  <strong>Stock:</strong>
+  <%= link_to @stock_purchase.stock.symbol, @stock_purchase.stock %>
+</p>
+
+<p>
+  <strong>Stock purchase type:</strong>
+  <%= @stock_purchase.stock_purchase_type %>
+</p>
+
+<% if @stock_purchase.stock_award != nil %>
+<p>
+  <strong>Stock award:</strong>
+  <%= link_to @stock_purchase.stock_award.award_id, @stock_purchase.stock_award %>
+</p>
+<% end %>
+<p>
+  <strong>Grant date:</strong>
+  <%= @stock_purchase.grant_date %>
+</p>
+
+<p>
+  <strong>Grant date price:</strong>
+  <%= @stock_purchase.grant_date_price %>
+</p>
+
+<p>
+  <strong>Shares:</strong>
+  <%= @stock_purchase.shares %>
+</p>
+
+<p>
+  <strong>Acquired date:</strong>
+  <%= @stock_purchase.acquired_date %>
+</p>
+
+<p>
+  <strong>Acquired price:</strong>
+  <%= @stock_purchase.acquired_price %>
+</p>
+
+<p>
+  <strong>Acquired fmv:</strong>
+  <%= @stock_purchase.acquired_fmv %>
+</p>
+
+<%= link_to 'Edit', edit_stock_purchase_path(@stock_purchase) %> |
+<%= link_to 'Back', stock_purchases_path %>

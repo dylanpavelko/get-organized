@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  person_id: 
+  stock_id: 
+  stock_purchase_type_id: 
+  stock_award_id: 
+  grant_date: 2015-12-27
+  grant_date_price: 9.99
+  shares: 
+  acquired_date: 2015-12-27
+  acquired_price: 9.99
+  acquired_fmv: 
+
+two:
+  person_id: 
+  stock_id: 
+  stock_purchase_type_id: 
+  stock_award_id: 
+  grant_date: 2015-12-27
+  grant_date_price: 9.99
+  shares: 
+  acquired_date: 2015-12-27
+  acquired_price: 9.99
+  acquired_fmv: 

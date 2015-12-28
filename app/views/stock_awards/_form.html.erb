@@ -1,0 +1,52 @@
+<%= form_for(@stock_award) do |f| %>
+  <% if @stock_award.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stock_award.errors.count, "error") %> prohibited this stock_award from being saved:</h2>
+
+      <ul>
+      <% @stock_award.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    Award ID/Number<br>
+    <%= f.text_field :award_id %>
+  </div>
+  <div class="field">
+    <%= f.label :person_id %><br>
+    <%= f.select :person_id, options_from_collection_for_select(Person.all, :id, :first_name) %>
+  </div>
+  <div class="field">
+    <%= f.label :stock_id %><br>
+    <% if @stock_award.stock_id != nil %>
+      <%= f.select :stock_id, options_from_collection_for_select(Stock.all, :id, :symbol, @stock_award.stock_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :stock_id, options_from_collection_for_select(Stock.all, :id, :symbol), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :shares %><br>
+    <%= f.text_field :shares %>
+  </div>
+  <div class="field">
+    <%= f.label :award_type_id %><br>
+    <% if @stock_award.award_type_id != nil %>
+      <%= f.select :award_type_id, options_from_collection_for_select(StockAwardType.all, :id, :name, @stock_award.award_type_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :award_type_id, options_from_collection_for_select(StockAwardType.all, :id, :name), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    Grant Price<br>
+    <%= f.text_field :grant_price %>
+  </div>
+  <div class="field">
+    <%= f.label :award_date %><br>
+    <%= f.date_field :award_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

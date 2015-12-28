@@ -1,0 +1,171 @@
+<p id="notice"><%= notice %></p>
+
+<div class="col-md-6">
+<p>
+  <strong>Stock:</strong>
+  <%= link_to @stock_award.stock.symbol, @stock_award.stock %>
+</p>
+
+<p>
+  <strong>Current Price:</strong>
+  <% @stock_price = (@stock_award.stock.quote.previous_close + @stock_award.stock.quote.change) %>
+  <%= @stock_price %>
+</p>
+
+<p>
+  <strong>Stock Award ID:</strong>
+  <%= @stock_award.award_id %>
+</p>
+
+
+
+
+<p>
+  <strong>Award type:</strong>
+  <%= @stock_award.award_type.name %>
+</p>
+
+<p>
+  <strong>Award date:</strong>
+  <%= @stock_award.award_date %>
+</p>
+
+<p>
+  <strong>Awarded Shares:</strong>
+  <%= @stock_award.shares %>
+</p>
+
+<% if @stock_award.award_type.name == "ISO" %>
+  <p>
+    <strong>Grant Price:</strong>
+    <%= number_to_currency(@stock_award.grant_price) %>
+  </p>
+<% end %>
+
+<% @unaccounted_shares = @stock_award.shares - @stock_award.shares_in_schedule(@vestings) %>
+<% if @unaccounted_shares != 0 %>
+<p>
+  <strong>Shares With No Vesting Schedule Specified:</strong>
+  <%= @unaccounted_shares %>
+</p>
+<% end %>
+</div>
+<div class="col-md-6">
+
+<table>
+  <thead>
+    <td></td>
+    <td>Shares</td>
+    <td>Value Estimate</td>
+    <% if @stock_award.grant_price.to_i > 0 %>
+    <td>Cost</td>
+    <% end %>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Available for Sale</td>
+      <td><%= @available = @stock_award.shares_available_for_sale(@vestings, @purchases, @sales) %></td>
+      <td><%= number_to_currency(@available_value = @available * @stock_price) %></td>
+    </tr>
+
+    <% @exercisable = 0 %>
+    <% @exercisable_value = 0 %>
+    <% if @stock_award.grant_price.to_i > 0 %>
+      <tr>
+        <td>Exercisable</td>
+        <td><%= @exercisable = @stock_award.shares_exercisable(@vestings, @purchases) %></td>
+        <td><%= number_to_currency(@exercisable_value = @exercisable * (@stock_price - @stock_award.grant_price)) %></td>
+        <td><%= number_to_currency(@exercisable_cost = @exercisable * (@stock_award.grant_price)) %></td>
+      </tr>
+    <% end %>
+
+    <tr>
+      <td>Total Accessible</td>
+      <td><%= @accessible = @available + @exercisable%></td>
+        <td><%= number_to_currency( @accessible_value = @available_value + @exercisable_value) %></td>
+    </tr>
+
+    <tr>
+      <td>Unvested</td>
+      <td><%= @unvested = @stock_award.shares - @stock_award.shares_vested(@vestings) %></td>
+        <td><%= number_to_currency(@unvested_value = @unvested * @stock_price) %></td>
+    </tr>
+
+    <tr>
+      <td>Total Potential</td>
+      <td><%= @total = @available + @exercisable + @unvested %></td>
+      <td><%= number_to_currency(@potential_value = @available_value + @exercisable_value + @unvested_value) %></td>
+    </tr>
+    <tr>
+      <td></td><td> .</td>
+    </tr>
+    <tr>
+      <td>Sold</td>
+      <td><%= @shares_sold = @stock_award.shares_sold(@sales) %></td>
+      <td><%= number_to_currency(@sale_value = @stock_award.shares_sold_value(@sales)) %></td>
+    </tr>
+
+    <% if @total > 0 %>
+    <tr>
+      <td>Net Potential</td>
+      <td><%= @shares_sold + @total %></td>
+      <td><%= number_to_currency(@sale_value + @potential_value = @available_value + @exercisable_value + @unvested_value) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<div class="col-md-12">
+<br/>
+
+<br><br>
+<strong>Vesting Schedule</strong>
+<table>
+  <thead>
+    <td>Quantity</td>
+    <td>Vesting Date</td>
+  </thead>
+  <% @vestings.each do |vesting| %>
+  <tr>
+    <td><%= vesting.vest_quantity %></td>
+    <td><%= vesting.vest_date %></td>
+  </tr>
+  <% end %>
+</table>
+<%= link_to 'Add Vesting Date', new_stock_award_vesting_path(@stock_award) %><br/>
+
+<br><br>
+<strong>Purchases</strong>
+<table>
+  <thead>
+    <td>Quantity</td>
+    <td>Purchase Date</td>
+  </thead>
+  <% @purchases.each do |purchase| %>
+  <tr>
+    <td><%= purchase.shares %></td>
+    <td><%= purchase.acquired_date %></td>
+  </tr>
+  <% end %>
+</table>
+<%= link_to 'Add Stock Exercise Record', new_stock_purchase_path(@stock_award) %><br/>
+
+<br><br>
+<strong>Sales</strong>
+<table>
+  <thead>
+    <td>Quantity</td>
+    <td>Purchase Date</td>
+  </thead>
+  <% @sales.each do |sale| %>
+  <tr>
+    <td><%= sale.shares %></td>
+    <td><%= sale.trade_date %></td>
+  </tr>
+  <% end %>
+</table>
+<%= link_to 'Add Stock Sale Record', new_stock_sale_path(:award => @stock_award) %><br/>
+
+<%= link_to 'Edit', edit_stock_award_path(@stock_award) %> |
+<%= link_to 'Back', stock_awards_path %>
+</div>

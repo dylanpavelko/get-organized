@@ -1,0 +1,33 @@
+<h1>Listing stock_awards</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Person</th>
+      <th>Stock</th>
+      <th>Award type</th>
+      <th>Award date</th>
+      <th>Shares</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stock_awards.each do |stock_award| %>
+      <tr>
+        <td><%= stock_award.person %></td>
+        <td><%= stock_award.stock %></td>
+        <td><%= stock_award.award_type %></td>
+        <td><%= stock_award.award_date %></td>
+        <td><%= stock_award.shares %></td>
+        <td><%= link_to 'Show', stock_award %></td>
+        <td><%= link_to 'Edit', edit_stock_award_path(stock_award) %></td>
+        <td><%= link_to 'Destroy', stock_award, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Stock award', new_stock_award_path %>

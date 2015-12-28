@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Person:</strong>
+  <%= @stock_sale.person %>
+</p>
+
+<p>
+  <strong>Stock:</strong>
+  <%= link_to @stock_sale.stock.symbol, @stock_sale.stock %>
+</p>
+
+<p>
+  <strong>Stock purchase:</strong>
+  <%= @stock_sale.stock_purchase %>
+</p>
+
+<% if @stock_sale.stock_award != nil %>
+<p>
+  <strong>Stock award:</strong>
+  <%= link_to @stock_sale.stock_award.award_id, @stock_sale.stock_award %>
+</p>
+<% end %>
+
+<p>
+  <strong>Trade date:</strong>
+  <%= @stock_sale.trade_date %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @stock_sale.price %>
+</p>
+
+<p>
+  <strong>Shares:</strong>
+  <%= @stock_sale.shares %>
+</p>
+
+<p>
+  <strong>Fees:</strong>
+  <%= @stock_sale.fees %>
+</p>
+
+<%= link_to 'Edit', edit_stock_sale_path(@stock_sale) %> |
+<%= link_to 'Back', stock_sales_path %>

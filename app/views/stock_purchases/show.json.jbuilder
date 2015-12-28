@@ -1,0 +1,1 @@
+json.extract! @stock_purchase, :id, :person_id, :stock_id, :stock_purchase_type_id, :stock_award_id, :grant_date, :grant_date_price, :shares, :acquired_date, :acquired_price, :acquired_fmv, :created_at, :updated_at

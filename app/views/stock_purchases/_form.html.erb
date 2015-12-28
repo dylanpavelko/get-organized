@@ -1,0 +1,63 @@
+<%= form_for(@stock_purchase) do |f| %>
+  <% if @stock_purchase.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stock_purchase.errors.count, "error") %> prohibited this stock_purchase from being saved:</h2>
+
+      <ul>
+      <% @stock_purchase.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :person_id %><br>
+    <%= f.select :person_id, options_from_collection_for_select(Person.all, :id, :first_name) %>
+  </div>
+    <%= f.label :stock_id %><br>
+    <% if @stock_award != nil and @stock_award.stock_id != nil %>
+      <%= f.select :stock_id, options_from_collection_for_select(Stock.all, :id, :symbol, @stock_award.stock_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :stock_id, options_from_collection_for_select(Stock.all, :id, :symbol), :include_blank => true %>
+    <% end %>
+  <div class="field">
+    <%= f.label :stock_purchase_type_id %><br>
+    <% if @stock_purchase.stock_purchase_type != nil %>
+      <%= f.select :stock_purchase_type_id, options_from_collection_for_select(StockPurchaseType.all, :id, :name, @stock_purchase.stock_purchase_type_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :stock_purchase_type_id, options_from_collection_for_select(StockPurchaseType.all, :id, :name), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :stock_award_id %><br>
+    <%= f.text_field :stock_award_id %>
+  </div>
+  <div class="field">
+    <%= f.label :grant_date %><br>
+    <%= f.date_field :grant_date %>
+  </div>
+  <div class="field">
+    <%= f.label :grant_date_price %><br>
+    <%= f.text_field :grant_date_price %>
+  </div>
+  <div class="field">
+    <%= f.label :shares %><br>
+    <%= f.text_field :shares %>
+  </div>
+  <div class="field">
+    <%= f.label :acquired_date %><br>
+    <%= f.date_field :acquired_date %>
+  </div>
+  <div class="field">
+    <%= f.label :acquired_price %><br>
+    <%= f.text_field :acquired_price %>
+  </div>
+  <div class="field">
+    <%= f.label :acquired_fmv %><br>
+    <%= f.text_field :acquired_fmv %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
