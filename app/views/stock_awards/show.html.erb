@@ -8,8 +8,7 @@
 
 <p>
   <strong>Current Price:</strong>
-  <% @stock_price = (@stock_award.stock.quote.previous_close + @stock_award.stock.quote.change) %>
-  <%= @stock_price %>
+    <%= @stock_price = @stock_award.stock.quote.last_trade_price_only %>
 </p>
 
 <p>
