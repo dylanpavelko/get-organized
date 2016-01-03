@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @planning_aspect.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @planning_aspect.description %>
+</p>
+
+<% if @planning_aspect.event_type != nil %>
+<p>
+  <strong>Event Type:</strong>
+  <%= link_to @planning_aspect.event_type.name, @planning_aspect.event_type %>
+</p>
+<% end %>
+<p>
+  <strong>Event Activity:</strong>
+  <%#= @planning_aspect.description %>
+</p>
+
+<%= link_to 'Edit', edit_planning_aspect_path(@planning_aspect) %> |
+<%= link_to 'Back', planning_aspects_path %>

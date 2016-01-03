@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Event activity:</strong>
+  <%= link_to @event_activity_has_aspect.event_activity.name, @event_activity_has_aspect.event_activity %>
+</p>
+
+<p>
+  <strong>Planning aspect:</strong>
+  <%= link_to @event_activity_has_aspect.planning_aspect.name, @event_activity_has_aspect.planning_aspect %>
+</p>
+<strong>Event Activity Aspect Details:</strong>
+<ul>
+</ul>
+<%= link_to 'Add Detail to Planning Aspect', new_activity_aspect_has_event_detail_path(:has_aspect => @event_activity_has_aspect.id) %>
+
+<br/>
+<br/>
+<%= link_to 'Edit', edit_event_activity_has_aspect_path(@event_activity_has_aspect) %> |
+<%= link_to 'Back', event_activity_has_aspects_path %>

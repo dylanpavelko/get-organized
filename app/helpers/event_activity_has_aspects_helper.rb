@@ -1,0 +1,2 @@
+module EventActivityHasAspectsHelper
+end

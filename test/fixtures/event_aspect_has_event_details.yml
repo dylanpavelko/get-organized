@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  activity_aspect_id: 
+  event_detail_id: 
+
+two:
+  activity_aspect_id: 
+  event_detail_id: 

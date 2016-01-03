@@ -1,0 +1,2 @@
+module EventAgendaItemsHelper
+end

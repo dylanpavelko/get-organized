@@ -1,0 +1,2 @@
+module EventTemplateHasEventActivitiesHelper
+end

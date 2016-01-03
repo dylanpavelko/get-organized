@@ -1,4 +1,30 @@
 Rails.application.routes.draw do
+  resources :activity_aspect_has_event_details
+
+  resources :event_aspect_has_event_details
+
+  resources :event_details
+
+  resources :event_activity_has_agenda_items
+
+  resources :event_agenda_items
+
+  resources :event_activity_has_aspects
+
+  resources :event_template_has_event_activities
+
+  resources :event_activities
+
+  resources :event_has_aspects
+
+  resources :event_template_has_aspects
+
+  resources :planning_aspects
+
+  resources :event_templates
+
+  resources :event_types
+
   resources :stock_sales
 
   resources :stock_purchases

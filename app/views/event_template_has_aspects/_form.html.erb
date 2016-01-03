@@ -1,0 +1,33 @@
+<%= form_for(@event_template_has_aspect) do |f| %>
+  <% if @event_template_has_aspect.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event_template_has_aspect.errors.count, "error") %> prohibited this event_template_has_aspect from being saved:</h2>
+
+      <ul>
+      <% @event_template_has_aspect.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    Event Structure<br>
+    <% if @event_template_has_aspect.event_template != nil %>
+      <%= f.select :event_id, options_from_collection_for_select(EventTemplate.all, :id, :name, @event_template_has_aspect.event_template.id), :include_blank => true %>
+    <% else %>
+      <%= f.select :event_id, options_from_collection_for_select(EventTemplate.all, :id, :name), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    Planning Aspect<br>
+    <% if @event_template_has_aspect.planning_aspect != nil %>
+      <%= f.select :planning_aspect_id, options_from_collection_for_select(PlanningAspect.all, :id, :name, @event_template_has_aspect.planning_aspect.id), :include_blank => true %>
+    <% else %>
+      <%= f.select :planning_aspect_id, options_from_collection_for_select(PlanningAspect.all, :id, :name), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

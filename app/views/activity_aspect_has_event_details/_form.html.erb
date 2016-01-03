@@ -1,0 +1,25 @@
+<%= form_for(@activity_aspect_has_event_detail) do |f| %>
+  <% if @activity_aspect_has_event_detail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@activity_aspect_has_event_detail.errors.count, "error") %> prohibited this activity_aspect_has_event_detail from being saved:</h2>
+
+      <ul>
+      <% @activity_aspect_has_event_detail.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :activity_aspect_id %><br>
+    <%= f.text_field :activity_aspect_id, :value => @activity_aspect.id %>
+  </div>
+  <div class="field">
+    <%= f.label :event_detail_id %><br>
+    <%= f.text_field :event_detail_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

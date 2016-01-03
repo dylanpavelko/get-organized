@@ -1,0 +1,29 @@
+<%= form_for(@event_template) do |f| %>
+  <% if @event_template.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event_template.errors.count, "error") %> prohibited this event_template from being saved:</h2>
+
+      <ul>
+      <% @event_template.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :event_type_id %><br>
+    <% if @event_template.event_type != nil %>
+      <%= f.select :event_type_id, options_from_collection_for_select(EventType.all, :id, :name, @event_template.event_type_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :event_type_id, options_from_collection_for_select(EventType.all, :id, :name), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

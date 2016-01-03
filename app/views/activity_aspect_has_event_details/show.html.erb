@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Activity aspect:</strong>
+  <%= @activity_aspect_has_event_detail.activity_aspect %>
+</p>
+
+<p>
+  <strong>Event detail:</strong>
+  <%= @activity_aspect_has_event_detail.event_detail %>
+</p>
+
+<%= link_to 'Edit', edit_activity_aspect_has_event_detail_path(@activity_aspect_has_event_detail) %> |
+<%= link_to 'Back', activity_aspect_has_event_details_path %>

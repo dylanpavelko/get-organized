@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Event Activity Name:</strong>
+  <%= @event_activity.name %>
+</p>
+
+<p>
+  <strong>Belongs to Event Structures:</strong>
+  <ul>
+  	<% @templates.each do |in_template| %>
+  		<li><%= link_to in_template.event_template.name, in_template.event_template %></li>
+  	<% end %>
+  </ul>
+</p>
+<strong>Event Activity Planning Aspects</strong>
+<ul>
+	<% @aspects.each do |has_aspect| %>
+  		<li><%= link_to has_aspect.planning_aspect.name, has_aspect.planning_aspect %></li>
+  	<% end %>
+</ul>
+<%= link_to 'Add Planning Aspect to Activity', new_event_activity_has_aspect_path %>
+<br/>
+
+
+<%= link_to 'Edit', edit_event_activity_path(@event_activity) %> |
+<%= link_to 'Back', event_activities_path %>

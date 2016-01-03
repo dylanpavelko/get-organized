@@ -1,0 +1,27 @@
+<h1>Listing event_template_has_aspects</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Planning aspect</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @event_template_has_aspects.each do |event_template_has_aspect| %>
+      <tr>
+        <td><%= event_template_has_aspect.event %></td>
+        <td><%= event_template_has_aspect.planning_aspect %></td>
+        <td><%= link_to 'Show', event_template_has_aspect %></td>
+        <td><%= link_to 'Edit', edit_event_template_has_aspect_path(event_template_has_aspect) %></td>
+        <td><%= link_to 'Destroy', event_template_has_aspect, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Event template has aspect', new_event_template_has_aspect_path %>

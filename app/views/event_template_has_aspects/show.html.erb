@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Event Template:</strong>
+  <%= link_to @event_template_has_aspect.event_template.name, @event_template_has_aspect.event_template %>
+</p>
+
+<p>
+  <strong>Planning Aspect:</strong>
+  <%= link_to @event_template_has_aspect.planning_aspect.name, @event_template_has_aspect.planning_aspect %>
+</p>
+
+<%= link_to 'Edit', edit_event_template_has_aspect_path(@event_template_has_aspect) %> |
+<%= link_to 'Back', event_template_has_aspects_path %>

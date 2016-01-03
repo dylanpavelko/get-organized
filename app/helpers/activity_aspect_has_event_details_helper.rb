@@ -1,0 +1,2 @@
+module ActivityAspectHasEventDetailsHelper
+end

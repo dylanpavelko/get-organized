@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Event activity:</strong>
+  <%= @event_activity_has_agenda_item.event_activity %>
+</p>
+
+<p>
+  <strong>Event agenda item:</strong>
+  <%= @event_activity_has_agenda_item.event_agenda_item %>
+</p>
+
+<%= link_to 'Edit', edit_event_activity_has_agenda_item_path(@event_activity_has_agenda_item) %> |
+<%= link_to 'Back', event_activity_has_agenda_items_path %>

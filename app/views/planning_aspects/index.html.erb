@@ -1,0 +1,27 @@
+<h1>Listing planning_aspects</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @planning_aspects.each do |planning_aspect| %>
+      <tr>
+        <td><%= planning_aspect.name %></td>
+        <td><%= planning_aspect.description %></td>
+        <td><%= link_to 'Show', planning_aspect %></td>
+        <td><%= link_to 'Edit', edit_planning_aspect_path(planning_aspect) %></td>
+        <td><%= link_to 'Destroy', planning_aspect, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Planning aspect', new_planning_aspect_path %>

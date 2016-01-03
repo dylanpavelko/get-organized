@@ -11,13 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151228052532) do
+ActiveRecord::Schema.define(version: 20160103031113) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "activity_aspect_has_event_details", force: true do |t|
+    t.integer  "activity_aspect_id"
+    t.integer  "event_detail_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activity_aspect_has_event_details", ["activity_aspect_id"], name: "index_activity_aspect_has_event_details_on_activity_aspect_id"
+  add_index "activity_aspect_has_event_details", ["event_detail_id"], name: "index_activity_aspect_has_event_details_on_event_detail_id"
 
   create_table "activity_has_exercise_centers", force: true do |t|
     t.integer  "activity_id"
@@ -101,6 +111,109 @@ ActiveRecord::Schema.define(version: 20151228052532) do
 
   add_index "comments", ["author_id"], name: "index_comments_on_author_id"
   add_index "comments", ["reply_to_id"], name: "index_comments_on_reply_to_id"
+
+  create_table "event_activities", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "event_activity_has_agenda_items", force: true do |t|
+    t.integer  "event_activity_id"
+    t.integer  "event_agenda_item_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_activity_has_agenda_items", ["event_activity_id"], name: "index_event_activity_has_agenda_items_on_event_activity_id"
+  add_index "event_activity_has_agenda_items", ["event_agenda_item_id"], name: "index_event_activity_has_agenda_items_on_event_agenda_item_id"
+
+  create_table "event_activity_has_aspects", force: true do |t|
+    t.integer  "event_activity_id"
+    t.integer  "planning_aspect_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_activity_has_aspects", ["event_activity_id"], name: "index_event_activity_has_aspects_on_event_activity_id"
+  add_index "event_activity_has_aspects", ["planning_aspect_id"], name: "index_event_activity_has_aspects_on_planning_aspect_id"
+
+  create_table "event_agenda_items", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "event_aspect_has_event_details", force: true do |t|
+    t.integer  "activity_aspect_id"
+    t.integer  "event_detail_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_aspect_has_event_details", ["activity_aspect_id"], name: "index_event_aspect_has_event_details_on_activity_aspect_id"
+  add_index "event_aspect_has_event_details", ["event_detail_id"], name: "index_event_aspect_has_event_details_on_event_detail_id"
+
+  create_table "event_details", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "event_has_aspects", force: true do |t|
+    t.integer  "event_id"
+    t.integer  "planning_aspect_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_has_aspects", ["event_id"], name: "index_event_has_aspects_on_event_id"
+  add_index "event_has_aspects", ["planning_aspect_id"], name: "index_event_has_aspects_on_planning_aspect_id"
+
+  create_table "event_has_planning_aspects", force: true do |t|
+    t.integer  "event_id"
+    t.integer  "planning_aspect_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_has_planning_aspects", ["event_id"], name: "index_event_has_planning_aspects_on_event_id"
+  add_index "event_has_planning_aspects", ["planning_aspect_id"], name: "index_event_has_planning_aspects_on_planning_aspect_id"
+
+  create_table "event_template_has_aspects", force: true do |t|
+    t.integer  "event_id"
+    t.integer  "planning_aspect_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_template_has_aspects", ["event_id"], name: "index_event_template_has_aspects_on_event_id"
+  add_index "event_template_has_aspects", ["planning_aspect_id"], name: "index_event_template_has_aspects_on_planning_aspect_id"
+
+  create_table "event_template_has_event_activities", force: true do |t|
+    t.integer  "event_id"
+    t.integer  "activities_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_template_has_event_activities", ["activities_id"], name: "index_event_template_has_event_activities_on_activities_id"
+  add_index "event_template_has_event_activities", ["event_id"], name: "index_event_template_has_event_activities_on_event_id"
+
+  create_table "event_templates", force: true do |t|
+    t.string   "name"
+    t.integer  "event_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_templates", ["event_type_id"], name: "index_event_templates_on_event_type_id"
+
+  create_table "event_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "exercise_centers", force: true do |t|
     t.string   "gymType"
@@ -234,6 +347,18 @@ ActiveRecord::Schema.define(version: 20151228052532) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "planning_aspects", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "event_type_id"
+    t.integer  "event_activity_id"
+  end
+
+  add_index "planning_aspects", ["event_activity_id"], name: "index_planning_aspects_on_event_activity_id"
+  add_index "planning_aspects", ["event_type_id"], name: "index_planning_aspects_on_event_type_id"
 
   create_table "public_inventory_item_queues", force: true do |t|
     t.integer  "item_id"

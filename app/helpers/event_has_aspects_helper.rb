@@ -1,0 +1,2 @@
+module EventHasAspectsHelper
+end

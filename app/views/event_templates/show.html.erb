@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Event Structure Name:</strong>
+  <%= @event_template.name %>
+</p>
+
+<% if @event_template.event_type != nil %>
+<p>
+  <strong>Event Type:</strong>
+  <%= link_to @event_template.event_type.name, @event_template.event_type %>
+</p>
+<% end %>
+<strong>Event Type Data:</strong>
+<ul>
+</ul>
+<strong>Overall Event Aspects:</strong>
+<ul>
+	<% @aspects.each do |has_aspect| %>
+		<li><%= link_to has_aspect.planning_aspect.name, has_aspect.planning_aspect %></li>
+	<% end %>
+</ul>
+<%= link_to 'Add Overall Event Aspect to Event Structure', new_event_template_has_aspect_path %><br/>
+<br/>
+<strong>Event Activities:</strong>
+<ul>
+	<% @activities.each do |has_activity| %>
+		<li><%= link_to has_activity.activity.name, has_activity.activity %></li>
+		<% if has_activity.activity.planning_aspects.count > 0 %>
+		<ul>
+		<% has_activity.activity.planning_aspects.each do |has_aspect| %>
+			<li><%= link_to has_aspect.planning_aspect.name, has_aspect %></li>
+		<% end %>
+		</ul>
+		<% end %>
+	<% end %>
+</ul>
+<%= link_to 'Add Activity to Event Structure', new_event_template_has_event_activity_path %><br/>
+
+<%= link_to 'Edit', edit_event_template_path(@event_template) %> |
+<%= link_to 'Back', event_templates_path %>
