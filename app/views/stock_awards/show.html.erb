@@ -116,55 +116,53 @@
 </div>
 <div class="col-md-12">
 <br/>
-
-<br><br>
-<strong>Vesting Schedule</strong>
-<table>
-  <thead>
-    <td>Quantity</td>
-    <td>Vesting Date</td>
-  </thead>
-  <% @vestings.each do |vesting| %>
+<table border='1' style="padding:1em;">
   <tr>
-    <td><%= vesting.vest_quantity %></td>
-    <td><%= vesting.vest_date %></td>
+    <th>Shares</th>
+    <th>Vested</th>
+    <th>Purchased</th>
+    <th>Acquired Price</th>
+    <th>Fair Market Price</th>
+    <th>Sold</th>
+    <th>Sale Price</th>
   </tr>
-  <% end %>
-</table>
-<%= link_to 'Add Vesting Date', new_stock_award_vesting_path(@stock_award) %><br/>
-
-<br><br>
-<strong>Purchases</strong>
-<table>
-  <thead>
-    <td>Quantity</td>
-    <td>Purchase Date</td>
-  </thead>
-  <% @purchases.each do |purchase| %>
+<% @transactions.each do |transaction| %>
   <tr>
-    <td><%= purchase.shares %></td>
-    <td><%= purchase.acquired_date %></td>
+    <% if transaction.is_a? StockAwardVesting %>
+      <td><%= link_to transaction.vest_quantity, transaction %></td>
+      <td><%= transaction.vest_date %></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    <% elsif transaction.is_a? StockPurchase %>
+      <td><%= link_to transaction.shares, transaction %></td>
+      <td></td>
+      <td><%= transaction.date %></td>
+      <td><%= number_to_currency transaction.acquired_price %>
+      <td><%= number_to_currency transaction.acquired_fmv %>
+      <td></td>
+      <td></td>
+    <% elsif transaction.is_a? StockSale %>
+      <td><%= link_to transaction.shares, transaction %></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><%= transaction.date %></td>
+      <td><%= number_to_currency transaction.price %></td>
+    <% end %>
   </tr>
-  <% end %>
+<% end %>
 </table>
-<%= link_to 'Add Stock Exercise Record', new_stock_purchase_path(@stock_award) %><br/>
 
-<br><br>
-<strong>Sales</strong>
-<table>
-  <thead>
-    <td>Quantity</td>
-    <td>Purchase Date</td>
-  </thead>
-  <% @sales.each do |sale| %>
-  <tr>
-    <td><%= sale.shares %></td>
-    <td><%= sale.trade_date %></td>
-  </tr>
-  <% end %>
-</table>
-<%= link_to 'Add Stock Sale Record', new_stock_sale_path(:award => @stock_award) %><br/>
+<%= link_to 'Add Vesting Date', new_stock_award_vesting_path(@stock_award) %> 
 
+<%= link_to 'Add Stock Exercise Record', new_stock_purchase_path(@stock_award) %> 
+
+<%= link_to 'Add Stock Sale Record', new_stock_sale_path(:award => @stock_award) %> 
+<br/><br/>
 <%= link_to 'Edit', edit_stock_award_path(@stock_award) %> |
 <%= link_to 'Back', stock_awards_path %>
 </div>

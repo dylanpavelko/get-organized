@@ -16,6 +16,9 @@ class StockAwardsController < ApplicationController
     @vestings = StockAwardVesting.where(:stock_award => @stock_award)
     @purchases = StockPurchase.where(:stock_award => @stock_award)
     @sales = StockSale.where(:stock_award => @stock_award)
+
+    @transactions = @vestings + @sales + @purchases
+    @transactions = @transactions.sort! { |a,b| a.date <=> b.date }
   end
 
   # GET /stock_awards/new

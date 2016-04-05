@@ -7,4 +7,8 @@ class StockPurchase < ActiveRecord::Base
   def accessible_value(price)
   	return price * shares
   end
+
+  def date
+  	return self.acquired_date
+  end
 end
