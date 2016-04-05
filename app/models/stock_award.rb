@@ -33,7 +33,7 @@ class StockAward < ActiveRecord::Base
     vestings = StockAwardVesting.where(:stock_award_id => self.id)
     purchases = StockPurchase.where(:stock_award_id => self.id)
     sales = StockSale.where(:stock_award_id => self.id)
-    @value = (shares_available_for_sale(vestings, purchases, sales) * price) + (shares_exercisable(vestings, purchases) * (price - self.grant_price.to_f))
+    @value = (shares_available_for_sale(vestings, purchases, sales) * price) #- (shares_exercisable(vestings, purchases) * (self.grant_price.to_f))
     return @value
   end
 
