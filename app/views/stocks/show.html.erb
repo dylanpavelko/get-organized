@@ -21,7 +21,8 @@
 	      <th>Accessible Value</th>
 	      <th>Unvested Value</th>
 	      <th>Realized Value</th>
-	      <th>Gross Potential Value</th>
+	      <th>Gross Possible Value</th>
+	      <th>Post Tax Estimated Remaining Value</th>
 	    </tr>
 	  </thead>
 
@@ -41,6 +42,7 @@
 			<td><%= number_to_currency @unvested = stock.unvested_value(@stock_price) %></td>
 			<td><%= number_to_currency @sold = stock.sold_value %></td>
 			<td><%= number_to_currency @net = @accessible + @unvested + @sold %></td>
+			<td></td>
 			<% @running_accessible = @running_accessible + @accessible
 			  	 @running_unvested = @running_unvested + @unvested
 			  	 @running_sold = @running_sold + @sold
@@ -63,6 +65,7 @@
 			<td> - </td>
 			<td><%= number_to_currency @sold = 0 %></td>
 			<td><%= number_to_currency @net = @accessible + @sold %></td>
+			<td></td>
 			<% @running_accessible = @running_accessible + @accessible
 			  	 #@running_sold = @running_sold + @sold
 			  	 @running_net =  @running_net + @net %>		

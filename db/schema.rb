@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160103031113) do
+ActiveRecord::Schema.define(version: 20160407045356) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -516,10 +516,12 @@ ActiveRecord::Schema.define(version: 20160103031113) do
     t.decimal  "fees"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "stock_award_vesting_id"
   end
 
   add_index "stock_sales", ["person_id"], name: "index_stock_sales_on_person_id"
   add_index "stock_sales", ["stock_award_id"], name: "index_stock_sales_on_stock_award_id"
+  add_index "stock_sales", ["stock_award_vesting_id"], name: "index_stock_sales_on_stock_award_vesting_id"
   add_index "stock_sales", ["stock_id"], name: "index_stock_sales_on_stock_id"
   add_index "stock_sales", ["stock_purchase_id"], name: "index_stock_sales_on_stock_purchase_id"
 

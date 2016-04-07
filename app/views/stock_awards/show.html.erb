@@ -16,9 +16,6 @@
   <%= @stock_award.award_id %>
 </p>
 
-
-
-
 <p>
   <strong>Award type:</strong>
   <%= @stock_award.award_type.name %>
@@ -86,7 +83,7 @@
 
     <tr>
       <td>Unvested</td>
-      <td><%= @unvested = @stock_award.shares - @stock_award.shares_vested(@vestings) %></td>
+      <td><%= @unvested = @stock_award.shares_unvested(@vestings) %></td>
         <td><%= number_to_currency(@unvested_value = @unvested * @stock_price) %></td>
     </tr>
 
@@ -106,11 +103,23 @@
 
     <% if @total > 0 %>
     <tr>
-      <td>Net Potential</td>
+      <td>Gross Potential Earnings</td>
       <td><%= @shares_sold + @total %></td>
       <td><%= number_to_currency(@sale_value + @potential_value = @available_value + @exercisable_value + @unvested_value) %></td>
     </tr>
     <% end %>
+ 
+ <% if @stock_award.award_type.name == "RSU" %>   <tr>
+      <td>Current Unrealized Post-Tax Potential Earnings Estimate</td>
+      <td><%= @available %></td>
+      <td><%= @available_value %> - per_vest((current price - vest price) * (1- tax rate))</td>
+    </tr>
+<% end %>
+    <tr>
+      <td>Fully Qualified Unrealized Post-Tax Potential Earnings Estimate</td>
+      <td><%= @total %></td>
+      <td></td>
+    </tr>
   </tbody>
 </table>
 </div>
@@ -163,6 +172,8 @@
 
 <%= link_to 'Add Stock Sale Record', new_stock_sale_path(:award => @stock_award) %> 
 <br/><br/>
+Current Unrealized Post-Tax Potential Earnings Estimate - for RSU's need to get all vested shares, subtract the shares that have been sold, times the current stock price, minus spread of the vested shares fmv vest price vs. today by either (1-0.28) or (1-0.15) depending if it is consdered long-term or not
+<br/>
 <%= link_to 'Edit', edit_stock_award_path(@stock_award) %> |
 <%= link_to 'Back', stock_awards_path %>
 </div>

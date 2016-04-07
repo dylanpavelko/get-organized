@@ -13,6 +13,10 @@ class StockAward < ActiveRecord::Base
   	return @vested
   end
 
+  def shares_unvested(vestings)
+    return shares - self.shares_vested(vestings)
+  end
+
   def shares_exercised(purchases)
   	@purchased = 0
   	purchases.each do |purchase|
@@ -35,6 +39,18 @@ class StockAward < ActiveRecord::Base
     sales = StockSale.where(:stock_award_id => self.id)
     @value = (shares_available_for_sale(vestings, purchases, sales) * price) #- (shares_exercisable(vestings, purchases) * (self.grant_price.to_f))
     return @value
+  end
+
+  def vested_pretax_gains(vestings, price)
+    gains = 0
+    vestings.each do |vest|
+      if vest.vest_date <= Date.today #if the shares have been vested
+        #try to find and same day sell 
+      end
+    end
+  end
+
+  def vested_post_tax_estimated_gains(vestings, price)
   end
 
   def shares_sold(sales)

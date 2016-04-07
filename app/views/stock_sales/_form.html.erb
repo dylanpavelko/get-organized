@@ -26,8 +26,13 @@
     <%= f.text_field :stock_purchase_id %>
   </div>
   <div class="field">
-    <%= f.label :stock_award_id %><br>
-    <%= f.text_field :stock_award_id %>
+    
+    <%= f.label :stock_award_id %> <%= @stock_award.award_id %><br>
+    <%= f.hidden_field :stock_award_id %>
+  </div>
+  <div class="field">
+    <%= f.label :stock_award_vesting_id %><br>
+    <%= f.select :stock_award_vesting_id, options_from_collection_for_select(StockAwardVesting.where(:stock_award_id => @stock_award.id), :id, :vest_date) %>
   </div>
   <div class="field">
     <%= f.label :trade_date %><br>
