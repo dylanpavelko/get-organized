@@ -17,12 +17,12 @@ class StockSalesController < ApplicationController
   # GET /stock_sales/new
   def new
     @stock_award = StockAward.find(params[:award])
-puts @stock_award
     @stock_sale = StockSale.new(:stock_award_id => @stock_award.id)
   end
 
   # GET /stock_sales/1/edit
   def edit
+    @stock_award = @stock_sale.stock_award
   end
 
   # POST /stock_sales
@@ -73,6 +73,6 @@ puts @stock_award
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stock_sale_params
-      params.require(:stock_sale).permit(:person_id, :stock_id, :stock_purchase_id, :stock_award_id, :trade_date, :price, :shares, :fees)
+      params.require(:stock_sale).permit(:person_id, :stock_id, :stock_purchase_id, :stock_award_id, :trade_date, :price, :shares, :fees, :stock_award_vesting_id)
     end
 end
