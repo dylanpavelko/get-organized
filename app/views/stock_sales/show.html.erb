@@ -24,7 +24,7 @@
 
 <p>
   <strong>Vested date:</strong>
-  <%= @stock_sale.stock_award_vesting.date %>
+  <%= @stock_sale.stock_award_vesting.date if @stock_sale.stock_award_vesting %>
 </p>
 
 <p>
