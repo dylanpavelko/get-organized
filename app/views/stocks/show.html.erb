@@ -19,6 +19,7 @@
 	      <th>Award ID</th>
 	      <th>Shares Awarded</th>
 	      <th>Accessible Value</th>
+	      <th>Current Capital Gains</th>
 	      <th>Unvested Value</th>
 	      <th>Realized Value</th>
 	      <th>Gross Possible Value</th>
@@ -39,6 +40,10 @@
 			<td><%= link_to stock.shares, stock %></td>
 
 			<td><%= number_to_currency @accessible = stock.accessible_value(@stock_price) %></td>
+			<td>
+				<% @vestings = StockAwardVesting.where(:stock_award => stock) %>
+				<%= number_to_currency stock.vested_taxable_gains(@vestings, @stock_price) %>
+			</td>
 			<td><%= number_to_currency @unvested = stock.unvested_value(@stock_price) %></td>
 			<td><%= number_to_currency @sold = stock.sold_value %></td>
 			<td><%= number_to_currency @net = @accessible + @unvested + @sold %></td>
@@ -62,6 +67,7 @@
 			<td><%= link_to stock.shares, stock %></td>
 
 			<td><%= number_to_currency @accessible = stock.accessible_value(@stock_price) %></td>
+			<td></td>
 			<td> - </td>
 			<td><%= number_to_currency @sold = 0 %></td>
 			<td><%= number_to_currency @net = @accessible + @sold %></td>
@@ -79,6 +85,7 @@
 			<td></td>
 			<td></td>
 			<td><%= number_to_currency @running_accessible %></td>
+			<td></td>
 			<td><%= number_to_currency @running_unvested  %></td>
 			<td><%= number_to_currency @running_sold  %></td>
 			<td><%= number_to_currency @running_net %></td>
