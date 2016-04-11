@@ -74,13 +74,13 @@
         <td><%= number_to_currency(@exercisable_cost = @exercisable * (@stock_award.grant_price)) %></td>
       </tr>
     <% end %>
-
+ <% if @stock_award.award_type.name == "ISO" %>  
     <tr>
       <td>Total Accessible</td>
       <td><%= @accessible = @available + @exercisable%></td>
         <td><%= number_to_currency( @accessible_value = @available_value + @exercisable_value) %></td>
     </tr>
-
+<% end %>
     <tr>
       <td>Unvested</td>
       <td><%= @unvested = @stock_award.shares_unvested(@vestings) %></td>
@@ -96,7 +96,7 @@
       <td></td><td> .</td>
     </tr>
     <tr>
-      <td>Sold</td>
+      <td>Previously Sold</td>
       <td><%= @shares_sold = @stock_award.shares_sold(@sales) %></td>
       <td><%= number_to_currency(@sale_value = @stock_award.shares_sold_value(@sales)) %></td>
     </tr>
@@ -113,7 +113,12 @@
      <tr>
       <td>Current Taxable Gains</td>
       <td></td>
-      <td><%= number_to_currency @stock_award.taxable_gains(@vestings, @stock_price) %></td>
+      <td><%= number_to_currency @stock_award.vested_taxable_gains(@vestings, @stock_price) %></td>
+    </tr>
+    <tr>
+      <td>Current Taxable Gains Tax Estimate</td>
+      <td></td>
+      <td><%= number_to_currency @stock_award.vested_capital_gains_tax_estimate(@vestings, @stock_price) %></td>
     </tr>
 
   <tr>
@@ -143,7 +148,11 @@
     <th>Sale Price</th>
   </tr>
 <% @transactions.each do |transaction| %>
+  <% if transaction.date <= Date.today %>
+  <tr style="background-color:#ccffcc;">
+  <% else %>
   <tr>
+  <% end %>
     <% if transaction.is_a? StockAwardVesting %>
       <td><%= link_to transaction.vest_quantity, transaction %></td>
       <td><%= transaction.vest_date %></td>

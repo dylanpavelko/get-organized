@@ -41,10 +41,8 @@ class StockAward < ActiveRecord::Base
     return @value
   end
 
-  def taxable_gains(vestings, price)
+  def vested_taxable_gains(vestings, price)
     gains = 0
-puts "gains"
-puts gains
     vestings.each do |vest|
       if vest.vest_date <= Date.today #if the shares have been vested
         #try to find and same day sell 
@@ -52,16 +50,31 @@ puts gains
         if @sales.count > 0
           @vest_price = @sales.first.price
           @post_vest_gains = price - @vest_price
-puts vest.available_shares
           gains = gains + (vest.available_shares * @post_vest_gains)
         end
       end
-puts gains
     end
     return gains
   end
 
-  def vested_post_tax_estimated_gains(vestings, price)
+  def vested_capital_gains_tax_estimate(vestings, price)
+    tax = 0
+    vestings.each do |vest|
+      if vest.vest_date <= Date.today #if the shares have been vested
+        #try to find and same day sell 
+        @sales = StockSale.where(:stock_award_id => self.id, :trade_date => vest.vest_date)
+        if @sales.count > 0
+          @vest_price = @sales.first.price
+          @post_vest_gains = price - @vest_price
+          if vest.vest_date <= Date.today - 1.years
+            tax = tax + (vest.available_shares * @post_vest_gains * 0.15)
+          else
+            tax = tax + (vest.available_shares * @post_vest_gains * 0.28)
+          end
+        end
+      end
+    end
+    return tax
   end
 
   def shares_sold(sales)
