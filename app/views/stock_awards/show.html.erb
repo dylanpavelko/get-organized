@@ -120,18 +120,7 @@
       <td></td>
       <td><%= number_to_currency @stock_award.vested_capital_gains_tax_estimate(@vestings, @stock_price) %></td>
     </tr>
-
-  <tr>
-      <td>Current Unrealized Post-Tax Potential Earnings Estimate</td>
-      <td><%= @available %></td>
-      <td><%= @available_value %> - per_vest((current price - vest price) * (1- tax rate))</td>
-    </tr>
 <% end %>
-    <tr>
-      <td>Fully Qualified Unrealized Post-Tax Potential Earnings Estimate</td>
-      <td><%= @total %></td>
-      <td></td>
-    </tr>
   </tbody>
 </table>
 </div>
@@ -163,7 +152,12 @@
       <td></td>
       <% end %>
       <td></td>
-      <td></td>
+      <td>
+        <% @sales = StockSale.where(:stock_award_id => @stock_award.id, :trade_date => transaction.vest_date) %>
+        <% if @stock_award.award_type.name == "RSU" and transaction.date <= Date.today and @sales.count == 0 %> 
+         <%= link_to "Add Sale/FMV", new_stock_sale_path(:award => @stock_award) %> 
+        <% end %>
+      </td>
       <td></td>
     <% elsif transaction.is_a? StockPurchase %>
       <td><%= link_to transaction.shares, transaction %></td>
@@ -193,12 +187,7 @@
 <%= link_to 'Add Stock Exercise Record', new_stock_purchase_path(@stock_award) %> 
 
 <%= link_to 'Add Stock Sale Record', new_stock_sale_path(:award => @stock_award) %> 
-<br/><br/>
-Current Unrealized Post-Tax Potential Earnings Estimate - for RSU's need to get all vested shares, subtract the shares that have been sold, times the current stock price, minus spread of the vested shares fmv vest price vs. today by either (1-0.28) or (1-0.15) depending if it is consdered long-term or not
 <br/>
 <br/>
-you also need a way to indicate when vested shares don't have a fmv value associated with them that will prevent the shares from being included in current available taxable gains
-<br/>
-<%= link_to 'Edit', edit_stock_award_path(@stock_award) %> |
-<%= link_to 'Back', stock_awards_path %>
+<%= link_to 'Edit', edit_stock_award_path(@stock_award) %>
 </div>
