@@ -141,8 +141,10 @@
   <tr>
     <th>Shares</th>
     <th>Vested</th>
+ <% if @stock_award.award_type.name != "RSU" %>     
     <th>Purchased</th>
     <th>Acquired Price</th>
+ <% end %>
     <th>Fair Market Price</th>
     <th>Sold</th>
     <th>Sale Price</th>
@@ -156,8 +158,10 @@
     <% if transaction.is_a? StockAwardVesting %>
       <td><%= link_to transaction.vest_quantity, transaction %></td>
       <td><%= transaction.vest_date %></td>
+       <% if @stock_award.award_type.name != "RSU" %> 
       <td></td>
       <td></td>
+      <% end %>
       <td></td>
       <td></td>
       <td></td>
@@ -172,8 +176,10 @@
     <% elsif transaction.is_a? StockSale %>
       <td><%= link_to transaction.shares, transaction %></td>
       <td></td>
+       <% if @stock_award.award_type.name != "RSU" %> 
       <td></td>
       <td></td>
+      <% end %>
       <td></td>
       <td><%= transaction.date %></td>
       <td><%= number_to_currency transaction.price %></td>
