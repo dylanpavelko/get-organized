@@ -2,7 +2,16 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   ENV["DATABASE_URL"] = "postgres://owcaxoaumjtucn:sFr_Rns5sGyBIjauMkxctqMT2v@ec2-50-19-208-138.compute-1.amazonaws.com:5432/d69rrirr55j8b8"
 
-  
+  # config/environments/production.rb
+config.paperclip_defaults = {
+  :storage => :s3,
+  :s3_credentials => {
+    :bucket => ENV['S3_BUCKET_NAME'],
+    :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+    :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+  }
+}
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 

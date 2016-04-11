@@ -41,6 +41,7 @@ gem 'rails_12factor'
 
 gem 'bcrypt-ruby', '~> 3.1.2', :require => 'bcrypt'
 gem 'paperclip'
+gem 'aws-sdk'
 
 gem "stock_quote"
 # Use ActiveModel has_secure_password
