@@ -11,6 +11,3 @@
 #   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
 #
 #Asana API Keys
-S3_BUCKET_NAME: get-organized-assets
-AWS_ACCESS_KEY_ID: AKIAJPE6BXHZOCZYQQVQ
-AWS_SECRET_ACCESS_KEY: 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
