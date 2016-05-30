@@ -10,8 +10,8 @@
         <td style='padding-left:2em;'><h4><%= link_to recipe.name, recipe %></h4><p><%= recipe.serving_size %></p></td>
         <td></td>
         <td style='padding-left:1em;'>
-        	<% if recipe.description != nil and recipe.description.length > 250 %>
-        		<%= recipe.description.first(250) %> ...
+        	<% if recipe.description != nil and recipe.description.length > 225 %>
+        		<%= recipe.description.first(225) %> ...
         	<% else %>
         		<%= recipe.description %>
         	<% end %>
