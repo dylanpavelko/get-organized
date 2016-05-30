@@ -14,7 +14,7 @@ class Picture < ActiveRecord::Base
 
     		
   def s3_credentials
-    {:bucket => 'get-organized-assets', :access_key_id => 'AKIAIJG6LK3XW5RZ22VA', :secret_access_key => AWS_CONFIG['AWS_SECRET_ACCESS_KEY']}
+    {:bucket => 'get-organized-assets', :access_key_id => 'AKIAIJG6LK3XW5RZ22VA', :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']}
   end
 
 	validates_attachment :image, :size => { :in => 0..1000.kilobytes }
