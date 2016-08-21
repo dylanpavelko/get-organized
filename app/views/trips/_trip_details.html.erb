@@ -52,7 +52,9 @@
 <% if @days.count > 0 %>
   <% activity_count = 0 %>
   <% @days.each do |day| %>
+      <% if day != nil %>
       <div class="container">
+        
         <% day[@activities_array].each do |row| %>
         <%# If it is the first activity for the day, generate a day header and a day pack list %>
         <% if row == day[@activities_array].first %>
@@ -168,6 +170,7 @@
             </div>
 
           <div class="col-sm-7">
+          <% end %>
         <% end %>  
         <!-- Activities for Day -->
             <div class="panel panel-default">
