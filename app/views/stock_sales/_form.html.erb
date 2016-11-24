@@ -21,19 +21,22 @@
     <% else %>
       <%= f.select :stock_id, options_from_collection_for_select(Stock.all, :id, :symbol), :include_blank => true %>
     <% end %>
-  <div class="field">
-    <%= f.label :stock_purchase_id %><br>
-    <%= f.text_field :stock_purchase_id %>
-  </div>
-  <div class="field">
-    
-    <%= f.label :stock_award_id %> <%= @stock_award.award_id %><br>
-    <%= f.hidden_field :stock_award_id %>
-  </div>
-  <div class="field">
-    <%= f.label :stock_award_vesting_id %><br>
-    <%= f.select :stock_award_vesting_id, options_from_collection_for_select(StockAwardVesting.where(:stock_award_id => @stock_award.id), :id, :vest_date) %>
-  </div>
+  <% if @stock_purchase != nil %>  
+    <div class="field">
+      <%= f.label :stock_purchase_id %><br>
+      <%= f.text_field :stock_purchase_id, :value => @stock_purchase.id %>
+    </div>
+  <% end %>
+  <% if @stock_award != nil %>
+    <div class="field">
+      <%= f.label :stock_award_id %> <%= @stock_award.award_id %><br>
+      <%= f.hidden_field :stock_award_id %>
+    </div>
+    <div class="field">
+      <%= f.label :stock_award_vesting_id %><br>
+      <%= f.select :stock_award_vesting_id, options_from_collection_for_select(StockAwardVesting.where(:stock_award_id => @stock_award.id), :id, :vest_date) %>
+    </div>
+  <% end %>
   <div class="field">
     <%= f.label :trade_date %><br>
     <%= f.date_field :trade_date %>

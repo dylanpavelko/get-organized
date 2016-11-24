@@ -1,25 +1,26 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Person:</strong>
-  <%= @stock_purchase.person %>
-</p>
-
-<p>
   <strong>Stock:</strong>
   <%= link_to @stock_purchase.stock.symbol, @stock_purchase.stock %>
 </p>
 
 <p>
+  <strong>Current Price:</strong>
+    <%= @stock_price = @stock_purchase.stock.quote.last_trade_price_only %>
+</p>
+
+
+<p>
   <strong>Stock purchase type:</strong>
-  <%= @stock_purchase.stock_purchase_type %>
+  <%= @stock_purchase.stock_purchase_type.name %>
 </p>
 
 <% if @stock_purchase.stock_award != nil %>
-<p>
-  <strong>Stock award:</strong>
-  <%= link_to @stock_purchase.stock_award.award_id, @stock_purchase.stock_award %>
-</p>
+  <p>
+    <strong>Stock award:</strong>
+    <%= link_to @stock_purchase.stock_award.award_id, @stock_purchase.stock_award %>
+  </p>
 <% end %>
 <p>
   <strong>Grant date:</strong>
@@ -28,7 +29,7 @@
 
 <p>
   <strong>Grant date price:</strong>
-  <%= @stock_purchase.grant_date_price %>
+  <%= number_to_currency @stock_purchase.grant_date_price %>
 </p>
 
 <p>
@@ -43,13 +44,52 @@
 
 <p>
   <strong>Acquired price:</strong>
-  <%= @stock_purchase.acquired_price %>
+  <%= number_to_currency @stock_purchase.acquired_price %>
 </p>
 
 <p>
   <strong>Acquired fmv:</strong>
-  <%= @stock_purchase.acquired_fmv %>
+  <%= number_to_currency @stock_purchase.acquired_fmv %>
 </p>
 
+
+<table>
+  <tr>
+    <th></th>
+    <th>Shares</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>Available for Sale:</td>
+    <td><%= @stock_purchase.available_for_sale @stock_sales %></td>
+    <td><%= number_to_currency @stock_purchase.potential_remaining_value @stock_sales %></td>
+  </tr>
+  <tr>
+    <td>Previously Sold:</td>
+    <td><%= @stock_purchase.shares_sold @stock_sales %></td>
+    <td><%= number_to_currency @stock_purchase.shares_sold_value @stock_sales %></td>
+  </tr>
+</table>
+
+
+
+Stock Sales
+<table border='1' style="padding:1em;">
+  <tr>
+    <th>Shares Sold</th>
+    <th>Sell Date</th>
+    <th>Sale Price</th>
+  </tr>
+<% @stock_sales.each do |sale| %>
+  <tr>
+    <td><%= sale.shares %></td>
+    <td><%= sale.trade_date %></td>
+    <td><%= number_to_currency sale.price %></td>
+  </tr>
+<% end %>
+</table>
+<p>
+  <%= link_to 'Add Stock Sale Record', new_stock_sale_path(:purchase => @stock_purchase) %> 
+</p>
 <%= link_to 'Edit', edit_stock_purchase_path(@stock_purchase) %> |
 <%= link_to 'Back', stock_purchases_path %>

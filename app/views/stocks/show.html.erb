@@ -66,14 +66,14 @@
 			<td><%=  %></td>
 			<td><%= link_to stock.shares, stock %></td>
 
-			<td><%= number_to_currency @accessible = stock.accessible_value(@stock_price) %></td>
+			<td><%= number_to_currency @accessible = stock.remaining_value %></td>
 			<td></td>
 			<td> - </td>
-			<td><%= number_to_currency @sold = 0 %></td>
+			<td><%= number_to_currency @sold = stock.realized_value %></td>
 			<td><%= number_to_currency @net = @accessible + @sold %></td>
 			<td></td>
 			<% @running_accessible = @running_accessible + @accessible
-			  	 #@running_sold = @running_sold + @sold
+			  	 @running_sold = @running_sold + @sold
 			  	 @running_net =  @running_net + @net %>		
 
 		</tr>

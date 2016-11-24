@@ -12,6 +12,7 @@ class StockPurchasesController < ApplicationController
   # GET /stock_purchases/1
   # GET /stock_purchases/1.json
   def show
+    @stock_sales = StockSale.where(:stock_purchase_id => @stock_purchase.id)
   end
 
   # GET /stock_purchases/new

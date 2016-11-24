@@ -1,20 +1,15 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Person:</strong>
-  <%= @stock_sale.person %>
-</p>
-
-<p>
   <strong>Stock:</strong>
   <%= link_to @stock_sale.stock.symbol, @stock_sale.stock %>
 </p>
-
+<% if @stock_sale.stock_purchase != nil %>
 <p>
   <strong>Stock purchase:</strong>
-  <%= @stock_sale.stock_purchase %>
+  <%= link_to @stock_sale.stock_purchase.acquired_date, @stock_sale.stock_purchase %>
 </p>
-
+<% end %>
 <% if @stock_sale.stock_award != nil %>
 <p>
   <strong>Stock award:</strong>
@@ -47,5 +42,4 @@
   <%= @stock_sale.fees %>
 </p>
 
-<%= link_to 'Edit', edit_stock_sale_path(@stock_sale) %> |
-<%= link_to 'Back', stock_sales_path %>
+<%= link_to 'Edit', edit_stock_sale_path(@stock_sale) %>

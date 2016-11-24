@@ -1,5 +1,5 @@
 class StockSalesController < ApplicationController
-    before_filter :authenticate_user
+  before_filter :authenticate_user
   before_filter :authorized_only
   before_action :set_stock_sale, only: [:show, :edit, :update, :destroy]
 
@@ -16,8 +16,16 @@ class StockSalesController < ApplicationController
 
   # GET /stock_sales/new
   def new
-    @stock_award = StockAward.find(params[:award])
-    @stock_sale = StockSale.new(:stock_award_id => @stock_award.id)
+    if params[:award] != nil
+      @stock_award = StockAward.find(params[:award])
+      @stock_sale = StockSale.new(:stock_award_id => @stock_award.id)
+    elsif params[:purchase] != nil
+      @stock_purchase = StockPurchase.find(params[:purchase])
+      @stock_sale = StockSale.new
+    else
+      @stock_sale = StockSale.new
+    end
+    
   end
 
   # GET /stock_sales/1/edit
