@@ -129,10 +129,10 @@ $(document).on('click','.submit', function (){
     data: {'id': $id, 'title': $title, 'serving_size': $serving_size, 'source': $source, 'description': $description, 'ingredient_amounts': $ingredient_amounts, 'ingredient_quantity_types': $ingredient_quantity_types, 'ingredient_food_items': $ingredient_food_items, 'ingredient_notes': $ingredient_notes, 'instructions': $instructions, 'notes': $notes, 'author_id': $author}, dataType: 'json'}
 
     ).done(function(data){ 
-      //console.log(data);
+      console.log(data);
       //alert("test");
-      $('form').submit();
-      //window.location.href = "/recipes/" + data['id'];
+      //$('form').submit();
+      window.location.href = "/recipes/" + data['id'];
   });
 });
 
