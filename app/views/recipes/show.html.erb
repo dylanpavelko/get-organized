@@ -16,7 +16,7 @@
 <div class="field col-md-6">
   <strong>Source:</strong>
   <% if @recipe.source.include? "http" %>
-    <a href='<%= @recipe.source %>'><%= @recipe.source %></a>
+    <a href='<%= @recipe.source %>' target='_blank'><%= @recipe.source %></a>
   <% else %>
     <%= @recipe.source %>
   <% end %>
