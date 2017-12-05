@@ -15,7 +15,11 @@
 
 <div class="field col-md-6">
   <strong>Source:</strong>
-  <%= @recipe.source %>
+  <% if @recipe.source.include? "http" %>
+    <a href='<%= @recipe.source %>'><%= @recipe.source %></a>
+  <% else %>
+    <%= @recipe.source %>
+  <% end %>
 </div>
 
 <div class="field col-md-12">
