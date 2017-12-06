@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407045356) do
+ActiveRecord::Schema.define(version: 20171205024623) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -169,16 +169,6 @@ ActiveRecord::Schema.define(version: 20160407045356) do
 
   add_index "event_has_aspects", ["event_id"], name: "index_event_has_aspects_on_event_id"
   add_index "event_has_aspects", ["planning_aspect_id"], name: "index_event_has_aspects_on_planning_aspect_id"
-
-  create_table "event_has_planning_aspects", force: true do |t|
-    t.integer  "event_id"
-    t.integer  "planning_aspect_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "event_has_planning_aspects", ["event_id"], name: "index_event_has_planning_aspects_on_event_id"
-  add_index "event_has_planning_aspects", ["planning_aspect_id"], name: "index_event_has_planning_aspects_on_planning_aspect_id"
 
   create_table "event_template_has_aspects", force: true do |t|
     t.integer  "event_id"
@@ -347,6 +337,28 @@ ActiveRecord::Schema.define(version: 20160407045356) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "planned_meals", force: true do |t|
+    t.date     "meal_date"
+    t.integer  "meal_type"
+    t.string   "text"
+    t.boolean  "eat_out"
+    t.string   "url"
+    t.integer  "recipe_id"
+    t.integer  "attraction_id"
+    t.boolean  "left_overs"
+    t.integer  "planned_meal_id"
+    t.integer  "food_item_id"
+    t.text     "comment"
+    t.integer  "order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "planned_meals", ["attraction_id"], name: "index_planned_meals_on_attraction_id"
+  add_index "planned_meals", ["food_item_id"], name: "index_planned_meals_on_food_item_id"
+  add_index "planned_meals", ["planned_meal_id"], name: "index_planned_meals_on_planned_meal_id"
+  add_index "planned_meals", ["recipe_id"], name: "index_planned_meals_on_recipe_id"
 
   create_table "planning_aspects", force: true do |t|
     t.string   "name"
@@ -614,7 +626,6 @@ ActiveRecord::Schema.define(version: 20160407045356) do
   create_table "trips", force: true do |t|
     t.string   "name"
     t.text     "description"
-    t.integer  "itinerary_item_id"
     t.string   "blog_link"
     t.string   "photo_link"
     t.string   "tripit_link"
@@ -622,8 +633,6 @@ ActiveRecord::Schema.define(version: 20160407045356) do
     t.datetime "updated_at"
     t.integer  "owner_id"
   end
-
-  add_index "trips", ["itinerary_item_id"], name: "index_trips_on_itinerary_item_id"
 
   create_table "user_has_roles", force: true do |t|
     t.integer  "user_id"
