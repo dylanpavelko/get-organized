@@ -1,3 +1,44 @@
+<h1> Meal Plan </h1> 
+<table border='1'>
+  <tr>
+    <% @days.each_with_index do |day, i| %>
+      <td>
+        <h5><%= (@plan_date + i).strftime("%a - %m/%d/%Y") %></h5>
+        <ul>
+          <lh>Breakfast</lh>
+        <% day[:breakfast].each do |meal| %>
+          <li><%= link_to meal.display_name, meal %></li> make link smarter
+        <% end %>
+        </ul>
+        
+        <ul>
+          <lh>Lunch</lh>
+        <% day[:lunch].each do |meal| %>
+          <li><%= link_to meal.display_name, meal %></li> make link smarter
+        <% end %>
+        </ul>
+        
+        <ul>
+          <lh>Dinner</lh>
+        <% day[:dinner].each do |meal| %>
+          <li><%= link_to meal.display_name, meal %></li> make link smarter
+        <% end %>
+        </ul>
+        
+        <ul>
+          <lh>Snacks</lh>
+        <% day[:snacks].each do |meal| %>
+          <li><%= link_to meal.display_name, meal %></li> make link smarter
+        <% end %>
+        </ul>
+        <br/>
+        <%= link_to "Add", new_planned_meal_path(:date => (@plan_date + i)) %>
+
+      </td>
+    <% end %>
+  </tr>
+</table>
+
 <h1>Recipes</h1>
 
 <% @recipes.each do |recipe| %>

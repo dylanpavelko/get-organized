@@ -1,0 +1,71 @@
+<%= form_for(@planned_meal) do |f| %>
+  <% if @planned_meal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@planned_meal.errors.count, "error") %> prohibited this planned_meal from being saved:</h2>
+
+      <ul>
+      <% @planned_meal.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :meal_date %><br>
+    <%= f.date_field :meal_date %>
+  </div>
+  <div class="field">
+    <%= f.label :meal_type %><br>
+    <select id="meal_type" name="planned_meal[meal_type]">
+      <option value=1>Dinner</option>
+      <option value=2>Lunch</option>
+      <option value=3>Breakfast</option>
+      <option value=4>Snacks</option>
+    </select>
+  </div>
+  <div class="field">
+    <%= f.label :text %><br>
+    <%= f.text_field :text %>
+  </div>
+  <div class="field">
+    <%= f.label :eat_out %><br>
+    <%= f.check_box :eat_out %>
+  </div>
+  <div class="field">
+    <%= f.label :url, "URL" %><br>
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :recipe_id %><br>
+    <%= f.select :recipe_id, options_from_collection_for_select(Recipe.all, :id, :name), :include_blank => true %>
+  </div>
+  <div class="field">
+    <%= f.label :attraction_id %><br>
+    <%= f.select :attraction_id, options_from_collection_for_select(Attraction.all, :id, :name), :include_blank => true %>
+  </div>
+  <div class="field">
+    Leftovers from
+    <% if @planned_meal.planned_meal != nil %>
+      <%= @planned_meal.planned_meal_id %>
+      <%= f.select :planned_meal_id, options_from_collection_for_select(@original_meals, :id, :display_name_with_date), :selected => @planned_meal.planned_meal_id, :include_blank => true %>
+    <% else %>
+      <%= f.select :planned_meal_id, options_from_collection_for_select(@original_meals, :id, :display_name_with_date), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :food_item_id %><br>
+    <%= f.select :food_item_id, options_from_collection_for_select(FoodItem.all, :id, :name), :include_blank => true %>
+  </div>
+  <div class="field">
+    <%= f.label :comment %><br>
+    <%= f.text_area :comment %>
+  </div>
+  <div class="field">
+    <%= f.label :order %><br>
+    <%= f.number_field :order %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

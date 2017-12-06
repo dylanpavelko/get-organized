@@ -1,0 +1,84 @@
+<h1>Planned Meals</h1>
+
+<table border='1'>
+  <tr>
+    <% @days.each_with_index do |day, i| %>
+      <td>
+        <h5><%= (@plan_date + i).strftime("%a - %m/%d/%Y") %></h5>
+        <ul>
+          <lh>Breakfast</lh>
+        <% day[:breakfast].each do |meal| %>
+          <li><%= link_to meal.display_name, meal %></li> make link smarter
+        <% end %>
+        </ul>
+        
+        <ul>
+          <lh>Lunch</lh>
+        <% day[:lunch].each do |meal| %>
+          <li><%= link_to meal.display_name, meal %></li> make link smarter
+        <% end %>
+        </ul>
+        
+        <ul>
+          <lh>Dinner</lh>
+        <% day[:dinner].each do |meal| %>
+          <li><%= link_to meal.display_name, meal %></li> make link smarter
+        <% end %>
+        </ul>
+        
+        <ul>
+          <lh>Snacks</lh>
+        <% day[:snacks].each do |meal| %>
+          <li><%= link_to meal.display_name, meal %></li> make link smarter
+        <% end %>
+        </ul>
+      </td>
+    <% end %>
+  </tr>
+</table>
+<p></p>
+<table>
+  <thead>
+    <tr>
+      <th>Meal date</th>
+      <th>Meal type</th>
+      <th>Text</th>
+      <th>Eat out</th>
+      <th>Url</th>
+      <th>Recipe</th>
+      <th>Attraction</th>
+      <th>Left overs</th>
+      <th>Planned meal</th>
+      <th>Food item</th>
+      <th>Comment</th>
+      <th>Order</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @planned_meals.each do |planned_meal| %>
+      <tr>
+        <td><%= planned_meal.meal_date.strftime("%m/%d/%Y") %></td>
+        <td><%= planned_meal.meal_type %></td>
+        <td><%= planned_meal.text %></td>
+        <td><%= planned_meal.eat_out %></td>
+        <td><%= planned_meal.url %></td>
+        <td><%= planned_meal.recipe.try(:name) %></td>
+        <td><%= planned_meal.attraction.try(:name) %></td>
+        <td><%= planned_meal.left_overs %></td>
+        <td><%= planned_meal.planned_meal.try(:display_name_with_date) %></td>
+        <td><%= planned_meal.food_item.try(:name) %></td>
+        <td><%= planned_meal.comment %></td>
+        <td><%= planned_meal.order %></td>
+        <td><%= link_to 'Show', planned_meal %></td>
+        <td><%= link_to 'Edit', edit_planned_meal_path(planned_meal) %></td>
+        <td><%= link_to 'Destroy', planned_meal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Planned meal', new_planned_meal_path %>

@@ -8,6 +8,28 @@ class RecipesController < ApplicationController
   # GET /recipes.json
   def index
     @recipes = Recipe.all
+    
+    @days = Array.new
+    #get date
+    @plan_date = Date.today
+    @search_date = @plan_date
+    #for next 7 days
+    7.times do
+      #make an array of just Dinner
+      @dinner_meals = PlannedMeal.where(:meal_date => @search_date, :meal_type => 1)
+      #make an array of just Lunch
+      @lunch_meals = PlannedMeal.where(:meal_date => @search_date, :meal_type => 2)
+      #make an array of just Breakfast
+      @breakfast_meals = PlannedMeal.where(:meal_date => @search_date, :meal_type => 3)
+      #make an array of just Snacks
+      @snack_meals = PlannedMeal.where(:meal_date => @search_date, :meal_type => 4)
+
+      #add day array to days array
+      @days << ({breakfast: @breakfast_meals, lunch: @lunch_meals, dinner: @dinner_meals, snacks: @snack_meals})
+      
+      #increase date
+      @search_date = @search_date + 1
+    end
   end
 
   # GET /recipes/1

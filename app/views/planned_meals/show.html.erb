@@ -1,0 +1,62 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <%= @planned_meal.meal_type_label %> for <%= @planned_meal.meal_date.strftime("%m/%d/%Y") %>
+</p>
+
+<% if @planned_meal.text != "" %>
+  <p>
+    <strong>Text:</strong>
+    <%= @planned_meal.text %>
+  </p>
+<% end %>
+<% if @planned_meal.url != "" %>
+  <p>
+    <strong>Url:</strong>
+    <%= link_to @planned_meal.url, @planned_meal.url, :target => '_blank' %>
+  </p>
+<% end %>  
+  
+<% if @planned_meal.recipe != nil %>
+  <p>
+    <strong>Recipe:</strong>
+    <%= @planned_meal.recipe.name %>
+  </p>
+
+<% elsif @planned_meal.eat_out or @planned_meal.attraction != nil %>
+  <p>
+    <strong>Eat out:</strong>
+    <%= @planned_meal.eat_out %>
+  </p>
+  
+  <p>
+    <strong>Attraction:</strong>
+    <%= @planned_meal.attraction.try(:name) %>
+  </p>
+<% end %>
+
+<% if @planned_meal.planned_meal != nil %>
+  <p>Leftovers from <%= @planned_meal.planned_meal.meal_date.strftime("%b-%d") %>
+    (<%= link_to @planned_meal.planned_meal.display_name, @planned_meal.planned_meal %>)
+  </p>
+<% end %>
+<% if @planned_meal.food_item != nil %>
+  <p>
+    <strong>Food item:</strong>
+      <%= link_to @planned_meal.food_item.name, @planned_meal.food_item %>
+  </p>
+<% end %>
+<% if @planned_meal.comment != "" %>
+  <p>
+    <strong>Comment:</strong>
+    <%= @planned_meal.comment %>
+  </p>
+<% end %>
+<% if @planned_meal.order != nil %>
+  <p>
+    <strong>Order:</strong>
+    <%= @planned_meal.order %>
+  </p>
+<% end %>
+
+<%= link_to 'Edit', edit_planned_meal_path(@planned_meal) %> |
+<%= link_to 'Back', planned_meals_path %>
