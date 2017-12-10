@@ -7,9 +7,10 @@
 
 <p>
   <strong>Symbol:</strong>
-  <%= @stock.symbol %>
+  <%=  @stock.symbol %>
 </p>
-  <%= @stock_price = @stock.quote.last_trade_price_only %><br/>
+  <%= @stock.get_last_price %><br/>
+  
 <h4>Stock Awards</h4>
 <table border='1'>
 	<thead>

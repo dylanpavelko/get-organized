@@ -7,7 +7,7 @@
 
 <p>
   <strong>Current Price:</strong>
-    <%= @stock_price = @stock_purchase.stock.quote.last_trade_price_only %>
+    <%= @stock_price = @stock_purchase.stock.get_last_price %>
 </p>
 
 
