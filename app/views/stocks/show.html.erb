@@ -32,8 +32,9 @@
   <% @running_accessible = 0
   	 @running_unvested = 0
   	 @running_sold = 0
-  	 @running_net =  0%>
+  	 @running_net =  0 %>
 	<% @my_stock.each do |stock| %>
+		<% if stock != nil %>
 		<tr>
 			<td><%= stock.award_date %></td>
 			<td><%= stock.award_type.name %></td>
@@ -55,6 +56,7 @@
 			  	 @running_net =  @running_net + @net %>		
 
 		</tr>
+		<% end %>
 	<% end %>
 	<tr>
 		<td>Purchases</td>
