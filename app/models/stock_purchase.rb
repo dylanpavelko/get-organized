@@ -26,7 +26,7 @@ class StockPurchase < ActiveRecord::Base
   end
 
   def potential_remaining_value(stock_sales)
-    return self.available_for_sale(stock_sales) * self.stock.quote.last_trade_price_only
+    return self.available_for_sale(stock_sales) * self.stock.get_last_price
   end
 
   def shares_sold(stock_sales)
