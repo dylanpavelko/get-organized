@@ -2,7 +2,7 @@ class Stock < ActiveRecord::Base
   belongs_to :business
 
   def quote
-  	stocks = StockQuote::Stock.quote(self.symbol)
+  	get_last_price
   end
   
   def get_last_price
