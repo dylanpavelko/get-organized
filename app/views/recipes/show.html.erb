@@ -29,18 +29,42 @@
 
 <div class="field col-md-12">
   <strong>Ingredients:</strong>
+  <% @recipe_price_estimate = 0 %>
+  <% @no_price = false %>
   <ul>
     <% @ingredients.each do |ingredient| %>
       <li>
         <%= ingredient.amount %> <% if ingredient.quantity_type != nil %><%= ingredient.quantity_type.quantityType %> <% end %>
         <% if ingredient.food_item != nil %>
-         - 
-        <%= ingredient.food_item.name %>
+           - 
+          <%= link_to ingredient.food_item.name, ingredient.food_item %> 
+          
+          <% @quantityType = ingredient.quantity_type #need to change so that if no quantity type given, average price given %> 
+          <% if @quantityType != nil %>
+            <% @quantityType = @quantityType.quantityType %>
+            <% @price = ingredient.food_item.get_average_price_for_amount(ingredient.amount, @quantityType) %>
+            <% if @price != nil%>
+              <em>(~ $<%= @price %>
+              <% if ingredient.amount == "" %>
+                / <%= @quantityType %>
+                <% @no_price = true %>
+              <% else %>
+                <% @recipe_price_estimate = @recipe_price_estimate + @price %>
+              <% end %>
+              )</em>
+            <% end %>
+          <% end %>
         <% end %>
         <%= ingredient.note %>
       </li>
     <% end %>
   </ul>
+  <% if @recipe_price_estimate != 0 %>
+    Recipe Cost Estimate: $<%= @recipe_price_estimate %> 
+    <% if @no_price %>
+      + some possible additional expenses
+    <% end %>
+  <% end %>
 </div>
 
 <div class="field col-md-12">

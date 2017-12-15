@@ -5,5 +5,14 @@
   <%= @food_item.name %>
 </p>
 
+<% @options = @food_item.get_Inventory_Options %>
+Inventory Options (<%= @options.count %>)
+  <ul>
+  <% @options.each do |option| %>
+    <li><%= link_to option.inventory_item.name, option.inventory_item %></li>
+  <% end %>
+  <br/>
+</ul>
+
 <%= link_to 'Edit', edit_food_item_path(@food_item) %> |
 <%= link_to 'Back', food_items_path %>

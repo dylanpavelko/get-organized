@@ -41,4 +41,19 @@ class InventoryItem < ActiveRecord::Base
     return self.public
   end
 
+
+  def average_price_by(unit)
+    @transactions = Transaction.where(:inventory_item_id => self.id)
+    @total_cost = 0
+    @transactions.each do |transaction|
+      @amount = Unit.new(transaction.amount.to_s + " " + transaction.quantity_type.standardized)
+      @total_cost = @total_cost + ( transaction.price / @amount.convert_to(self.quantity_type.standardized).scalar )
+    end
+    if @transactions.count != 0
+      return (@total_cost.to_f / @transactions.count)
+    else
+      return nil
+    end
+  end
+
 end

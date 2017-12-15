@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171205024623) do
+ActiveRecord::Schema.define(version: 20171213040050) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -250,6 +250,16 @@ ActiveRecord::Schema.define(version: 20171205024623) do
   add_index "inventory_items", ["category_id"], name: "index_inventory_items_on_category_id"
   add_index "inventory_items", ["quantity_type_id"], name: "index_inventory_items_on_quantity_type_id"
   add_index "inventory_items", ["subcategory_id"], name: "index_inventory_items_on_subcategory_id"
+
+  create_table "inventory_options", force: true do |t|
+    t.integer  "inventory_item_id"
+    t.integer  "food_items_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "inventory_options", ["food_items_id"], name: "index_inventory_options_on_food_items_id"
+  add_index "inventory_options", ["inventory_item_id"], name: "index_inventory_options_on_inventory_item_id"
 
   create_table "inventory_owners", force: true do |t|
     t.integer  "inventory_item_id"

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :inventory_options
+
   resources :planned_meals
 
   resources :activity_aspect_has_event_details

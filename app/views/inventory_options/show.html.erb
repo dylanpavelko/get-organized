@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Inventory item:</strong>
+  <%= link_to @inventory_option.inventory_item.name, @inventory_option.inventory_item %>
+</p>
+
+<p>
+  <strong>Food items:</strong>
+  <%= link_to @inventory_option.food_item.name, @inventory_option.food_item %>
+</p>
+
+<%= link_to 'Edit', edit_inventory_option_path(@inventory_option) %> |
+<%= link_to 'Back', inventory_options_path %>

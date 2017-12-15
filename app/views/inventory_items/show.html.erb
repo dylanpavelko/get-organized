@@ -113,6 +113,11 @@
     <% end %>
     <br/>
     <%= link_to 'Add Transaction', new_transaction_path(@inventory_item) %>
+    <br/>
+    <% @amount_type = @inventory_item.quantity_type %>
+    <% if @inventory_item.average_price_by(@amount_type) != nil %>
+      Average Price: $<%= @inventory_item.average_price_by(@amount_type) %> /<%= @amount_type.quantityType %>
+    <% end %>
   </div>
 </div>
 

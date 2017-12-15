@@ -1,0 +1,32 @@
+<%= form_for(@inventory_option) do |f| %>
+  <% if @inventory_option.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@inventory_option.errors.count, "error") %> prohibited this inventory_option from being saved:</h2>
+
+      <ul>
+      <% @inventory_option.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :inventory_item_id %><br>
+    <% if @inventory_item_id != nil %>
+      <%= f.select :inventory_item_id, options_from_collection_for_select(InventoryItem.all, :id, :name, @inventory_option.inventory_item_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :inventory_item_id, options_from_collection_for_select(InventoryItem.all, :id, :name), :include_blank => true %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :food_items_id %><br>
+    <% if @inventory_item_id != nil %>
+      <%= f.select :food_items_id, options_from_collection_for_select(FoodItem.all, :id, :name, @inventory_option.food_items_id), :include_blank => true %>
+    <% else %>
+      <%= f.select :food_items_id, options_from_collection_for_select(FoodItem.all, :id, :name), :include_blank => true %>
+    <% end %>  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

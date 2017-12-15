@@ -44,6 +44,8 @@ gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
 
 gem "stock_quote"
+
+gem 'ruby-units'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
