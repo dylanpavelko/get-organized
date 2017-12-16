@@ -24,7 +24,7 @@
         <td><%= transaction.price %></td>
         <td><%= transaction.transaction_date %></td>
         <td><%= transaction.amount %></td>
-        <td><%= transaction.quantity_type.quantityType %></td>
+        <td><%= transaction.quantity_type.try :quantityType %></td>
         <td><%= transaction.shopping_list %></td>
         <td><%= link_to 'Show', transaction %></td>
         <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
