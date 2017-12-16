@@ -46,8 +46,16 @@ class InventoryItem < ActiveRecord::Base
     @transactions = Transaction.where(:inventory_item_id => self.id)
     @total_cost = 0
     @transactions.each do |transaction|
-      @amount = Unit.new(transaction.amount.to_s + " " + transaction.quantity_type.standardized)
-      @total_cost = @total_cost + ( transaction.price / @amount.convert_to(self.quantity_type.standardized).scalar )
+      @standard_unit_type = ""
+      if  transaction.quantity_type != nil
+        @standard_unit_type = transaction.quantity_type.standardized
+        @amount = Unit.new(transaction.amount.to_s + @standard_unit_type)
+        @adjusted_price = transaction.price / @amount.convert_to(self.quantity_type.standardized).scalar
+      else
+        @amount = transaction.amount
+        @adjusted_price = transaction.price / @amount
+      end
+      @total_cost = @total_cost + @adjusted_price
     end
     if @transactions.count != 0
       return (@total_cost.to_f / @transactions.count)
