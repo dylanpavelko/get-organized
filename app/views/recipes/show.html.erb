@@ -39,7 +39,7 @@
            - 
           <%= link_to ingredient.food_item.name, ingredient.food_item %> 
           
-          <% @quantityType = ingredient.quantity_type #need to change so that if no quantity type given, average price given %> 
+          <% @quantityType = ingredient.quantity_type %> 
           <% if @quantityType != nil %>
             <% @quantityType = @quantityType.quantityType %>
             <% @price = ingredient.food_item.get_average_price_for_amount(ingredient.amount, @quantityType) %>
