@@ -47,7 +47,7 @@ class InventoryItem < ActiveRecord::Base
     @total_cost = 0
     @transactions.each do |transaction|
       @standard_unit_type = ""
-      if  transaction.quantity_type != nil
+      if  transaction.quantity_type != nil and self.quantity_type != nil
         @standard_unit_type = transaction.quantity_type.standardized
         @amount = Unit.new(transaction.amount.to_s + @standard_unit_type)
         @adjusted_price = transaction.price / @amount.convert_to(self.quantity_type.standardized).scalar
