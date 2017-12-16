@@ -12,8 +12,8 @@
   <tbody>
     <% @inventory_options.each do |inventory_option| %>
       <tr>
-        <td><%= inventory_option.inventory_item %></td>
-        <td><%= inventory_option.food_item %></td>
+        <td><%= inventory_option.inventory_item.try :name %></td>
+        <td><%= inventory_option.food_item.try :name %></td>
         <td><%= link_to 'Show', inventory_option %></td>
         <td><%= link_to 'Edit', edit_inventory_option_path(inventory_option) %></td>
         <td><%= link_to 'Destroy', inventory_option, method: :delete, data: { confirm: 'Are you sure?' } %></td>
