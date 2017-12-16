@@ -116,7 +116,7 @@
     <br/>
     <% @amount_type = @inventory_item.quantity_type %>
     <% if @inventory_item.average_price_by(@amount_type) != nil %>
-      Average Price: $<%= @inventory_item.average_price_by(@amount_type) %> /<%= @amount_type.quantityType %>
+      Average Price: $<%= @inventory_item.average_price_by(@amount_type) %> <% if @amount_type != nil %> /<%= @amount_type.quantityType %> <% else %> each <% end %>
     <% end %>
   </div>
 </div>
