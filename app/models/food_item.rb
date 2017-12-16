@@ -8,7 +8,7 @@ class FoodItem < ActiveRecord::Base
         @options = self.get_Inventory_Options
         if @options.count > 0
             @price = @options.first.inventory_item.average_price_by(unit_type)
-            if amount != ""
+            if amount != "" and amount != nil and @price != nil
                 @price = @price * amount.to_f
             end
             return @price
