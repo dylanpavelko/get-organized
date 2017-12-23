@@ -44,7 +44,7 @@
             <% @quantityType = @quantityType.quantityType %>
             <% @price = ingredient.food_item.get_average_price_for_amount(ingredient.amount, @quantityType) %>
             <% if @price != nil%>
-              <em>(~ $<%= @price %>
+              <em>(~ $<%= '%.2f' %  @price %>
               <% if ingredient.amount == "" %>
                 / <%= @quantityType %>
                 <% @no_price = true %>
@@ -62,7 +62,7 @@
     <% end %>
   </ul>
   <% if @recipe_price_estimate != 0 %>
-    Recipe Cost Estimate: $<%= @recipe_price_estimate %> 
+    Recipe Cost Estimate: $<%= '%.2f' % @recipe_price_estimate %> 
     <% if @no_price %>
       + some possible additional expenses
     <% end %>
