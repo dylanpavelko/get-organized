@@ -120,13 +120,15 @@ $(document).on('click','.submit', function (){
   var $notes = $('#recipe_notes').val();
   //get author
   var $author = $('#recipe_author_id').val();
+  //get picture
+  var $picture = $('#picture_id').val();
   //send to ajax
   var send_data = $.ajax({
     url: "/recipes/sync_recipe", 
     type: "POST", 
     //success: function(data, textStatus ){ alert('request successful'); },
     error: function(xhr, textStatus, errorThrown){ alert('request failed' + textStatus + errorThrown); },
-    data: {'id': $id, 'title': $title, 'serving_size': $serving_size, 'source': $source, 'description': $description, 'ingredient_amounts': $ingredient_amounts, 'ingredient_quantity_types': $ingredient_quantity_types, 'ingredient_food_items': $ingredient_food_items, 'ingredient_notes': $ingredient_notes, 'instructions': $instructions, 'notes': $notes, 'author_id': $author}, dataType: 'json'}
+    data: {'id': $id, 'title': $title, 'serving_size': $serving_size, 'source': $source, 'description': $description, 'ingredient_amounts': $ingredient_amounts, 'ingredient_quantity_types': $ingredient_quantity_types, 'ingredient_food_items': $ingredient_food_items, 'ingredient_notes': $ingredient_notes, 'instructions': $instructions, 'notes': $notes, 'author_id': $author, 'picture_id': $picture}, dataType: 'json'}
 
     ).done(function(data){ 
       console.log(data);
