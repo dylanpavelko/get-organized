@@ -54,12 +54,12 @@ class RecipesController < ApplicationController
   def sync_recipe
     if params[:id] == nil or params[:id] == ""
       @recipe = Recipe.new(:name => params[:title], :serving_size => params[:serving_size], :source => params[:source], :description => params[:description], 
-        :notes => params[:notes], :author => params[:author])
+        :notes => params[:notes], :author => params[:author], :picture_id => params[:picture_id])
       @recipe.save
     else
       @recipe = Recipe.find(params[:id])
       @recipe.update(:name => params[:title], :serving_size => params[:serving_size], :source => params[:source], :description => params[:description], 
-        :notes => params[:notes], :author_id => params[:author_id])
+        :notes => params[:notes], :author_id => params[:author_id], :picture_id => params[:picture_id])
     end
 
     #get all ingredients for recipe, delete them
