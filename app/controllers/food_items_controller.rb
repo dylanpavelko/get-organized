@@ -12,6 +12,7 @@ class FoodItemsController < ApplicationController
   # GET /food_items/1
   # GET /food_items/1.json
   def show
+    @ingredients = RecipeIngredient.where(:food_item_id => @food_item.id).uniq
   end
 
   # GET /food_items/new
