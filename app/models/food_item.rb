@@ -13,7 +13,7 @@ class FoodItem < ActiveRecord::Base
                 if amount.include? " "
                     @number_parts = amount.split(" ")
                     @fraction_halves = @number_parts[1].split("/")
-                    amount = (@number_parts[0].to_d + (@fraction_halves[0].to_d / @fraction_halves[1].to_d)).to_f
+                    amount = (@number_parts[0].try :to_d + (@fraction_halves[0].try :to_d / @fraction_halves[1].to_d)).try :to_f
                 else
                     amount = amount.to_f
                 end
