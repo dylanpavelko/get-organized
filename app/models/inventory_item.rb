@@ -42,14 +42,19 @@ class InventoryItem < ActiveRecord::Base
   end
 
 
-  def average_price_by(unit)
+  def average_price_by(desired_unit)
+    unit = desired_unit.standardized
+    #get all transactions for inventory item
     @transactions = Transaction.where(:inventory_item_id => self.id)
     @total_cost = 0
+    #accumulate costs for each transaction for inventory item
     @transactions.each do |transaction|
       @standard_unit_type = ""
       if  transaction.quantity_type != nil and self.quantity_type != nil
+        #get_unit_type_of_transaction
         @standard_unit_type = transaction.quantity_type.standardized
         @amount = Unit.new(transaction.amount.to_s + @standard_unit_type)
+        #if mass-volume unit type mismatch perform conversion
         @adjusted_price = transaction.price / @amount.convert_to(self.quantity_type.standardized).scalar
       elsif transaction.amount == nil or transaction.amount == ""
         @amount = 1
@@ -66,5 +71,6 @@ class InventoryItem < ActiveRecord::Base
       return nil
     end
   end
+
 
 end

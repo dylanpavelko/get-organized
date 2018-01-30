@@ -15,6 +15,10 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+  <div class="field">
+    <%= f.label :pounds_per_cup %><br>
+    <%= f.number_field :pounds_per_cup, :class => 'text_field', :step => 0.001 %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

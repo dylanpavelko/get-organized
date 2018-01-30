@@ -41,8 +41,8 @@
           
           <% @quantityType = ingredient.quantity_type %> 
           <% if @quantityType != nil %>
-            <% @quantityType = @quantityType.quantityType %>
             <% @price = ingredient.food_item.get_average_price_for_amount(ingredient.amount, @quantityType) %>
+            <% @quantityType = @quantityType.quantityType %>
             <% if @price != nil%>
               <em>(~ $<%= '%.2f' %  @price %>
               <% if ingredient.amount == "" %>

@@ -2,14 +2,16 @@
 
 <p>
   <strong>Name:</strong>
-  <%= @food_item.name %>
+  <%= @food_item.name %><br/>
+  Pounds per cup: <%= @food_item.pounds_per_cup %>
 </p>
 
 <% @options = @food_item.get_Inventory_Options %>
 Inventory Options (<%= @options.count %>)
   <ul>
   <% @options.each do |option| %>
-    <li><%= link_to option.inventory_item.name, option.inventory_item %></li>
+    <li><%= link_to option.inventory_item.full_name, option.inventory_item %> 
+      $<%= '%.2f' %  option.inventory_item.average_price_by(option.inventory_item.quantity_type)  %></li>
   <% end %>
   <br/>
 </ul>
