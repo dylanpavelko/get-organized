@@ -55,7 +55,10 @@ class InventoryItem < ActiveRecord::Base
         @standard_unit_type = transaction.quantity_type.standardized
         @amount = Unit.new(transaction.amount.to_s + @standard_unit_type)
         #if mass-volume unit type mismatch perform conversion
-        @adjusted_price = transaction.price / @amount.convert_to(self.quantity_type.standardized).scalar
+        if self.quantity_type.standardized != " "
+          @amount = @amount.convert_to(self.quantity_type.standardized).scalar
+        end
+        @adjusted_price = transaction.price / @amount.scalar
       elsif transaction.amount == nil or transaction.amount == ""
         @amount = 1
         @adjusted_price = transaction.price / @amount

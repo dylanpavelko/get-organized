@@ -16,7 +16,7 @@ class QuantityType < ActiveRecord::Base
         elsif self.quantityType.include? "teaspoon"
             return " tsp"
         else
-            return ""
+            return " "
         end
     end
 end
