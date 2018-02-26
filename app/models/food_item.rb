@@ -14,17 +14,27 @@ class FoodItem < ActiveRecord::Base
                     @number_parts = amount.split(" ")
                     @fraction_halves = @number_parts[1].split("/")
                     amount = (@number_parts[0].to_d + (@fraction_halves[0].to_d / @fraction_halves[1].to_d)).to_f
+                elsif amount.include? "/"
+                    @fraction_halves = amount.split("/")
+                    amount = (@fraction_halves[0].to_d / @fraction_halves[1].to_d).to_f
                 else
                     amount = amount.to_f
                 end
                 #get price
-                if unit_type_match(unit_type.standardized, @options.first.inventory_item.quantity_type.standardized) == 1
+puts "AMOUNT " + amount.to_s  
+puts unit_type.standardized + " vs " + @options.first.inventory_item.quantity_type.standardized
+                @base_unit_type = @options.first.inventory_item.quantity_type.standardized
+                @type_match = unit_type_match(unit_type.standardized, @base_unit_type)
+                if @type_match == 1
                     if self.pounds_per_cup != nil and self.pounds_per_cup != ""
-                        @volume_in_weight_amount = volume_to_weight(amount, unit_type.standardized, @options.first.inventory_item.quantity_type.standardized)
+                        @volume_in_weight_amount = volume_to_weight(amount, unit_type.standardized, @base_unit_type)
                         @price = @price * @volume_in_weight_amount
                     else
                         @price = nil
                     end
+                elsif @type_match = 2
+                    @amount = Unit.new(amount.to_s + " " + unit_type.standardized)
+                    @price = @price * @amount.convert_to(@base_unit_type)
                 else
                     @price = @price * amount.to_f
                 end
@@ -60,8 +70,12 @@ class FoodItem < ActiveRecord::Base
     end
     
     def unit_type_match(desired_units, base_units)
-        if [" lbs"," oz"].include? base_units and [" cup"," tbsp"," tsp"].include? desired_units
+        if [" lbs"," oz"].include? base_units and [" cup"," tbsp"," tsp", "fl oz"].include? desired_units #weight to volume
           return 1
+        elsif [" lbs"," oz"].include? base_units and [" lbs"," oz"].include? desired_units #weight to weight
+            return 2
+        elsif [" cup"," tbsp"," tsp", "fl oz"].include? base_units and [" cup"," tbsp"," tsp", "fl oz"].include? desired_units #weight to weight
+            return 2
         else
           return 0
         end

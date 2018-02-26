@@ -3,6 +3,8 @@ class QuantityType < ActiveRecord::Base
     def standardized
         if self.quantityType.include? "pound"
             return " lbs"
+        elsif self.quantityType.include? "fl oz"
+            return " fl oz"
         elsif self.quantityType.include? "oz"
             return " oz"
         elsif self.quantityType.include? "gallon"

@@ -11,7 +11,10 @@ Inventory Options (<%= @options.count %>)
   <ul>
   <% @options.each do |option| %>
     <li><%= link_to option.inventory_item.full_name, option.inventory_item %> 
-      $<%= '%.2f' %  option.inventory_item.average_price_by(option.inventory_item.quantity_type)  %></li>
+    <% @avg_price = option.inventory_item.average_price_by(option.inventory_item.quantity_type) %>
+    <% if @avg_price != nil %>
+      $<%= '%.2f' %  @avg_price  %> / <%= option.inventory_item.quantity_type.quantityType %>
+    <% end %></li>
   <% end %>
   <br/>
 </ul>
