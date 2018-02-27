@@ -13,9 +13,9 @@ class QuantityType < ActiveRecord::Base
             return " lbs"
         elsif self.quantityType.include? "cup"
             return " cup"
-        elsif self.quantityType.include? "tablespoon"
+        elsif self.quantityType.downcase.include? "tablespoon"
             return " tbsp"
-        elsif self.quantityType.include? "teaspoon"
+        elsif self.quantityType.downcase.include? "teaspoon"
             return " tsp"
         else
             return " "

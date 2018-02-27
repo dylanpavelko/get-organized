@@ -21,8 +21,6 @@ class FoodItem < ActiveRecord::Base
                     amount = amount.to_f
                 end
                 #get price
-puts "AMOUNT " + amount.to_s  
-puts unit_type.standardized + " vs " + @options.first.inventory_item.quantity_type.standardized
                 @base_unit_type = @options.first.inventory_item.quantity_type.standardized
                 @type_match = unit_type_match(unit_type.standardized, @base_unit_type)
                 if @type_match == 1
@@ -32,11 +30,18 @@ puts unit_type.standardized + " vs " + @options.first.inventory_item.quantity_ty
                     else
                         @price = nil
                     end
-                elsif @type_match = 2
+                elsif @type_match == 2
                     @amount = Unit.new(amount.to_s + " " + unit_type.standardized)
-                    @price = @price * @amount.convert_to(@base_unit_type)
+                    @price = @price * @amount.convert_to(@base_unit_type).scalar
+                elsif @type_match == 3
+                    if self.pounds_per_cup != nil and self.pounds_per_cup != ""
+                        @volume_in_weight_amount = weight_to_volume(amount, unit_type.standardized, @base_unit_type)
+                        @price = @price * @volume_in_weight_amount
+                    else
+                        @price = nil
+                    end                
                 else
-                    @price = @price * amount.to_f
+                    @price = @price * amount
                 end
             end
             return @price
@@ -48,9 +53,9 @@ puts unit_type.standardized + " vs " + @options.first.inventory_item.quantity_ty
     def weight_to_volume(weight_amount, weight_type, volume_type)
         #convert to pounds
         @weight = Unit.new(weight_amount.to_s + " " + weight_type.standardized)
-        @weight.convert_to("lbs")
+        @weight = @weight.convert_to("lbs")
         #convert to volume in cups
-        @volume = @weight / self.pounds_per_cup
+        @volume = @weight * self.pounds_per_cup
         #convert to desired volume
         @volume = Unit.new(@volume + " " + volume_type.standardized)
         return @volume
@@ -60,7 +65,7 @@ puts unit_type.standardized + " vs " + @options.first.inventory_item.quantity_ty
     def volume_to_weight(volume_amount, volume_type, weight_type)
         #convert to cups
         @volume = Unit.new(volume_amount.to_s + " " + volume_type)
-        @volume.convert_to("cups")
+        @volume = @volume.convert_to("cups")
         #convert to volume in weight
         @multiplier = @volume.scalar * self.pounds_per_cup
         @weight = Unit.new(@multiplier.to_s + " lbs")
@@ -76,6 +81,8 @@ puts unit_type.standardized + " vs " + @options.first.inventory_item.quantity_ty
             return 2
         elsif [" cup"," tbsp"," tsp", "fl oz"].include? base_units and [" cup"," tbsp"," tsp", "fl oz"].include? desired_units #weight to weight
             return 2
+        elsif [" cup"," tbsp"," tsp", "fl oz"].include? base_units and [" lbs"," oz"].include? desired_units #weight to weight
+            return 3
         else
           return 0
         end

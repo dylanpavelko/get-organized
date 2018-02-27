@@ -38,7 +38,7 @@
         <% if ingredient.food_item != nil %>
            - 
           <%= link_to ingredient.food_item.name, ingredient.food_item %> 
-          
+          <%= ingredient.note %>
           <% @quantityType = ingredient.quantity_type %> 
           <% if @quantityType != nil and ingredient.amount =~ /\d/ %>
             <% puts "ingredient amount" + ingredient.amount %>
@@ -58,7 +58,7 @@
             <% end %>
           <% end %>
         <% end %>
-        <%= ingredient.note %>
+        
       </li>
     <% end %>
   </ul>
