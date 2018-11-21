@@ -58,15 +58,16 @@ class InventoryItem < ActiveRecord::Base
         if self.quantity_type.standardized != " "
           @amount = @amount.convert_to(self.quantity_type.standardized).scalar
         end
-        @adjusted_price = transaction.price / @amount
+        @adjusted_price = (transaction.price / @amount).scalar
       elsif transaction.amount == nil or transaction.amount == ""
-        @amount = 1
+        @amount = Unit.new("1")
         @adjusted_price = transaction.price / @amount
       else
-        @amount = transaction.amount
+        @amount = Unit.new(transaction.amount)
         @adjusted_price = transaction.price / @amount
       end
-      @total_cost = @total_cost + @adjusted_price
+        @total_cost = @total_cost + @adjusted_price
+
     end
     if @transactions.count != 0
       return (@total_cost.to_f / @transactions.count)

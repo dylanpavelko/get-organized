@@ -116,7 +116,7 @@
     <br/>
     <% @amount_type = @inventory_item.quantity_type %>
     <% if @inventory_item.average_price_by(@amount_type) != nil %>
-      Average Price: $<%= @inventory_item.average_price_by(@amount_type) %> <% if @amount_type != nil %> /<%= @amount_type.quantityType %> <% else %> each <% end %>
+      Average Price: $<%= '%.2f' % @inventory_item.average_price_by(@amount_type) %> <% if @amount_type != nil %> /<%= @amount_type.quantityType %> <% else %> each <% end %>
     <% end %>
   </div>
 </div>
@@ -146,7 +146,7 @@
   <% end %>
   <a href='#'>Add as Gear for Activity</a>  <%= link_to 'Temporary Add Item' , new_activity_has_inventory_item_path %>
 </p>
-<p>
+
 <span id="itemPrivacy">Inventory Item is 
 <% if @inventory_item.public == nil or @inventory_item.public == false %>
   private.   
