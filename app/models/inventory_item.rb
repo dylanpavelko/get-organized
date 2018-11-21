@@ -58,7 +58,10 @@ class InventoryItem < ActiveRecord::Base
         if self.quantity_type.standardized != " "
           @amount = @amount.convert_to(self.quantity_type.standardized).scalar
         end
-        @adjusted_price = (transaction.price / @amount).scalar
+        @adjusted_price = transaction.price / @amount
+        if !@adjusted_price.is_a? BigDecimal
+          @adjusted_price = @adjusted_price.scalar
+        end
       elsif transaction.amount == nil or transaction.amount == ""
         @amount = Unit.new("1")
         @adjusted_price = transaction.price / @amount
