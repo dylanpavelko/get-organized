@@ -57,7 +57,9 @@ class FoodItem < ActiveRecord::Base
         #convert to volume in cups
         @volume = @weight * self.pounds_per_cup
         #convert to desired volume
-        @volume = Unit.new(@volume + " " + volume_type)
+        puts "volume " + @volume.to_s
+        puts "type " + volume_type
+        @volume = Unit.new(@volume.scalar.to_s + " " + volume_type)
         return @volume
     end
     
