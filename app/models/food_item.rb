@@ -52,12 +52,12 @@ class FoodItem < ActiveRecord::Base
     
     def weight_to_volume(weight_amount, weight_type, volume_type)
         #convert to pounds
-        @weight = Unit.new(weight_amount.to_s + " " + weight_type.standardized)
+        @weight = Unit.new(weight_amount.to_s + " " + weight_type)
         @weight = @weight.convert_to("lbs")
         #convert to volume in cups
         @volume = @weight * self.pounds_per_cup
         #convert to desired volume
-        @volume = Unit.new(@volume + " " + volume_type.standardized)
+        @volume = Unit.new(@volume + " " + volume_type)
         return @volume
     end
     
