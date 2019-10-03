@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  meal_date: 2017-12-05
+  meal_type: 1
+  text: MyString
+  eat_out: false
+  url: MyString
+  recipe_id: 
+  attraction_id: 
+  left_overs: false
+  planned_meal_id: 
+  food_item_id: 
+  comment: MyText
+  order: 1
+
+two:
+  meal_date: 2017-12-05
+  meal_type: 1
+  text: MyString
+  eat_out: false
+  url: MyString
+  recipe_id: 
+  attraction_id: 
+  left_overs: false
+  planned_meal_id: 
+  food_item_id: 
+  comment: MyText
+  order: 1

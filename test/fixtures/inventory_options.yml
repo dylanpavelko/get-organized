@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  inventory_item_id: 
+  food_items_id: 
+
+two:
+  inventory_item_id: 
+  food_items_id: 
