@@ -22,7 +22,7 @@ end
 	# See https://github.com/sstephenson/execjs#readme for more supported runtimes
 	# gem 'therubyracer',  platforms: :ruby
 	gem "therubyracer"
-	gem "less-rails"
+	#gem "less-rails"
 	gem 'twitter-bootstrap-rails'
 
 
