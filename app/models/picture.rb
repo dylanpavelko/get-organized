@@ -1,16 +1,6 @@
 class Picture < ActiveRecord::Base
 
-	has_one_attached :image,
-					#:url => "/assets/pictures/:id/:basename.:extension",
-					:path => ":rails_root/public/assets/pictures/:id/:basename.:extension",
-					#:styles {
- 				    #:thumb ["40x40#", :png],
-				    #:small ["400x400>", :png]},
-				    #default_url: "#{Rails.root}/app/assets/images/missing.jpg",
-				    :storage => :s3,
-				    :s3_credentials => Proc.new{|a| a.instance.s3_credentials },
-				    :url => ":s3_domain_url"
-#    path: ":rails_root/public/assets/pictures/:id/:basename.:extension"
+	has_one_attached :image
 
     		
   def s3_credentials
