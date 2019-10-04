@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
 
   def login
     #Login Form
+    @users = User.all
   end
 
 
