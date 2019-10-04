@@ -1,7 +1,7 @@
 class Picture < ActiveRecord::Base
 
 	has_attached_file :image,
-					:url => "/assets/pictures/:id/:basename.:extension",
+					#:url => "/assets/pictures/:id/:basename.:extension",
 					:path => ":rails_root/public/assets/pictures/:id/:basename.:extension",
 					#:styles {
  				    #:thumb ["40x40#", :png],
