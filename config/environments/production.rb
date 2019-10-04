@@ -1,6 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  ENV["DATABASE_URL"] = "postgres://owcaxoaumjtucn:sFr_Rns5sGyBIjauMkxctqMT2v@ec2-50-19-208-138.compute-1.amazonaws.com:5432/d69rrirr55j8b8"
+  #ENV["DATABASE_URL"] = "postgres://owcaxoaumjtucn:sFr_Rns5sGyBIjauMkxctqMT2v@ec2-50-19-208-138.compute-1.amazonaws.com:5432/d69rrirr55j8b8"
 
   # config/environments/production.rb
 config.paperclip_defaults = {
