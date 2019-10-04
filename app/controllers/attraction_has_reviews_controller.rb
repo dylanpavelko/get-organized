@@ -1,8 +1,8 @@
 class AttractionHasReviewsController < ApplicationController
   before_action :set_attraction_has_review, only: [:show, :edit, :update, :destroy]
   
-  before_filter :authenticate_user
-  before_filter :authorized_only
+  before_action :authenticate_user
+  before_action :authorized_only
 
   # GET /attraction_has_reviews
   # GET /attraction_has_reviews.json

@@ -1,7 +1,7 @@
 class StockAwardVestingsController < ApplicationController
   before_action :set_stock_award_vesting, only: [:show, :edit, :update, :destroy]
-      before_filter :authenticate_user
-  before_filter :authorized_only
+      before_action :authenticate_user
+  before_action :authorized_only
   
 
   # GET /stock_award_vestings

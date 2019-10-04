@@ -1,6 +1,6 @@
 class ItineraryActivitiesController < ApplicationController
-  before_filter :authenticate_user
-  before_filter :authorized_only
+  before_action :authenticate_user
+  before_action :authorized_only
 
   before_action :set_itinerary_activity, only: [:show, :edit, :update, :destroy]
 

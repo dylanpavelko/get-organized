@@ -1,8 +1,8 @@
 class SecurityDomainHasRolesController < ApplicationController
   before_action :set_security_domain_has_role, only: [:show, :edit, :update, :destroy]
   
-  before_filter :authenticate_user
-  before_filter :authorized_only
+  before_action :authenticate_user
+  before_action :authorized_only
 
   # GET /security_domain_has_roles
   # GET /security_domain_has_roles.json

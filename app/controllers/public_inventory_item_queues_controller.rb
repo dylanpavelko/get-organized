@@ -1,7 +1,7 @@
 class PublicInventoryItemQueuesController < ApplicationController
   before_action :set_public_inventory_item_queue, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user
-  before_filter :authorized_only, only: [:edit, :destroy]
+  before_action :authenticate_user
+  before_action :authorized_only, only: [:edit, :destroy]
 
   # GET /public_inventory_item_queues
   # GET /public_inventory_item_queues.json

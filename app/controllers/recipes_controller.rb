@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
-    before_filter :authenticate_user
-  before_filter :authorized_only
+    before_action :authenticate_user
+  before_action :authorized_only
 
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
 

@@ -1,6 +1,6 @@
 class PeopleController < ApplicationController
-  before_filter :authenticate_user
-  before_filter :authorized_only, only: [:edit, :destroy]
+  before_action :authenticate_user
+  before_action :authorized_only, only: [:edit, :destroy]
   before_action :set_person, only: [:show, :edit, :update, :destroy]
 
   # GET /people

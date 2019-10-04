@@ -1,8 +1,8 @@
 class StockAwardsController < ApplicationController
   before_action :set_stock_award, only: [:show, :edit, :update, :destroy]
 
-     before_filter :authenticate_user
-  before_filter :authorized_only
+     before_action :authenticate_user
+  before_action :authorized_only
 
   # GET /stock_awards
   # GET /stock_awards.json

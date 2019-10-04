@@ -1,8 +1,8 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
   
-  before_filter :authenticate_user
-  before_filter :authorized_only
+  before_action :authenticate_user
+  before_action :authorized_only
 
   # GET /transactions
   # GET /transactions.json

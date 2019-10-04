@@ -1,7 +1,7 @@
 class FoodItemsController < ApplicationController
   before_action :set_food_item, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user
-  before_filter :authorized_only
+  before_action :authenticate_user
+  before_action :authorized_only
 
   # GET /food_items
   # GET /food_items.json
