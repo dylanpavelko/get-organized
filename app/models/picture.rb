@@ -1,6 +1,6 @@
 class Picture < ActiveRecord::Base
 
-	has_attached_file :image,
+	has_one_attached :image,
 					#:url => "/assets/pictures/:id/:basename.:extension",
 					:path => ":rails_root/public/assets/pictures/:id/:basename.:extension",
 					#:styles {
