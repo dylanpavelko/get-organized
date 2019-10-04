@@ -12,9 +12,11 @@
  *
  *= require_tree .
  *= require_self
- *= require bootstrap_and_overrides
  *
  */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
 body{
 	/*background-color: #191970;*/
 	font-family: 'Raleway', sans-serif;
