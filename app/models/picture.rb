@@ -1,6 +1,6 @@
 class Picture < ActiveRecord::Base
 
-	has_attached_file :image
+	#has_attached_file :image
 
     		
   def s3_credentials
@@ -8,6 +8,6 @@ class Picture < ActiveRecord::Base
   end
 
 	#validates_attachment :image, :size => { :in => 0..1000.kilobytes }
-	validates_attachment :image, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
+	#validates_attachment :image, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 
 end
