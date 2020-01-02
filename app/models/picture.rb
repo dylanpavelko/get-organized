@@ -1,6 +1,6 @@
 class Picture < ActiveRecord::Base
 
-	has_attached_file :image
+	has_one_attached :image
 
     		
   def s3_credentials
