@@ -43,6 +43,7 @@ gem 'rails_12factor'
 gem 'bcrypt-ruby', '~> 3.1.2', :require => 'bcrypt'
 gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
+gem 'aws-sdk-s3', '< 2.0'
 
 # gem "stock_quote"
 

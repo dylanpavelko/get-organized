@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,658 +10,638 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180128021545) do
+ActiveRecord::Schema.define(version: 2020_01_05_051509) do
 
-  create_table "activities", force: true do |t|
-    t.string   "name"
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "activities", force: :cascade do |t|
+    t.string "name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "activity_aspect_has_event_details", force: true do |t|
-    t.integer  "activity_aspect_id"
-    t.integer  "event_detail_id"
+  create_table "activity_aspect_has_event_details", force: :cascade do |t|
+    t.integer "activity_aspect_id"
+    t.integer "event_detail_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["activity_aspect_id"], name: "index_activity_aspect_has_event_details_on_activity_aspect_id"
+    t.index ["event_detail_id"], name: "index_activity_aspect_has_event_details_on_event_detail_id"
+  end
+
+  create_table "activity_has_exercise_centers", force: :cascade do |t|
+    t.integer "activity_id"
+    t.integer "exercise_center_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["activity_id"], name: "index_activity_has_exercise_centers_on_activity_id"
+    t.index ["exercise_center_id"], name: "index_activity_has_exercise_centers_on_exercise_center_id"
+  end
+
+  create_table "activity_has_inventory_items", force: :cascade do |t|
+    t.integer "activity_id"
+    t.integer "inventory_item_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["activity_id"], name: "index_activity_has_inventory_items_on_activity_id"
+    t.index ["inventory_item_id"], name: "index_activity_has_inventory_items_on_inventory_item_id"
+  end
+
+  create_table "airlines", force: :cascade do |t|
+    t.string "name", limit: 255
+    t.integer "loyalty_program_id"
+    t.string "image", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["loyalty_program_id"], name: "index_airlines_on_loyalty_program_id"
+  end
+
+  create_table "attraction_categories", force: :cascade do |t|
+    t.string "name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "activity_aspect_has_event_details", ["activity_aspect_id"], name: "index_activity_aspect_has_event_details_on_activity_aspect_id"
-  add_index "activity_aspect_has_event_details", ["event_detail_id"], name: "index_activity_aspect_has_event_details_on_event_detail_id"
+  create_table "attraction_has_reviews", force: :cascade do |t|
+    t.integer "attraction_id"
+    t.integer "review_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["attraction_id"], name: "index_attraction_has_reviews_on_attraction_id"
+    t.index ["review_id"], name: "index_attraction_has_reviews_on_review_id"
+  end
 
-  create_table "activity_has_exercise_centers", force: true do |t|
-    t.integer  "activity_id"
-    t.integer  "exercise_center_id"
+  create_table "attractions", force: :cascade do |t|
+    t.integer "attraction_category_id"
+    t.string "name", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string "trip_advisor_link", limit: 255
+    t.integer "location_id"
+    t.integer "hotel_id"
+    t.index ["attraction_category_id"], name: "index_attractions_on_attraction_category_id"
+    t.index ["hotel_id"], name: "index_attractions_on_hotel_id"
+    t.index ["location_id"], name: "index_attractions_on_location_id"
+  end
+
+  create_table "businesses", force: :cascade do |t|
+    t.string "name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "activity_has_exercise_centers", ["activity_id"], name: "index_activity_has_exercise_centers_on_activity_id"
-  add_index "activity_has_exercise_centers", ["exercise_center_id"], name: "index_activity_has_exercise_centers_on_exercise_center_id"
-
-  create_table "activity_has_inventory_items", force: true do |t|
-    t.integer  "activity_id"
-    t.integer  "inventory_item_id"
+  create_table "categories", force: :cascade do |t|
+    t.string "category", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "activity_has_inventory_items", ["activity_id"], name: "index_activity_has_inventory_items_on_activity_id"
-  add_index "activity_has_inventory_items", ["inventory_item_id"], name: "index_activity_has_inventory_items_on_inventory_item_id"
+  create_table "comments", force: :cascade do |t|
+    t.text "body"
+    t.integer "reply_to_id"
+    t.integer "author_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["author_id"], name: "index_comments_on_author_id"
+    t.index ["reply_to_id"], name: "index_comments_on_reply_to_id"
+  end
 
-  create_table "airlines", force: true do |t|
-    t.string   "name"
-    t.integer  "loyalty_program_id"
-    t.string   "image"
+  create_table "event_activities", force: :cascade do |t|
+    t.string "name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "airlines", ["loyalty_program_id"], name: "index_airlines_on_loyalty_program_id"
+  create_table "event_activity_has_agenda_items", force: :cascade do |t|
+    t.integer "event_activity_id"
+    t.integer "event_agenda_item_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["event_activity_id"], name: "index_event_activity_has_agenda_items_on_event_activity_id"
+    t.index ["event_agenda_item_id"], name: "index_event_activity_has_agenda_items_on_event_agenda_item_id"
+  end
 
-  create_table "attraction_categories", force: true do |t|
-    t.string   "name"
+  create_table "event_activity_has_aspects", force: :cascade do |t|
+    t.integer "event_activity_id"
+    t.integer "planning_aspect_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["event_activity_id"], name: "index_event_activity_has_aspects_on_event_activity_id"
+    t.index ["planning_aspect_id"], name: "index_event_activity_has_aspects_on_planning_aspect_id"
+  end
+
+  create_table "event_agenda_items", force: :cascade do |t|
+    t.string "name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "attraction_has_reviews", force: true do |t|
-    t.integer  "attraction_id"
-    t.integer  "review_id"
+  create_table "event_aspect_has_event_details", force: :cascade do |t|
+    t.integer "activity_aspect_id"
+    t.integer "event_detail_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["activity_aspect_id"], name: "index_event_aspect_has_event_details_on_activity_aspect_id"
+    t.index ["event_detail_id"], name: "index_event_aspect_has_event_details_on_event_detail_id"
+  end
+
+  create_table "event_details", force: :cascade do |t|
+    t.string "name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "attraction_has_reviews", ["attraction_id"], name: "index_attraction_has_reviews_on_attraction_id"
-  add_index "attraction_has_reviews", ["review_id"], name: "index_attraction_has_reviews_on_review_id"
-
-  create_table "attractions", force: true do |t|
-    t.integer  "attraction_category_id"
-    t.string   "name"
+  create_table "event_has_aspects", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "planning_aspect_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "trip_advisor_link"
-    t.integer  "location_id"
-    t.integer  "hotel_id"
+    t.index ["event_id"], name: "index_event_has_aspects_on_event_id"
+    t.index ["planning_aspect_id"], name: "index_event_has_aspects_on_planning_aspect_id"
   end
 
-  add_index "attractions", ["attraction_category_id"], name: "index_attractions_on_attraction_category_id"
-  add_index "attractions", ["hotel_id"], name: "index_attractions_on_hotel_id"
-  add_index "attractions", ["location_id"], name: "index_attractions_on_location_id"
-
-  create_table "businesses", force: true do |t|
-    t.string   "name"
+  create_table "event_template_has_aspects", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "planning_aspect_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["event_id"], name: "index_event_template_has_aspects_on_event_id"
+    t.index ["planning_aspect_id"], name: "index_event_template_has_aspects_on_planning_aspect_id"
   end
 
-  create_table "categories", force: true do |t|
-    t.string   "category"
+  create_table "event_template_has_event_activities", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "activities_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["activities_id"], name: "index_event_template_has_event_activities_on_activities_id"
+    t.index ["event_id"], name: "index_event_template_has_event_activities_on_event_id"
   end
 
-  create_table "comments", force: true do |t|
-    t.text     "body"
-    t.integer  "reply_to_id"
-    t.integer  "author_id"
+  create_table "event_templates", force: :cascade do |t|
+    t.string "name", limit: 255
+    t.integer "event_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["event_type_id"], name: "index_event_templates_on_event_type_id"
   end
 
-  add_index "comments", ["author_id"], name: "index_comments_on_author_id"
-  add_index "comments", ["reply_to_id"], name: "index_comments_on_reply_to_id"
-
-  create_table "event_activities", force: true do |t|
-    t.string   "name"
+  create_table "event_types", force: :cascade do |t|
+    t.string "name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "event_activity_has_agenda_items", force: true do |t|
-    t.integer  "event_activity_id"
-    t.integer  "event_agenda_item_id"
+  create_table "exercise_centers", force: :cascade do |t|
+    t.string "gymType", limit: 255
+    t.string "name", limit: 255
+    t.string "site", limit: 255
+    t.text "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "event_activity_has_agenda_items", ["event_activity_id"], name: "index_event_activity_has_agenda_items_on_event_activity_id"
-  add_index "event_activity_has_agenda_items", ["event_agenda_item_id"], name: "index_event_activity_has_agenda_items_on_event_agenda_item_id"
-
-  create_table "event_activity_has_aspects", force: true do |t|
-    t.integer  "event_activity_id"
-    t.integer  "planning_aspect_id"
+  create_table "food_items", force: :cascade do |t|
+    t.string "name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal "pounds_per_cup"
   end
 
-  add_index "event_activity_has_aspects", ["event_activity_id"], name: "index_event_activity_has_aspects_on_event_activity_id"
-  add_index "event_activity_has_aspects", ["planning_aspect_id"], name: "index_event_activity_has_aspects_on_planning_aspect_id"
-
-  create_table "event_agenda_items", force: true do |t|
-    t.string   "name"
+  create_table "hotel_chains", force: :cascade do |t|
+    t.string "name", limit: 255
+    t.integer "loyalty_program_id"
+    t.string "image", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["loyalty_program_id"], name: "index_hotel_chains_on_loyalty_program_id"
   end
 
-  create_table "event_aspect_has_event_details", force: true do |t|
-    t.integer  "activity_aspect_id"
-    t.integer  "event_detail_id"
+  create_table "inventory_items", force: :cascade do |t|
+    t.string "name", limit: 255
+    t.integer "quantity_type_id"
+    t.boolean "consumable"
+    t.decimal "price"
+    t.text "note"
+    t.text "detail"
+    t.string "brand", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer "category_id"
+    t.integer "subcategory_id"
+    t.text "amazon_link", limit: 255
+    t.boolean "container"
+    t.boolean "public"
+    t.index ["category_id"], name: "index_inventory_items_on_category_id"
+    t.index ["quantity_type_id"], name: "index_inventory_items_on_quantity_type_id"
+    t.index ["subcategory_id"], name: "index_inventory_items_on_subcategory_id"
   end
 
-  add_index "event_aspect_has_event_details", ["activity_aspect_id"], name: "index_event_aspect_has_event_details_on_activity_aspect_id"
-  add_index "event_aspect_has_event_details", ["event_detail_id"], name: "index_event_aspect_has_event_details_on_event_detail_id"
-
-  create_table "event_details", force: true do |t|
-    t.string   "name"
+  create_table "inventory_options", force: :cascade do |t|
+    t.integer "inventory_item_id"
+    t.integer "food_items_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["food_items_id"], name: "index_inventory_options_on_food_items_id"
+    t.index ["inventory_item_id"], name: "index_inventory_options_on_inventory_item_id"
   end
 
-  create_table "event_has_aspects", force: true do |t|
-    t.integer  "event_id"
-    t.integer  "planning_aspect_id"
+  create_table "inventory_owners", force: :cascade do |t|
+    t.integer "inventory_item_id"
+    t.decimal "amount"
+    t.integer "quantity_type_id"
+    t.integer "person_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer "stored_in_id"
+    t.index ["inventory_item_id"], name: "index_inventory_owners_on_inventory_item_id"
+    t.index ["person_id"], name: "index_inventory_owners_on_person_id"
+    t.index ["quantity_type_id"], name: "index_inventory_owners_on_quantity_type_id"
+    t.index ["stored_in_id"], name: "index_inventory_owners_on_stored_in_id"
   end
 
-  add_index "event_has_aspects", ["event_id"], name: "index_event_has_aspects_on_event_id"
-  add_index "event_has_aspects", ["planning_aspect_id"], name: "index_event_has_aspects_on_planning_aspect_id"
-
-  create_table "event_template_has_aspects", force: true do |t|
-    t.integer  "event_id"
-    t.integer  "planning_aspect_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "event_template_has_aspects", ["event_id"], name: "index_event_template_has_aspects_on_event_id"
-  add_index "event_template_has_aspects", ["planning_aspect_id"], name: "index_event_template_has_aspects_on_planning_aspect_id"
-
-  create_table "event_template_has_event_activities", force: true do |t|
-    t.integer  "event_id"
-    t.integer  "activities_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "event_template_has_event_activities", ["activities_id"], name: "index_event_template_has_event_activities_on_activities_id"
-  add_index "event_template_has_event_activities", ["event_id"], name: "index_event_template_has_event_activities_on_event_id"
-
-  create_table "event_templates", force: true do |t|
-    t.string   "name"
-    t.integer  "event_type_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "event_templates", ["event_type_id"], name: "index_event_templates_on_event_type_id"
-
-  create_table "event_types", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "exercise_centers", force: true do |t|
-    t.string   "gymType"
-    t.string   "name"
-    t.string   "site"
-    t.text     "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "food_items", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.decimal  "pounds_per_cup"
-  end
-
-  create_table "hotel_chains", force: true do |t|
-    t.string   "name"
-    t.integer  "loyalty_program_id"
-    t.string   "image"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "hotel_chains", ["loyalty_program_id"], name: "index_hotel_chains_on_loyalty_program_id"
-
-  create_table "inventory_items", force: true do |t|
-    t.string   "name"
-    t.integer  "quantity_type_id"
-    t.boolean  "consumable"
-    t.decimal  "price"
-    t.text     "note"
-    t.text     "detail"
-    t.string   "brand"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "category_id"
-    t.integer  "subcategory_id"
-    t.text     "amazon_link",      limit: 255
-    t.boolean  "container"
-    t.boolean  "public"
-  end
-
-  add_index "inventory_items", ["category_id"], name: "index_inventory_items_on_category_id"
-  add_index "inventory_items", ["quantity_type_id"], name: "index_inventory_items_on_quantity_type_id"
-  add_index "inventory_items", ["subcategory_id"], name: "index_inventory_items_on_subcategory_id"
-
-  create_table "inventory_options", force: true do |t|
-    t.integer  "inventory_item_id"
-    t.integer  "food_items_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "inventory_options", ["food_items_id"], name: "index_inventory_options_on_food_items_id"
-  add_index "inventory_options", ["inventory_item_id"], name: "index_inventory_options_on_inventory_item_id"
-
-  create_table "inventory_owners", force: true do |t|
-    t.integer  "inventory_item_id"
-    t.decimal  "amount"
-    t.integer  "quantity_type_id"
-    t.integer  "person_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "stored_in_id"
-  end
-
-  add_index "inventory_owners", ["inventory_item_id"], name: "index_inventory_owners_on_inventory_item_id"
-  add_index "inventory_owners", ["person_id"], name: "index_inventory_owners_on_person_id"
-  add_index "inventory_owners", ["quantity_type_id"], name: "index_inventory_owners_on_quantity_type_id"
-  add_index "inventory_owners", ["stored_in_id"], name: "index_inventory_owners_on_stored_in_id"
-
-  create_table "itinerary_activities", force: true do |t|
-    t.string   "name"
-    t.integer  "attraction_id"
-    t.decimal  "cost"
-    t.integer  "basis_id"
+  create_table "itinerary_activities", force: :cascade do |t|
+    t.string "name", limit: 255
+    t.integer "attraction_id"
+    t.decimal "cost"
+    t.integer "basis_id"
     t.datetime "datetime"
-    t.integer  "order"
+    t.integer "order"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "trip_id"
-    t.integer  "origination_id"
-    t.integer  "destination_id"
-    t.integer  "airline_id"
+    t.integer "trip_id"
+    t.integer "origination_id"
+    t.integer "destination_id"
+    t.integer "airline_id"
     t.datetime "end"
-    t.text     "note"
+    t.text "note"
+    t.index ["airline_id"], name: "index_itinerary_activities_on_airline_id"
+    t.index ["attraction_id"], name: "index_itinerary_activities_on_attraction_id"
+    t.index ["basis_id"], name: "index_itinerary_activities_on_basis_id"
+    t.index ["destination_id"], name: "index_itinerary_activities_on_destination_id"
+    t.index ["origination_id"], name: "index_itinerary_activities_on_origination_id"
+    t.index ["trip_id"], name: "index_itinerary_activities_on_trip_id"
   end
 
-  add_index "itinerary_activities", ["airline_id"], name: "index_itinerary_activities_on_airline_id"
-  add_index "itinerary_activities", ["attraction_id"], name: "index_itinerary_activities_on_attraction_id"
-  add_index "itinerary_activities", ["basis_id"], name: "index_itinerary_activities_on_basis_id"
-  add_index "itinerary_activities", ["destination_id"], name: "index_itinerary_activities_on_destination_id"
-  add_index "itinerary_activities", ["origination_id"], name: "index_itinerary_activities_on_origination_id"
-  add_index "itinerary_activities", ["trip_id"], name: "index_itinerary_activities_on_trip_id"
-
-  create_table "locations", force: true do |t|
-    t.string   "name"
-    t.integer  "timezonen_id"
-    t.string   "street_address"
-    t.string   "street_address2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zipcode"
-    t.string   "country"
-    t.decimal  "longitude"
-    t.decimal  "latitude"
+  create_table "locations", force: :cascade do |t|
+    t.string "name", limit: 255
+    t.integer "timezonen_id"
+    t.string "street_address", limit: 255
+    t.string "street_address2", limit: 255
+    t.string "city", limit: 255
+    t.string "state", limit: 255
+    t.string "zipcode", limit: 255
+    t.string "country", limit: 255
+    t.decimal "longitude"
+    t.decimal "latitude"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "airport"
+    t.boolean "airport"
+    t.index ["timezonen_id"], name: "index_locations_on_timezonen_id"
   end
 
-  add_index "locations", ["timezonen_id"], name: "index_locations_on_timezonen_id"
-
-  create_table "loyalty_programs", force: true do |t|
-    t.string   "name"
-    t.string   "number"
-    t.string   "username"
+  create_table "loyalty_programs", force: :cascade do |t|
+    t.string "name", limit: 255
+    t.string "number", limit: 255
+    t.string "username", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "image"
+    t.string "image", limit: 255
   end
 
-  create_table "people", force: true do |t|
-    t.string   "first_name"
-    t.string   "nick_name"
-    t.string   "last_name"
-    t.integer  "user_account_id"
+  create_table "people", force: :cascade do |t|
+    t.string "first_name", limit: 255
+    t.string "nick_name", limit: 255
+    t.string "last_name", limit: 255
+    t.integer "user_account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["user_account_id"], name: "index_people_on_user_account_id"
   end
 
-  add_index "people", ["user_account_id"], name: "index_people_on_user_account_id"
-
-  create_table "pictures", force: true do |t|
-    t.string   "name"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
+  create_table "pictures", force: :cascade do |t|
+    t.string "name", limit: 255
+    t.string "image_file_name", limit: 255
+    t.string "image_content_type", limit: 255
+    t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "planned_meals", force: true do |t|
-    t.date     "meal_date"
-    t.integer  "meal_type"
-    t.string   "text"
-    t.boolean  "eat_out"
-    t.string   "url"
-    t.integer  "recipe_id"
-    t.integer  "attraction_id"
-    t.boolean  "left_overs"
-    t.integer  "planned_meal_id"
-    t.integer  "food_item_id"
-    t.text     "comment"
-    t.integer  "order"
+  create_table "planned_meals", force: :cascade do |t|
+    t.date "meal_date"
+    t.integer "meal_type"
+    t.string "text", limit: 255
+    t.boolean "eat_out"
+    t.string "url", limit: 255
+    t.integer "recipe_id"
+    t.integer "attraction_id"
+    t.boolean "left_overs"
+    t.integer "planned_meal_id"
+    t.integer "food_item_id"
+    t.text "comment"
+    t.integer "order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["attraction_id"], name: "index_planned_meals_on_attraction_id"
+    t.index ["food_item_id"], name: "index_planned_meals_on_food_item_id"
+    t.index ["planned_meal_id"], name: "index_planned_meals_on_planned_meal_id"
+    t.index ["recipe_id"], name: "index_planned_meals_on_recipe_id"
+  end
+
+  create_table "planning_aspects", force: :cascade do |t|
+    t.string "name", limit: 255
+    t.text "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "event_type_id"
+    t.integer "event_activity_id"
+    t.index ["event_activity_id"], name: "index_planning_aspects_on_event_activity_id"
+    t.index ["event_type_id"], name: "index_planning_aspects_on_event_type_id"
+  end
+
+  create_table "public_inventory_item_queues", force: :cascade do |t|
+    t.integer "item_id"
+    t.boolean "reviewed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["item_id"], name: "index_public_inventory_item_queues_on_item_id"
+  end
+
+  create_table "quantity_types", force: :cascade do |t|
+    t.string "quantityType", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "planned_meals", ["attraction_id"], name: "index_planned_meals_on_attraction_id"
-  add_index "planned_meals", ["food_item_id"], name: "index_planned_meals_on_food_item_id"
-  add_index "planned_meals", ["planned_meal_id"], name: "index_planned_meals_on_planned_meal_id"
-  add_index "planned_meals", ["recipe_id"], name: "index_planned_meals_on_recipe_id"
-
-  create_table "planning_aspects", force: true do |t|
-    t.string   "name"
-    t.text     "description"
+  create_table "recipe_ingredients", force: :cascade do |t|
+    t.integer "recipe_id"
+    t.string "amount", limit: 255
+    t.integer "quantity_type_id"
+    t.integer "food_item_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "event_type_id"
-    t.integer  "event_activity_id"
+    t.text "note"
+    t.index ["food_item_id"], name: "index_recipe_ingredients_on_food_item_id"
+    t.index ["quantity_type_id"], name: "index_recipe_ingredients_on_quantity_type_id"
+    t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
   end
 
-  add_index "planning_aspects", ["event_activity_id"], name: "index_planning_aspects_on_event_activity_id"
-  add_index "planning_aspects", ["event_type_id"], name: "index_planning_aspects_on_event_type_id"
-
-  create_table "public_inventory_item_queues", force: true do |t|
-    t.integer  "item_id"
-    t.boolean  "reviewed"
+  create_table "recipe_steps", force: :cascade do |t|
+    t.integer "recipe_id"
+    t.text "instruction"
+    t.integer "order"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["recipe_id"], name: "index_recipe_steps_on_recipe_id"
   end
 
-  add_index "public_inventory_item_queues", ["item_id"], name: "index_public_inventory_item_queues_on_item_id"
-
-  create_table "quantity_types", force: true do |t|
-    t.string   "quantityType"
+  create_table "recipes", force: :cascade do |t|
+    t.string "name", limit: 255
+    t.string "serving_size", limit: 255
+    t.text "description"
+    t.string "source", limit: 255
+    t.text "notes"
+    t.integer "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer "picture_id"
+    t.index ["author_id"], name: "index_recipes_on_author_id"
+    t.index ["picture_id"], name: "index_recipes_on_picture_id"
   end
 
-  create_table "recipe_ingredients", force: true do |t|
-    t.integer  "recipe_id"
-    t.string   "amount"
-    t.integer  "quantity_type_id"
-    t.integer  "food_item_id"
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating"
+    t.integer "comment_id"
+    t.integer "reviewer_id"
+    t.boolean "public"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "note"
+    t.index ["comment_id"], name: "index_reviews_on_comment_id"
+    t.index ["reviewer_id"], name: "index_reviews_on_reviewer_id"
   end
 
-  add_index "recipe_ingredients", ["food_item_id"], name: "index_recipe_ingredients_on_food_item_id"
-  add_index "recipe_ingredients", ["quantity_type_id"], name: "index_recipe_ingredients_on_quantity_type_id"
-  add_index "recipe_ingredients", ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
-
-  create_table "recipe_steps", force: true do |t|
-    t.integer  "recipe_id"
-    t.text     "instruction"
-    t.integer  "order"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "recipe_steps", ["recipe_id"], name: "index_recipe_steps_on_recipe_id"
-
-  create_table "recipes", force: true do |t|
-    t.string   "name"
-    t.string   "serving_size"
-    t.text     "description"
-    t.string   "source"
-    t.text     "notes"
-    t.integer  "author_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "picture_id"
-  end
-
-  add_index "recipes", ["author_id"], name: "index_recipes_on_author_id"
-  add_index "recipes", ["picture_id"], name: "index_recipes_on_picture_id"
-
-  create_table "reviews", force: true do |t|
-    t.integer  "rating"
-    t.integer  "comment_id"
-    t.integer  "reviewer_id"
-    t.boolean  "public"
+  create_table "roles", force: :cascade do |t|
+    t.string "name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "reviews", ["comment_id"], name: "index_reviews_on_comment_id"
-  add_index "reviews", ["reviewer_id"], name: "index_reviews_on_reviewer_id"
+  create_table "security_domain_has_roles", force: :cascade do |t|
+    t.integer "domain_id"
+    t.integer "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["domain_id"], name: "index_security_domain_has_roles_on_domain_id"
+    t.index ["role_id"], name: "index_security_domain_has_roles_on_role_id"
+  end
 
-  create_table "roles", force: true do |t|
-    t.string   "name"
+  create_table "security_domains", force: :cascade do |t|
+    t.string "name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "security_domain_has_roles", force: true do |t|
-    t.integer  "domain_id"
-    t.integer  "role_id"
+  create_table "stock_award_types", force: :cascade do |t|
+    t.string "name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "security_domain_has_roles", ["domain_id"], name: "index_security_domain_has_roles_on_domain_id"
-  add_index "security_domain_has_roles", ["role_id"], name: "index_security_domain_has_roles_on_role_id"
+  create_table "stock_award_vestings", force: :cascade do |t|
+    t.integer "stock_award_id"
+    t.date "vest_date"
+    t.integer "vest_quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["stock_award_id"], name: "index_stock_award_vestings_on_stock_award_id"
+  end
 
-  create_table "security_domains", force: true do |t|
-    t.string   "name"
+  create_table "stock_awards", force: :cascade do |t|
+    t.integer "person_id"
+    t.integer "stock_id"
+    t.integer "award_type_id"
+    t.date "award_date"
+    t.integer "shares"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string "award_id", limit: 255
+    t.decimal "grant_price"
+    t.index ["person_id"], name: "index_stock_awards_on_person_id"
+    t.index ["stock_id"], name: "index_stock_awards_on_stock_id"
+  end
+
+  create_table "stock_purchase_types", force: :cascade do |t|
+    t.string "name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "stock_award_types", force: true do |t|
-    t.string   "name"
+  create_table "stock_purchases", force: :cascade do |t|
+    t.integer "person_id"
+    t.integer "stock_id"
+    t.integer "stock_purchase_type_id"
+    t.integer "stock_award_id"
+    t.date "grant_date"
+    t.decimal "grant_date_price"
+    t.integer "shares"
+    t.date "acquired_date"
+    t.decimal "acquired_price"
+    t.decimal "acquired_fmv"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["person_id"], name: "index_stock_purchases_on_person_id"
+    t.index ["stock_award_id"], name: "index_stock_purchases_on_stock_award_id"
+    t.index ["stock_id"], name: "index_stock_purchases_on_stock_id"
+    t.index ["stock_purchase_type_id"], name: "index_stock_purchases_on_stock_purchase_type_id"
   end
 
-  create_table "stock_award_vestings", force: true do |t|
-    t.integer  "stock_award_id"
-    t.date     "vest_date"
-    t.integer  "vest_quantity"
+  create_table "stock_sales", force: :cascade do |t|
+    t.integer "person_id"
+    t.integer "stock_id"
+    t.integer "stock_purchase_id"
+    t.integer "stock_award_id"
+    t.date "trade_date"
+    t.decimal "price"
+    t.integer "shares"
+    t.decimal "fees"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer "stock_award_vesting_id"
+    t.index ["person_id"], name: "index_stock_sales_on_person_id"
+    t.index ["stock_award_id"], name: "index_stock_sales_on_stock_award_id"
+    t.index ["stock_award_vesting_id"], name: "index_stock_sales_on_stock_award_vesting_id"
+    t.index ["stock_id"], name: "index_stock_sales_on_stock_id"
+    t.index ["stock_purchase_id"], name: "index_stock_sales_on_stock_purchase_id"
   end
 
-  add_index "stock_award_vestings", ["stock_award_id"], name: "index_stock_award_vestings_on_stock_award_id"
-
-  create_table "stock_awards", force: true do |t|
-    t.integer  "person_id"
-    t.integer  "stock_id"
-    t.integer  "award_type_id"
-    t.date     "award_date"
-    t.integer  "shares"
+  create_table "stocks", force: :cascade do |t|
+    t.integer "business_id"
+    t.string "symbol", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "award_id"
-    t.decimal  "grant_price"
+    t.index ["business_id"], name: "index_stocks_on_business_id"
   end
 
-  add_index "stock_awards", ["person_id"], name: "index_stock_awards_on_person_id"
-  add_index "stock_awards", ["stock_id"], name: "index_stock_awards_on_stock_id"
-
-  create_table "stock_purchase_types", force: true do |t|
-    t.string   "name"
+  create_table "subcategories", force: :cascade do |t|
+    t.string "subcategory", limit: 255
+    t.integer "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["category_id"], name: "index_subcategories_on_category_id"
   end
 
-  create_table "stock_purchases", force: true do |t|
-    t.integer  "person_id"
-    t.integer  "stock_id"
-    t.integer  "stock_purchase_type_id"
-    t.integer  "stock_award_id"
-    t.date     "grant_date"
-    t.decimal  "grant_date_price"
-    t.integer  "shares"
-    t.date     "acquired_date"
-    t.decimal  "acquired_price"
-    t.decimal  "acquired_fmv"
+  create_table "task_has_security_domains", force: :cascade do |t|
+    t.integer "task_id"
+    t.integer "security_domain_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["security_domain_id"], name: "index_task_has_security_domains_on_security_domain_id"
+    t.index ["task_id"], name: "index_task_has_security_domains_on_task_id"
   end
 
-  add_index "stock_purchases", ["person_id"], name: "index_stock_purchases_on_person_id"
-  add_index "stock_purchases", ["stock_award_id"], name: "index_stock_purchases_on_stock_award_id"
-  add_index "stock_purchases", ["stock_id"], name: "index_stock_purchases_on_stock_id"
-  add_index "stock_purchases", ["stock_purchase_type_id"], name: "index_stock_purchases_on_stock_purchase_type_id"
-
-  create_table "stock_sales", force: true do |t|
-    t.integer  "person_id"
-    t.integer  "stock_id"
-    t.integer  "stock_purchase_id"
-    t.integer  "stock_award_id"
-    t.date     "trade_date"
-    t.decimal  "price"
-    t.integer  "shares"
-    t.decimal  "fees"
+  create_table "tasks", force: :cascade do |t|
+    t.string "task_name", limit: 255
+    t.string "task_path", limit: 255
+    t.integer "security_domain_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "stock_award_vesting_id"
+    t.boolean "search_indexed"
+    t.string "controller", limit: 255
+    t.string "action", limit: 255
+    t.index ["security_domain_id"], name: "index_tasks_on_security_domain_id"
   end
 
-  add_index "stock_sales", ["person_id"], name: "index_stock_sales_on_person_id"
-  add_index "stock_sales", ["stock_award_id"], name: "index_stock_sales_on_stock_award_id"
-  add_index "stock_sales", ["stock_award_vesting_id"], name: "index_stock_sales_on_stock_award_vesting_id"
-  add_index "stock_sales", ["stock_id"], name: "index_stock_sales_on_stock_id"
-  add_index "stock_sales", ["stock_purchase_id"], name: "index_stock_sales_on_stock_purchase_id"
-
-  create_table "stocks", force: true do |t|
-    t.integer  "business_id"
-    t.string   "symbol"
+  create_table "transactions", force: :cascade do |t|
+    t.integer "inventory_item_id"
+    t.integer "buyer_person_id"
+    t.integer "seller_business_id"
+    t.decimal "price"
+    t.date "transaction_date"
+    t.decimal "amount"
+    t.integer "quantity_type_id"
+    t.boolean "shopping_list"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["buyer_person_id"], name: "index_transactions_on_buyer_person_id"
+    t.index ["inventory_item_id"], name: "index_transactions_on_inventory_item_id"
+    t.index ["quantity_type_id"], name: "index_transactions_on_quantity_type_id"
+    t.index ["seller_business_id"], name: "index_transactions_on_seller_business_id"
   end
 
-  add_index "stocks", ["business_id"], name: "index_stocks_on_business_id"
-
-  create_table "subcategories", force: true do |t|
-    t.string   "subcategory"
-    t.integer  "category_id"
+  create_table "trip_has_inventory_items", force: :cascade do |t|
+    t.integer "trip_id"
+    t.integer "inventory_item_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date "date"
+    t.decimal "amount"
+    t.boolean "packed"
+    t.boolean "reused"
+    t.index ["inventory_item_id"], name: "index_trip_has_inventory_items_on_inventory_item_id"
+    t.index ["trip_id"], name: "index_trip_has_inventory_items_on_trip_id"
   end
 
-  add_index "subcategories", ["category_id"], name: "index_subcategories_on_category_id"
-
-  create_table "task_has_security_domains", force: true do |t|
-    t.integer  "task_id"
-    t.integer  "security_domain_id"
+  create_table "trip_has_participants", force: :cascade do |t|
+    t.integer "trip_id"
+    t.integer "participant_id"
+    t.boolean "organizer"
+    t.boolean "private_viewer"
+    t.boolean "traveler"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["participant_id"], name: "index_trip_has_participants_on_participant_id"
+    t.index ["trip_id"], name: "index_trip_has_participants_on_trip_id"
   end
 
-  add_index "task_has_security_domains", ["security_domain_id"], name: "index_task_has_security_domains_on_security_domain_id"
-  add_index "task_has_security_domains", ["task_id"], name: "index_task_has_security_domains_on_task_id"
-
-  create_table "tasks", force: true do |t|
-    t.string   "task_name"
-    t.string   "task_path"
-    t.integer  "security_domain_id"
+  create_table "trips", force: :cascade do |t|
+    t.string "name", limit: 255
+    t.text "description"
+    t.string "blog_link", limit: 255
+    t.string "photo_link", limit: 255
+    t.string "tripit_link", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "search_indexed"
-    t.string   "controller"
-    t.string   "action"
+    t.integer "owner_id"
   end
 
-  add_index "tasks", ["security_domain_id"], name: "index_tasks_on_security_domain_id"
-
-  create_table "transactions", force: true do |t|
-    t.integer  "inventory_item_id"
-    t.integer  "buyer_person_id"
-    t.integer  "seller_business_id"
-    t.decimal  "price"
-    t.date     "transaction_date"
-    t.decimal  "amount"
-    t.integer  "quantity_type_id"
-    t.boolean  "shopping_list"
+  create_table "user_has_roles", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["role_id"], name: "index_user_has_roles_on_role_id"
+    t.index ["user_id"], name: "index_user_has_roles_on_user_id"
   end
 
-  add_index "transactions", ["buyer_person_id"], name: "index_transactions_on_buyer_person_id"
-  add_index "transactions", ["inventory_item_id"], name: "index_transactions_on_inventory_item_id"
-  add_index "transactions", ["quantity_type_id"], name: "index_transactions_on_quantity_type_id"
-  add_index "transactions", ["seller_business_id"], name: "index_transactions_on_seller_business_id"
-
-  create_table "trip_has_inventory_items", force: true do |t|
-    t.integer  "trip_id"
-    t.integer  "inventory_item_id"
+  create_table "users", force: :cascade do |t|
+    t.string "username", limit: 255
+    t.string "email", limit: 255
+    t.string "encrypted_password", limit: 255
+    t.string "salt", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.date     "date"
-    t.decimal  "amount"
-    t.boolean  "packed"
-    t.boolean  "reused"
-  end
-
-  add_index "trip_has_inventory_items", ["inventory_item_id"], name: "index_trip_has_inventory_items_on_inventory_item_id"
-  add_index "trip_has_inventory_items", ["trip_id"], name: "index_trip_has_inventory_items_on_trip_id"
-
-  create_table "trip_has_participants", force: true do |t|
-    t.integer  "trip_id"
-    t.integer  "participant_id"
-    t.boolean  "organizer"
-    t.boolean  "private_viewer"
-    t.boolean  "traveler"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "trip_has_participants", ["participant_id"], name: "index_trip_has_participants_on_participant_id"
-  add_index "trip_has_participants", ["trip_id"], name: "index_trip_has_participants_on_trip_id"
-
-  create_table "trips", force: true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.string   "blog_link"
-    t.string   "photo_link"
-    t.string   "tripit_link"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "owner_id"
-  end
-
-  create_table "user_has_roles", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "user_has_roles", ["role_id"], name: "index_user_has_roles_on_role_id"
-  add_index "user_has_roles", ["user_id"], name: "index_user_has_roles_on_user_id"
-
-  create_table "users", force: true do |t|
-    t.string   "username"
-    t.string   "email"
-    t.string   "encrypted_password"
-    t.string   "salt"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "power_admin"
+    t.boolean "power_admin"
   end
 
 end
