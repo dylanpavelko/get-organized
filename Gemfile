@@ -22,8 +22,8 @@ end
 	# See https://github.com/sstephenson/execjs#readme for more supported runtimes
 	# gem 'therubyracer',  platforms: :ruby
 	gem "therubyracer"
-	##gem "less-rails"
-	##gem 'twitter-bootstrap-rails'
+	gem "less-rails"
+	gem 'twitter-bootstrap-rails'
 
 
 # Use jquery as the JavaScript library
@@ -41,8 +41,8 @@ gem 'spring',        group: :development
 gem 'rails_12factor'
 
 gem 'bcrypt-ruby', '~> 3.1.2', :require => 'bcrypt'
-#gem 'paperclip'
-#gem 'aws-sdk', '< 2.0'
+gem 'paperclip'
+gem 'aws-sdk', '< 2.0'
 
 # gem "stock_quote"
 
